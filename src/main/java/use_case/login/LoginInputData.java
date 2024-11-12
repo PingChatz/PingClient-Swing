@@ -3,6 +3,7 @@ package use_case.login;
 /**
  * The Input Data for the Login Use Case.
  */
+// TODO: overwrite with our code
 public class LoginInputData {
 
     private final String username;

@@ -3,6 +3,7 @@ package use_case.logout;
 /**
  * DAO for the Logout Use Case.
  */
+// TODO: overwrite with our code
 public interface LogoutUserDataAccessInterface {
 
     /**

@@ -3,6 +3,7 @@ package use_case.signup;
 /**
  * Output Data for the Signup Use Case.
  */
+// TODO: overwrite with our code
 public class SignupOutputData {
 
     private final String username;

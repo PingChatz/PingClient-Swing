@@ -5,6 +5,7 @@ import entity.User;
 /**
  * DAO for the Login Use Case.
  */
+// TODO: overwrite with our code
 public interface LoginUserDataAccessInterface {
 
     /**

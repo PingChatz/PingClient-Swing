@@ -3,6 +3,7 @@ package use_case.logout;
 /**
  * The Input Data for the Logout Use Case.
  */
+// TODO: overwrite with our code
 public class LogoutInputData {
 
     public LogoutInputData(String username) {
