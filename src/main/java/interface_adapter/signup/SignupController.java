@@ -6,6 +6,7 @@ import use_case.signup.SignupInputData;
 /**
  * Controller for the Signup Use Case.
  */
+// TODO: overwrite with our code
 public class SignupController {
 
     private final SignupInputBoundary userSignupUseCaseInteractor;
@@ -20,9 +21,9 @@ public class SignupController {
      * @param password1 the password
      * @param password2 the password repeated
      */
-    public void execute(String username, String password1, String password2) {
+    public void execute(String username, String password1, String password2, String email) {
         final SignupInputData signupInputData = new SignupInputData(
-                username, password1, password2);
+                username, password1, password2, email);
 
         userSignupUseCaseInteractor.execute(signupInputData);
     }

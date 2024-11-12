@@ -3,6 +3,7 @@ package interface_adapter.signup;
 /**
  * The state for the Signup View Model.
  */
+// TODO: overwrite with our code
 public class SignupState {
     private String username = "";
     private String usernameError;

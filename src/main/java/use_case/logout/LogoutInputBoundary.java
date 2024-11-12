@@ -3,6 +3,7 @@ package use_case.logout;
 /**
  * Input Boundary for actions which are related to logging in.
  */
+// TODO: overwrite with our code
 public interface LogoutInputBoundary {
 
     /**

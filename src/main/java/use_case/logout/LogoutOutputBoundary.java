@@ -3,6 +3,7 @@ package use_case.logout;
 /**
  * The output boundary for the Login Use Case.
  */
+// TODO: overwrite with our code
 public interface LogoutOutputBoundary {
     /**
      * Prepares the success view for the Login Use Case.

@@ -1,7 +1,6 @@
 package interface_adapter.logout;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
 import use_case.logout.LogoutOutputBoundary;
 import use_case.logout.LogoutOutputData;
@@ -9,14 +8,13 @@ import use_case.logout.LogoutOutputData;
 /**
  * The Presenter for the Logout Use Case.
  */
+// TODO: overwrite with our code
 public class LogoutPresenter implements LogoutOutputBoundary {
 
-    private LoggedInViewModel loggedInViewModel;
     private ViewManagerModel viewManagerModel;
     private LoginViewModel loginViewModel;
 
     public LogoutPresenter(ViewManagerModel viewManagerModel,
-                          LoggedInViewModel loggedInViewModel,
                            LoginViewModel loginViewModel) {
         // TODO: assign to the three instance variables.
     }

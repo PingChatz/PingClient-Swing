@@ -5,6 +5,7 @@ import interface_adapter.ViewModel;
 /**
  * The ViewModel for the Signup View.
  */
+// TODO: overwrite with our code
 public class SignupViewModel extends ViewModel<SignupState> {
 
     public static final String TITLE_LABEL = "Sign Up View";
