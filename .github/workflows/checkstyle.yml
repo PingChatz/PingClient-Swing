@@ -1,4 +1,4 @@
-name: Java Code Style Check
+name: Checkstyle Tests
 
 on:
   pull_request:
@@ -8,8 +8,11 @@ on:
 jobs:
   checkstyle:
     runs-on: ubuntu-latest
+    env:
+      CHECKSTYLE_SUCCESS: true  # Initialize the variable
+
     steps:
-      # Step 1: Checkout the code
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -20,8 +23,9 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      # Step 3: Cache Maven dependencies
-      - name: Cache Maven dependencies
+      # Step 3: Restore Maven Cache
+      - name: Restore Maven dependencies
+        id: cache
         uses: actions/cache@v3
         with:
           path: ~/.m2/repository
@@ -31,12 +35,24 @@ jobs:
 
       # Step 4: Run Checkstyle using Maven
       - name: Run Checkstyle
-        run: mvn verify
-        continue-on-error: true  # Allow this step to fail without failing the entire workflow
-
-      # Step 5: Report Checkstyle status
-      - name: Check if Checkstyle passed
-        if: ${{ failure() }}
+        id: checkstyle
         run: |
-          echo "Checkstyle found issues, but it's expected."
-          exit 0
+          mvn verify || echo "Checkstyle failed" && echo "CHECKSTYLE_SUCCESS=false" >> $GITHUB_ENV
+
+      # Step 5: Save Maven Cache only if Checkstyle passed
+      - name: Save Maven dependencies
+        if: ${{ steps.checkstyle.outcome == 'success' }}
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+
+      # Step 6: Check the final status of Checkstyle
+      - name: Final Check
+        run: |
+          if [ "$CHECKSTYLE_SUCCESS" == "false" ]; then
+            echo "Checkstyle errors detected. Marking job as failed."
+            exit 1
+          else
+            echo "All checks passed."
+          fi
