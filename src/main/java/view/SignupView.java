@@ -105,6 +105,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
         this.add(buttons);
+
+        // Add margin of 40 pixels on all sides
+        this.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
     }
 
     /**

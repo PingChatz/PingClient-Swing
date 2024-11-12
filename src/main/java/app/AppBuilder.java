@@ -63,6 +63,9 @@ public class AppBuilder
      */
     public AppBuilder addLoginView()
     {
+        loginViewModel = new LoginViewModel();
+        loginView = new LoginView(loginViewModel);
+        cardPanel.add(loginView, loginView.getViewName());
         return this;
     }
 
@@ -115,13 +118,25 @@ public class AppBuilder
      */
     public JFrame build()
     {
-        final JFrame application = new JFrame("Login Example");
+        //ToDo: This will have to change as well depending on what we want to open first
+        final JFrame application = new JFrame("Ping Chat");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        // Set the size of the JFrame to 500 by 400 pixels
+        application.setSize(500, 400);
+
+        // Center the window on the screen
+        application.setLocationRelativeTo(null);
+
+        // Add the card panel to the JFrame
         application.add(cardPanel);
 
-        viewManagerModel.setState(signupView.getViewName());
+        // Set the initial view to the SignupView
+        viewManagerModel.setState(loginView.getViewName());
         viewManagerModel.firePropertyChanged();
+
+        // Make the window visible
+        application.setVisible(true);
 
         return application;
     }
