@@ -1,6 +1,5 @@
 package interface_adapter.login;
 
-import interface_adapter.ViewManagerModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
