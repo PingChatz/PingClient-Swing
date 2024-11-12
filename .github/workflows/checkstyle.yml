@@ -1,4 +1,4 @@
-name: Java Code Style Check
+name: Checkstyle Linter
 
 on:
   pull_request:
@@ -20,23 +20,17 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      # Step 3: Cache Maven dependencies
+      # Step 3: Run Checkstyle using Maven
+      - name: Run Checkstyle
+        run: mvn verify
+        continue-on-error: true
+
+      # Step 4: Cache Maven dependencies only if Checkstyle passed
       - name: Cache Maven dependencies
+        if: ${{ success() }}
         uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven
-
-      # Step 4: Run Checkstyle using Maven
-      - name: Run Checkstyle
-        run: mvn verify
-        continue-on-error: true  # Allow this step to fail without failing the entire workflow
-
-      # Step 5: Report Checkstyle status
-      - name: Check if Checkstyle passed
-        if: ${{ failure() }}
-        run: |
-          echo "Checkstyle found issues, but it's expected."
-          exit 0
