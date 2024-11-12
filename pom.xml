@@ -3,30 +3,42 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>edu.csc207</groupId>
     <artifactId>homework-5</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <dependencies>
+    <!-- Define project properties -->
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
+    <!-- Dependencies -->
+    <dependencies>
+        <!-- JSON library -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20240303</version>
         </dependency>
 
+        <!-- OkHttp library for HTTP requests -->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
             <version>4.12.0</version>
         </dependency>
+
+        <!-- JUnit 4 for testing -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- JUnit 5 for testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -34,39 +46,76 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Guava for utility functions -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
+
+         <dependency>
+             <groupId>com.puppycrawl.tools</groupId>
+             <artifactId>checkstyle</artifactId>
+             <version>9.3</version>
+             <exclusions>
+                 <exclusion>
+                     <groupId>com.google.collections</groupId>
+                     <artifactId>google-collections</artifactId>
+                 </exclusion>
+             </exclusions>
+         </dependency>
     </dependencies>
-         
-         <build>
-             <plugins>
-                 <plugin>
-                     <groupId>org.apache.maven.plugins</groupId>
-                     <artifactId>maven-checkstyle-plugin</artifactId>
-                     <version>3.2.0</version>
-                     <configuration>
-                         <configLocation>checkstyle/mystyle.xml</configLocation>
-                         <encoding>UTF-8</encoding>
-                         <consoleOutput>true</consoleOutput>
-                         <failsOnError>true</failsOnError>
-                         <linkXRef>false</linkXRef>
-                     </configuration>
-                     <executions>
-                         <execution>
-                             <phase>verify</phase>
-                             <goals>
-                                 <goal>check</goal>
-                             </goals>
-                         </execution>
-                     </executions>
-                 </plugin>
-             </plugins>
-         </build>
 
+    <!-- Build and Plugins Configuration -->
+    <build>
+        <plugins>
+            <!-- Checkstyle Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.3.0</version>
+                <dependencies>
+                    <!-- Explicitly include Guava and exclude google-collections -->
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>10.12.1</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>com.google.collections</groupId>
+                                <artifactId>google-collections</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <configLocation>checkstyle/mystyle.xml</configLocation>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
-
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
+    <!-- Plugin Management -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Ensure consistent Guava version across all plugins -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>31.1-jre</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
