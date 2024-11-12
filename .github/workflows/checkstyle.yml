@@ -8,29 +8,39 @@ on:
 jobs:
   checkstyle:
     runs-on: ubuntu-latest
+
     steps:
-      # Step 1: Checkout the code
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Java
+      # Step 2: Set up JDK 11
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
           java-version: '11'
           distribution: 'temurin'
 
-      # Step 3: Run Checkstyle using Maven
-      - name: Run Checkstyle
-        run: mvn verify
-        continue-on-error: true
-
-      # Step 4: Cache Maven dependencies only if Checkstyle passed
-      - name: Cache Maven dependencies
-        if: ${{ success() }}
+      # Step 3: Restore Maven Cache
+      - name: Restore Maven dependencies
+        id: cache
         uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven
+
+      # Step 4: Run Checkstyle using Maven
+      - name: Run Checkstyle
+        id: checkstyle
+        run: mvn verify
+        continue-on-error: true
+
+      # Step 5: Conditional Cache Save
+      - name: Save Maven dependencies
+        if: ${{ steps.checkstyle.outcome == 'success' }}
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
