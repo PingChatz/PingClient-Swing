@@ -41,9 +41,9 @@
                  <plugin>
                      <groupId>org.apache.maven.plugins</groupId>
                      <artifactId>maven-checkstyle-plugin</artifactId>
-                     <version>3.2.0</version>
+                     <version>3.3.0</version> <!-- Updated version -->
                      <configuration>
-                         <configLocation>checkstyle/mystyle.xml</configLocation>
+                         <configLocation>checkstyle/checkstyle.xml</configLocation>
                          <encoding>UTF-8</encoding>
                          <consoleOutput>true</consoleOutput>
                          <failsOnError>true</failsOnError>
@@ -60,6 +60,7 @@
                  </plugin>
              </plugins>
          </build>
+
 
 
 
