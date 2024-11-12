@@ -20,7 +20,8 @@ public class Thread {
         this.userList = new ArrayList<>();
         this.messageList = new ArrayList<>();
         // TODO: SpringBoot save a randomized threadID
-        //  (maybe use a private helper method below to generate the ID to avoid repeating the code in both constructors)
+        //  (maybe use a private helper method below to generate the ID to avoid repeating the code in both
+        //   constructors)
     }
 
     public Thread(String name, List<User> userList) {
@@ -28,7 +29,8 @@ public class Thread {
         this.userList = userList;
         this.messageList = new ArrayList<>();
         // TODO: SpringBoot save a randomized threadID
-        //  (maybe use a private helper method below to generate the ID to avoid repeating the code in both constructors)
+        //  (maybe use a private helper method below to generate the ID to avoid repeating the code in both
+        //   constructors)
     }
 
     public String getName() {
