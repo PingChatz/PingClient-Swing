@@ -2,12 +2,13 @@ package entity;
 
 /**
  * The representation of a message in our program.
+ * ToDo: Check class to abstract later
  */
-public abstract class Message {
+public class Message {
 
-    Long threadID;
-    Long senderID;
-    Object content;
+    private Long threadID;
+    private Long senderID;
+    private Object content;
 
     public Message(Object content, Thread thread, User sender) {
         this.content = content;

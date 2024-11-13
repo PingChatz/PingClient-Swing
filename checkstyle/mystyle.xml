@@ -277,7 +277,9 @@
             <property name="option" value="text"/>
         </module>
         <module name="EmptyCatchBlock"/>
-        <module name="LeftCurly"/>
+        <module name="LeftCurly">
+            <property name="option" value="nl"/>
+        </module>
         <module name="NeedBraces"/>
         <module name="NeedBraces">
             <property name="tokens" value="LAMBDA"/>
