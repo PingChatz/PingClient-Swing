@@ -25,17 +25,17 @@ public class ViewModel<T>
         this.viewName = viewName;
     }
 
-    public String getViewName()
+    public final String getViewName()
     {
         return this.viewName;
     }
 
-    public T getState()
+    public final T getState()
     {
         return this.state;
     }
 
-    public void setState(T state)
+    public final void setState(T state)
     {
         this.state = state;
     }

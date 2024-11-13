@@ -3,7 +3,8 @@ package entity;
 /**
  * Factory for creating users.
  */
-public class UserFactory {
+public class UserFactory
+{
 
     /**
      * This method creates a new user object.
@@ -12,7 +13,8 @@ public class UserFactory {
      * @param email email of the user
      * @return a new user object
      */
-    public User create(String name, String password, String email) {
+    public User create(String name, String password, String email)
+    {
         return new User(name, password, email);
     }
 }

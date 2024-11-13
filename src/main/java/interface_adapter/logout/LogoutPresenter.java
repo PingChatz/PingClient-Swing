@@ -9,18 +9,21 @@ import use_case.logout.LogoutOutputData;
  * The Presenter for the Logout Use Case.
  */
 // TODO: overwrite with our code
-public class LogoutPresenter implements LogoutOutputBoundary {
+public class LogoutPresenter implements LogoutOutputBoundary
+{
 
     private ViewManagerModel viewManagerModel;
     private LoginViewModel loginViewModel;
 
     public LogoutPresenter(ViewManagerModel viewManagerModel,
-                           LoginViewModel loginViewModel) {
+                           LoginViewModel loginViewModel)
+    {
         // TODO: assign to the three instance variables.
     }
 
     @Override
-    public void prepareSuccessView(LogoutOutputData response) {
+    public void prepareSuccessView(LogoutOutputData response)
+    {
         // We need to switch to the login view, which should have
         // an empty username and password.
 
@@ -45,7 +48,8 @@ public class LogoutPresenter implements LogoutOutputBoundary {
     }
 
     @Override
-    public void prepareFailView(String error) {
+    public void prepareFailView(String error)
+    {
         // No need to add code here. We'll assume that logout can't fail.
         // Thought question: is this a reasonable assumption?
     }

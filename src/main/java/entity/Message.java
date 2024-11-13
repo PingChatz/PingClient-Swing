@@ -4,27 +4,32 @@ package entity;
  * The representation of a message in our program.
  * ToDo: Check class to abstract later
  */
-public class Message {
+public class Message
+{
 
-    private Long threadID;
-    private Long senderID;
-    private Object content;
+    private final Long threadID;
+    private final Long senderID;
+    private final Object content;
 
-    public Message(Object content, Thread thread, User sender) {
+    public Message(Object content, Thread thread, User sender)
+    {
         this.content = content;
         this.threadID = thread.getThreadID();
         this.senderID = sender.getUserID();
     }
 
-    public Long getSenderID() {
+    public final Long getSenderID()
+    {
         return senderID;
     }
 
-    public Long getThreadID() {
+    public final Long getThreadID()
+    {
         return threadID;
     }
 
-    public Object getContent() {
+    public final Object getContent()
+    {
         return content;
     }
 }

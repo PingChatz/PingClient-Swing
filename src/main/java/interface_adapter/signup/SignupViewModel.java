@@ -6,7 +6,8 @@ import interface_adapter.ViewModel;
  * The ViewModel for the Signup View.
  */
 // TODO: overwrite with our code
-public class SignupViewModel extends ViewModel<SignupState> {
+public class SignupViewModel extends ViewModel<SignupState>
+{
 
     public static final String TITLE_LABEL = "Sign Up View";
     public static final String USERNAME_LABEL = "Choose username";
@@ -18,7 +19,8 @@ public class SignupViewModel extends ViewModel<SignupState> {
 
     public static final String TO_LOGIN_BUTTON_LABEL = "Go to Login";
 
-    public SignupViewModel() {
+    public SignupViewModel()
+    {
         super("sign up");
         setState(new SignupState());
     }

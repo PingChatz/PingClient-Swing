@@ -6,11 +6,13 @@ import use_case.login.LoginInputData;
 /**
  * The controller for the Login Use Case.
  */
-public class LoginController {
+public class LoginController
+{
 
     private final LoginInputBoundary loginUseCaseInteractor;
 
-    public LoginController(LoginInputBoundary loginUseCaseInteractor) {
+    public LoginController(LoginInputBoundary loginUseCaseInteractor)
+    {
         this.loginUseCaseInteractor = loginUseCaseInteractor;
     }
 
@@ -19,9 +21,9 @@ public class LoginController {
      * @param username the username of the user logging in
      * @param password the password of the user logging in
      */
-    public void execute(String username, String password) {
-        final LoginInputData loginInputData = new LoginInputData(
-                username, password);
+    public void execute(String username, String password)
+    {
+        final LoginInputData loginInputData = new LoginInputData(username, password);
 
         loginUseCaseInteractor.execute(loginInputData);
     }

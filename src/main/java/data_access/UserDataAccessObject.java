@@ -12,29 +12,34 @@ import use_case.signup.SignupUserDataAccessInterface;
 public class UserDataAccessObject implements
         SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
-        LogoutUserDataAccessInterface {
+        LogoutUserDataAccessInterface
+{
 
     @Override
-    public boolean existsByName(String username) {
+    public boolean existsByName(String username)
+    {
         return false;
     }
 
     @Override
-    public void save(User user) {
-
+    public void save(User user)
+    {
     }
 
     @Override
-    public User get(String username) {
+    public User get(String username)
+    {
         return null;
     }
 
     @Override
-    public String getCurrentUsername() {
+    public String getCurrentUsername()
+    {
         return "";
     }
 
     @Override
-    public void setCurrentUsername(String username) {
+    public void setCurrentUsername(String username)
+    {
     }
 }
