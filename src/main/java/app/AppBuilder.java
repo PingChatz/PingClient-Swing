@@ -118,7 +118,7 @@ public class AppBuilder
      */
     public JFrame build()
     {
-        //ToDo: This will have to change as well depending on what we want to open first
+        // TODO: This will have to change as well depending on what we want to open first
         final JFrame application = new JFrame("Ping Chat");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

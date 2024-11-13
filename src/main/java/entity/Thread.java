@@ -6,7 +6,8 @@ import java.util.List;
 /**
  * The representation of a thread in our program.
  */
-public class Thread {
+public class Thread
+{
 
     private final Long threadID = null;
     private String name;
@@ -15,7 +16,8 @@ public class Thread {
     // TODO: remove 'null' when below TODOs are completed
 
     // 2 constructors, the first one is just a default Thread (no users)
-    public Thread(String name) {
+    public Thread(String name)
+    {
         this.name = name;
         this.userList = new ArrayList<>();
         this.messageList = new ArrayList<>();
@@ -24,7 +26,8 @@ public class Thread {
         //   constructors)
     }
 
-    public Thread(String name, List<User> userList) {
+    public Thread(String name, List<User> userList)
+    {
         this.name = name;
         this.userList = userList;
         this.messageList = new ArrayList<>();
@@ -33,19 +36,23 @@ public class Thread {
         //   constructors)
     }
 
-    public String getName() {
+    public final String getName()
+    {
         return this.name;
     }
 
-    public void setName(String newName) {
+    public final void setName(String newName)
+    {
         this.name = newName;
     }
 
-    public List<User> getUserList() {
+    public final List<User> getUserList()
+    {
         return this.userList;
     }
 
-    public Long getThreadID() {
+    public final Long getThreadID()
+    {
         return this.threadID;
     }
 
@@ -53,7 +60,8 @@ public class Thread {
      * Adds a new User to the Thread.
      * @param newUser is the new User.
      */
-    public void addUser(User newUser) {
+    public void addUser(User newUser)
+    {
         this.userList.add(newUser);
     }
 
@@ -61,7 +69,8 @@ public class Thread {
      * Removes a user from the Thread. Do nothing if the user is not in the Thread.
      * @param userToRemove is that user.
      */
-    public void removeUser(User userToRemove) {
+    public void removeUser(User userToRemove)
+    {
         this.userList.remove(userToRemove);
     }
 }

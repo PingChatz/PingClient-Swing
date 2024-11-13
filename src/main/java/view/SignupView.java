@@ -58,7 +58,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
-        // Add Actiuon listiners for the buttons
+        // Add Action listeners for the buttons
         signUp.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener()
@@ -68,10 +68,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                         if (evt.getSource().equals(signUp))
                         {
                             final SignupState currentState = signupViewModel.getState();
+                            // TODO: Uncomment when sign Up UseCase is ready
 
-//                            ToDo: Uncomment when sign Up UseCase is ready
-//                            signupController.execute(
-//                                    currentState.getUsername(),
+//                          signupController.execute(
+//                          //        currentState.getUsername(),
 //                                    currentState.getPassword(),
 //                                    currentState.getRepeatPassword()
 //                            );
@@ -149,7 +149,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     }
 
     /**
-     * Listens to the Password field and if a change is made updates the values in sign Up state
+     * Listens to the Password field and if a change is made updates the values in sign Up state.
      */
     private void addPasswordListener()
     {
@@ -187,7 +187,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     }
 
     /**
-     * Listens for updates in the repeat password field, and then updates the values of signupViewModel
+     * Listens for updates in the repeat password field, and then updates the values of signupViewModel.
      */
     private void addRepeatPasswordListener()
     {
@@ -227,7 +227,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     @Override
     public void actionPerformed(ActionEvent actionEvent)
     {
-        //ToDo: change to do something
+        // TODO: change to do something
         JOptionPane.showMessageDialog(this, "Cancel not implemented yet.");
     }
 
@@ -235,17 +235,18 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     public void propertyChange(PropertyChangeEvent evt)
     {
         final SignupState state = (SignupState) evt.getNewValue();
-        if (state.getUsernameError() != null) {
+        if (state.getUsernameError() != null)
+        {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
         }
     }
 
-    public String getViewName()
+    public final String getViewName()
     {
         return viewName;
     }
 
-    public void setSignupController(SignupController controller)
+    public final void setSignupController(SignupController controller)
     {
         this.signupController = controller;
     }

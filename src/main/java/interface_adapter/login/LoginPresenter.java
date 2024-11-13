@@ -6,15 +6,16 @@ import use_case.login.LoginOutputData;
 /**
  * The Presenter for the Login Use Case.
  */
-public class LoginPresenter implements LoginOutputBoundary {
+public class LoginPresenter implements LoginOutputBoundary
+{
 
     @Override
-    public void prepareSuccessView(LoginOutputData outputData) {
-
+    public void prepareSuccessView(LoginOutputData outputData)
+    {
     }
 
     @Override
-    public void prepareFailView(String errorMessage) {
-
+    public void prepareFailView(String errorMessage)
+    {
     }
 }

@@ -6,29 +6,36 @@ import entity.User;
  * The Login Interactor.
  */
 // TODO: overwrite with our code
-public class LoginInteractor implements LoginInputBoundary {
+public class LoginInteractor implements LoginInputBoundary
+{
     private final LoginUserDataAccessInterface userDataAccessObject;
     private final LoginOutputBoundary loginPresenter;
 
     public LoginInteractor(LoginUserDataAccessInterface userDataAccessInterface,
-                           LoginOutputBoundary loginOutputBoundary) {
+                           LoginOutputBoundary loginOutputBoundary)
+    {
         this.userDataAccessObject = userDataAccessInterface;
         this.loginPresenter = loginOutputBoundary;
     }
 
     @Override
-    public void execute(LoginInputData loginInputData) {
+    public void execute(LoginInputData loginInputData)
+    {
         final String username = loginInputData.getUsername();
         final String password = loginInputData.getPassword();
-        if (!userDataAccessObject.existsByName(username)) {
+        if (!userDataAccessObject.existsByName(username))
+        {
             loginPresenter.prepareFailView(username + ": Account does not exist.");
         }
-        else {
+        else
+        {
             final String pwd = userDataAccessObject.get(username).getPasswordHash();
-            if (!password.equals(pwd)) {
+            if (!password.equals(pwd))
+            {
                 loginPresenter.prepareFailView("Incorrect password for \"" + username + "\".");
             }
-            else {
+            else
+            {
 
                 final User user = userDataAccessObject.get(loginInputData.getUsername());
 

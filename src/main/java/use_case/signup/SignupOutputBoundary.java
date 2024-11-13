@@ -4,7 +4,8 @@ package use_case.signup;
  * The output boundary for the Signup Use Case.
  */
 // TODO: overwrite with our code
-public interface SignupOutputBoundary {
+public interface SignupOutputBoundary
+{
 
     /**
      * Prepares the success view for the Signup Use Case.

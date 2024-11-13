@@ -13,12 +13,14 @@ import interface_adapter.ViewManagerModel;
  * in the ViewManagerModel and updates which View should be visible.
  */
 // TODO: overwrite with our code
-public class ViewManager implements PropertyChangeListener {
+public class ViewManager implements PropertyChangeListener
+{
     private final CardLayout cardLayout;
     private final JPanel views;
     private final ViewManagerModel viewManagerModel;
 
-    public ViewManager(JPanel views, CardLayout cardLayout, ViewManagerModel viewManagerModel) {
+    public ViewManager(JPanel views, CardLayout cardLayout, ViewManagerModel viewManagerModel)
+    {
         this.views = views;
         this.cardLayout = cardLayout;
         this.viewManagerModel = viewManagerModel;
@@ -26,8 +28,10 @@ public class ViewManager implements PropertyChangeListener {
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("state")) {
+    public void propertyChange(PropertyChangeEvent evt)
+    {
+        if (evt.getPropertyName().equals("state"))
+        {
             final String viewModelName = (String) evt.getNewValue();
             cardLayout.show(views, viewModelName);
         }

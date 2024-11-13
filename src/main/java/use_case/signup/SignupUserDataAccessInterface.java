@@ -6,7 +6,8 @@ import entity.User;
  * DAO for the Signup Use Case.
  */
 // TODO: overwrite with our code
-public interface SignupUserDataAccessInterface {
+public interface SignupUserDataAccessInterface
+{
 
     /**
      * Checks if the given username exists.
