@@ -8,10 +8,12 @@ import java.awt.event.ActionListener;
 public class ButtonLabelPanel extends JPanel
 {
     private final JButton button = new JButton("view");
+    private JLabel label = new JLabel();
     ButtonLabelPanel(JLabel label)
     {
+        this.label = label;
         this.add(label);
-        this.add(button);
+        this.add(this.label);
     }
 
     public JButton getButton()
@@ -20,5 +22,9 @@ public class ButtonLabelPanel extends JPanel
     }
     public void setActionListener(ActionListener listener){
         button.addActionListener(listener);
+    }
+    public String getLabelContent()
+    {
+        return label.getText();
     }
 }

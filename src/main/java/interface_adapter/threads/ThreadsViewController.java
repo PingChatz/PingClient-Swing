@@ -7,4 +7,9 @@ public class ThreadsViewController {
     public void switchToLoginView(){
         //TODO for the use case
     }
+
+    public void switchToChatView()
+    {
+        //TODO fr
+    }
 }

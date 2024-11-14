@@ -1,27 +1,31 @@
 package view;
-import interface_adapter.threads.ThreadsViewController;
-import interface_adapter.threads.ThreadsModel;
 
-import java.awt.*;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import interface_adapter.threads.ThreadsModel;
+import interface_adapter.threads.ThreadsViewController;
+
 /**
  * The view for when the user is logged in and sees all of their message threads.
  */
 public class ThreadsView extends JPanel implements ActionListener, PropertyChangeListener
 {
-    private final  String viewName = "threads";
+    private final String viewName = "threads";
     private final ThreadsModel threadsModel;
 
     private final JButton refreshButton;
     private final JButton logoutButton;
-    private final ThreadsPanel threadsList;
+    private final ThreadsPane threadsList;
 
-
+    private ThreadsViewController threadsViewController;
 
     public ThreadsView(ThreadsModel threadsModel) {
         this.threadsModel = threadsModel;
@@ -33,18 +37,18 @@ public class ThreadsView extends JPanel implements ActionListener, PropertyChang
         // Initialize the two buttons
         refreshButton = new JButton(ThreadsModel.REFRESH_LABEL);
         logoutButton = new JButton(ThreadsModel.LOGOUT_LABEL);
-        String[] threads = {"Threads", "threads"};
+        final String[] threads = {"Threads", "threads"};
 
-        //initialise the list of threads
-        //TODO replace threads with the actual threads of the user
-        threadsList = new ThreadsPanel(threads);
+        // initialise the list of threads
+        // TODO replace threads with the actual threads of the user (use case)
+        threadsList = new ThreadsPane(threads);
 
-        //add action listeners for the buttons
+        // add action listeners for the buttons
         refreshButton.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(refreshButton)) {
-                            //TODO This should somehow call the get messages use case/ api call
+                            // TODO This should somehow call the get messages use case/ api call (use case)
                         }
                     }
                 }
@@ -53,13 +57,26 @@ public class ThreadsView extends JPanel implements ActionListener, PropertyChang
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(logoutButton)) {
-                            //TODO implementing this for the use case
-                            ThreadsViewController.switchToLoginView();
+                            // TODO implementing this for the use case
+                            threadsViewController.switchToLoginView();
                         }
                     }
                 }
         );
 
+        for (ButtonLabelPanel buttonLabel: threadsList.getButtonLabels())
+        {
+            buttonLabel.setActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    // TODO change to message view for the given message (use case)
+                    String threadName = buttonLabel.getLabelContent();
+                    // this was to suppress checkstyle
+                    System.out.println(threadName);
+                    threadsViewController.switchToChatView();
+                }
+            });
+        }
+        // TODO assemble the final view UI
     }
 
     @Override
@@ -71,4 +88,5 @@ public class ThreadsView extends JPanel implements ActionListener, PropertyChang
     public void propertyChange(PropertyChangeEvent evt) {
 
     }
+    // TODO implement getViewName and setThreadsViewController like in sendMessageView
 }
