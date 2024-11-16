@@ -1,8 +1,11 @@
 package view;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
+
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  * This creates a component jPanel which is a list of all of the threads and their buttons.
