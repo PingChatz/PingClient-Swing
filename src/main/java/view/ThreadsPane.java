@@ -1,30 +1,34 @@
 package view;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
- * This creates a component JPanel which is a list of all the threads and their buttons.
+ * This creates a component jPanel which is a list of all of the threads and their buttons.
  */
-public class ThreadsPane extends JPanel {
+public class ThreadsPane extends JScrollPane
+{
 
-    private final List<ButtonLabelPanel> buttonLabels = new ArrayList<>();
+    private ArrayList<ButtonLabelPanel> buttonLabels = new ArrayList<ButtonLabelPanel>();
 
-    public ThreadsPane(String[] threads) {
-        for (String thread : threads) {
-            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    public ThreadsPane(String[] threads)
+    {
+        JPanel listPanel = new JPanel();
+        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
+        for (String thread : threads)
+        {
             final ButtonLabelPanel panel = new ButtonLabelPanel(new JLabel(thread));
-            buttonLabels.add(panel);
-            add(panel);
+            this.buttonLabels.add(panel);
+            listPanel.add(panel);
         }
+        this.setViewportView(listPanel);
+        this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
     }
 
-    public final List<ButtonLabelPanel> getButtonLabels()
+    public ArrayList<ButtonLabelPanel> getButtonLabels()
     {
         return buttonLabels;
     }

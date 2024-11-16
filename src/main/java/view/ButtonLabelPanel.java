@@ -18,7 +18,7 @@ public class ButtonLabelPanel extends JPanel
     {
         this.label = label;
         this.add(label);
-        this.add(this.label);
+        this.add(button);
     }
 
     /**

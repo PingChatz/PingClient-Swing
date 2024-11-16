@@ -31,14 +31,14 @@ public class AppBuilder
 
     private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject();
 
+    private SignupView signupView;
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
-    private ThreadsViewModel threadsViewModel;
     private ChatViewModel chatViewModel;
-    private SignupView signupView;
+    private ThreadsViewModel threadsViewModel;
     private LoginView loginView;
-    private ThreadsView threadsView;
     private ChatView chatView;
+    private ThreadsView threadsView;
 
     public AppBuilder()
     {
@@ -74,8 +74,9 @@ public class AppBuilder
     }
 
     /**
-     * Adds the Threads View to the application.
+     * Adds the LoggedIn View to the application.
      *
+    ThreadsView
      * @return this builder
      */
     public AppBuilder addThreadsView()
@@ -87,15 +88,13 @@ public class AppBuilder
     }
 
     /**
-     * Adds the LoggedIn View to the application.
-     *
      * @return this builder
      */
     public AppBuilder addLoggedInView()
     {
         return this;
     }
-      
+
     /**
      * Adds the ChatView to the application.
      *
@@ -173,7 +172,7 @@ public class AppBuilder
         application.add(cardPanel);
 
         // Set the initial view to the LoginView
-        viewManagerModel.setState(loginView.getViewName());
+        viewManagerModel.setState(threadsView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         // Make the window visible
