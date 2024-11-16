@@ -1,27 +1,30 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * This creates a component jPanel which is a list of all of the threads and their buttons.
+ * This creates a component JPanel which is a list of all the threads and their buttons.
  */
 public class ThreadsPane extends JPanel {
 
-    private ButtonLabelPanel[] buttonLabels;
+    private final List<ButtonLabelPanel> buttonLabels = new ArrayList<>();
 
     public ThreadsPane(String[] threads) {
-        for (int i = 0; i < threads.length; i++) {
+        for (String thread : threads) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            final ButtonLabelPanel panel = new ButtonLabelPanel(new JLabel(threads[i]));
-            buttonLabels[i] = panel;
+            final ButtonLabelPanel panel = new ButtonLabelPanel(new JLabel(thread));
+            buttonLabels.add(panel);
             add(panel);
         }
 
     }
 
-    public ButtonLabelPanel[] getButtonLabels()
+    public final List<ButtonLabelPanel> getButtonLabels()
     {
         return buttonLabels;
     }

@@ -10,6 +10,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.threads.ThreadsViewModel;
 import view.*;
 
 /**
@@ -30,11 +31,13 @@ public class AppBuilder
 
     private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject();
 
-    private SignupView signupView;
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
+    private ThreadsViewModel threadsViewModel;
     private ChatViewModel chatViewModel;
+    private SignupView signupView;
     private LoginView loginView;
+    private ThreadsView threadsView;
     private ChatView chatView;
 
     public AppBuilder()
@@ -71,14 +74,21 @@ public class AppBuilder
     }
 
     /**
-     * Adds the LoggedIn View to the application.
+     * Adds the Threads View to the application.
      *
-    ThreadsView
      * @return this builder
      */
-    public AppBuilder addLoggedInView()
+    public AppBuilder addThreadsView()
     {
+        threadsViewModel = new ThreadsViewModel();
+        threadsView = new ThreadsView(threadsViewModel);
+        cardPanel.add(threadsView, threadsView.getViewName());
+        return this;
+    }
 
+    /**
+     * Adds the LoggedIn View to the application.
+     *
      * @return this builder
      */
     public AppBuilder addLoggedInView()
@@ -96,7 +106,6 @@ public class AppBuilder
         chatViewModel = new ChatViewModel();
         chatView = new ChatView(chatViewModel);
         cardPanel.add(chatView, chatView.getViewName());
-        dev
         return this;
     }
 

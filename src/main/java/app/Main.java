@@ -22,6 +22,7 @@ public class Main
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addChatView()
+                                            .addThreadsView()
                                             .build();
 
         application.pack();
