@@ -21,6 +21,7 @@ public class Main
                                             .addLoggedInView()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
+                                            .addChatView()
                                             .build();
 
         application.pack();

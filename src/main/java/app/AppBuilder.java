@@ -8,11 +8,9 @@ import data_access.UserDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.signup.SignupViewModel;
-import view.LoggedInView;
-import view.LoginView;
-import view.SignupView;
-import view.ViewManager;
+import view.*;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -35,13 +33,16 @@ public class AppBuilder
     private SignupView signupView;
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
-    private LoggedInView loggedInView;
+    private ChatViewModel chatViewModel;
     private LoginView loginView;
+    private ChatView chatView;
 
     public AppBuilder()
     {
         cardPanel.setLayout(cardLayout);
     }
+
+    // == ADD THE VIEWS ==
 
     /**
      * Adds the Signup View to the application.
@@ -78,6 +79,21 @@ public class AppBuilder
     {
         return this;
     }
+
+    /**
+     * Adds the ChatView to the application.
+     *
+     * @return this builder
+     */
+    public AppBuilder addChatView()
+    {
+        chatViewModel = new ChatViewModel();
+        chatView = new ChatView(chatViewModel);
+        cardPanel.add(chatView, chatView.getViewName());
+        return this;
+    }
+
+    // == ADD THE USE CASES ==
 
     /**
      * Adds the Signup Use Case to the application.
@@ -131,7 +147,7 @@ public class AppBuilder
         // Add the card panel to the JFrame
         application.add(cardPanel);
 
-        // Set the initial view to the SignupView
+        // Set the initial view to the LoginView
         viewManagerModel.setState(loginView.getViewName());
         viewManagerModel.firePropertyChanged();
 
