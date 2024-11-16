@@ -4,7 +4,8 @@ package use_case.logout;
  * DAO for the Logout Use Case.
  */
 // TODO: overwrite with our code
-public interface LogoutUserDataAccessInterface {
+public interface LogoutUserDataAccessInterface
+{
 
     /**
      * Returns the username of the curren user of the application.

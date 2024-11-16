@@ -6,7 +6,8 @@ import entity.User;
  * DAO for the Login Use Case.
  */
 // TODO: overwrite with our code
-public interface LoginUserDataAccessInterface {
+public interface LoginUserDataAccessInterface
+{
 
     /**
      * Checks if the given username exists.

@@ -55,7 +55,6 @@
 
     <!-- Headers -->
 
-
     <!-- Miscellaneous -->
     <module name="NewlineAtEndOfFile"/>
     <module name="Translation">
@@ -277,7 +276,9 @@
             <property name="option" value="text"/>
         </module>
         <module name="EmptyCatchBlock"/>
-        <module name="LeftCurly"/>
+        <module name="LeftCurly">
+            <property name="option" value="nl"/>
+        </module>
         <module name="NeedBraces"/>
         <module name="NeedBraces">
             <property name="tokens" value="LAMBDA"/>
@@ -757,10 +758,13 @@
         </module>
         <module name="MethodName"/>
         <module name="MethodTypeParameterName"/>
-        <module name="PackageName"/>
         <module name="ParameterName">
             <property name="format" value="^(id)|([a-z][a-z0-9][a-zA-Z0-9]+)$"/>
             <property name="ignoreOverridden" value="true"/>
+        </module>
+        <module name="PackageName">
+            <property name="format" value="^[a-z_]+(\.[a-z_]+)*$"/>
+            <message key="name.invalidPattern" value="Package name ''{0}'' must match pattern ''{1}''"/>
         </module>
         <module name="LambdaParameterName">
             <property name="format" value="^(id)|([a-z][a-z0-9][a-zA-Z0-9]+)$"/>

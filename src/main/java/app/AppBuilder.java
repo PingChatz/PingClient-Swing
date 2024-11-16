@@ -73,12 +73,34 @@ public class AppBuilder
     /**
      * Adds the LoggedIn View to the application.
      *
+    ThreadsView
+     * @return this builder
+     */
+    public AppBuilder addLoggedInView()
+    {
+
      * @return this builder
      */
     public AppBuilder addLoggedInView()
     {
         return this;
     }
+      
+    /**
+     * Adds the ChatView to the application.
+     *
+     * @return this builder
+     */
+    public AppBuilder addChatView()
+    {
+        chatViewModel = new ChatViewModel();
+        chatView = new ChatView(chatViewModel);
+        cardPanel.add(chatView, chatView.getViewName());
+        dev
+        return this;
+    }
+
+    // == ADD THE USE CASES ==
 
     /**
      * Adds the ChatView to the application.
