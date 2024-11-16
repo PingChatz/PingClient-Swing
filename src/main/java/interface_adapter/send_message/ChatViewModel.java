@@ -3,7 +3,7 @@ package interface_adapter.send_message;
 import interface_adapter.ViewModel;
 
 /**
- * The View Model for the Login View.
+ * The View Model for the Chat View.
  */
 public class ChatViewModel extends ViewModel<ChatState>
 {
