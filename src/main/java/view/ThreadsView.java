@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import interface_adapter.threads.ThreadsModel;
+import interface_adapter.threads.ThreadsViewModel;
 import interface_adapter.threads.ThreadsViewController;
 
 /**
@@ -19,7 +19,7 @@ import interface_adapter.threads.ThreadsViewController;
 public class ThreadsView extends JPanel implements ActionListener, PropertyChangeListener
 {
     private final String viewName = "threads";
-    private final ThreadsModel threadsModel;
+    private final ThreadsViewModel threadsViewModel;
 
     private final JButton refreshButton;
     private final JButton logoutButton;
@@ -27,16 +27,16 @@ public class ThreadsView extends JPanel implements ActionListener, PropertyChang
 
     private ThreadsViewController threadsViewController;
 
-    public ThreadsView(ThreadsModel threadsModel) {
-        this.threadsModel = threadsModel;
+    public ThreadsView(ThreadsViewModel threadsViewModel) {
+        this.threadsViewModel = threadsViewModel;
 
         // Initialise the Page Title
-        final JLabel titleLabel = new JLabel(ThreadsModel.TITLE_LABEL);
+        final JLabel titleLabel = new JLabel(ThreadsViewModel.TITLE_LABEL);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Initialize the two buttons
-        refreshButton = new JButton(ThreadsModel.REFRESH_LABEL);
-        logoutButton = new JButton(ThreadsModel.LOGOUT_LABEL);
+        refreshButton = new JButton(ThreadsViewModel.REFRESH_LABEL);
+        logoutButton = new JButton(ThreadsViewModel.LOGOUT_LABEL);
         final String[] threads = {"Threads", "threads"};
 
         // initialise the list of threads
