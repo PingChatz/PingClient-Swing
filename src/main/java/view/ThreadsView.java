@@ -88,5 +88,10 @@ public class ThreadsView extends JPanel implements ActionListener, PropertyChang
     public void propertyChange(PropertyChangeEvent evt) {
 
     }
-    // TODO implement getViewName and setThreadsViewController like in sendMessageView
+    // TODO implement setThreadsViewController like in sendMessageView
+
+    public final String getViewName()
+    {
+        return viewName;
+    }
 }
