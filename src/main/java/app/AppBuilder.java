@@ -9,8 +9,13 @@ import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.send_message.ChatViewModel;
+import interface_adapter.send_message.SendMessageController;
+import interface_adapter.send_message.SendMessagePresenter;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.threads.ThreadsViewModel;
+import use_case.send_message.SendMessageInputBoundary;
+import use_case.send_message.SendMessageInteractor;
+import use_case.send_message.SendMessageOutputBoundary;
 import view.*;
 
 /**
@@ -74,9 +79,7 @@ public class AppBuilder
     }
 
     /**
-     * Adds the LoggedIn View to the application.
-     *
-    ThreadsView
+     * Adds the Threads View to the application.
      * @return this builder
      */
     public AppBuilder addThreadsView()
@@ -84,14 +87,6 @@ public class AppBuilder
         threadsViewModel = new ThreadsViewModel();
         threadsView = new ThreadsView(threadsViewModel);
         cardPanel.add(threadsView, threadsView.getViewName());
-        return this;
-    }
-
-    /**
-     * @return this builder
-     */
-    public AppBuilder addLoggedInView()
-    {
         return this;
     }
 
@@ -111,21 +106,18 @@ public class AppBuilder
     // == ADD THE USE CASES ==
 
     /**
-     * Adds the ChatView to the application.
-     *
+     * Adds the Send Message Use Case to the application.
      * @return this builder
      */
-
-
-    // == ADD THE USE CASES ==
-
-    /**
-     * Adds the Signup Use Case to the application.
-     *
-     * @return this builder
-     */
-    public AppBuilder addSignupUseCase()
+    public AppBuilder addSendMessageUseCase()
     {
+        final SendMessageOutputBoundary sendMessageOutputBoundary = new SendMessagePresenter(viewManagerModel,
+                chatViewModel, threadsViewModel);
+        final SendMessageInputBoundary sendMessageInteractor = new SendMessageInteractor(
+                userDataAccessObject, sendMessageOutputBoundary);
+
+        final SendMessageController controller = new SendMessageController(sendMessageInteractor);
+        chatView.setSendMessageController(controller);
         return this;
     }
 
@@ -172,7 +164,7 @@ public class AppBuilder
         application.add(cardPanel);
 
         // Set the initial view to the LoginView
-        viewManagerModel.setState(threadsView.getViewName());
+        viewManagerModel.setState(chatView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         // Make the window visible

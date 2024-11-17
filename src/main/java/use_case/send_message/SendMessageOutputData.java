@@ -22,11 +22,13 @@ public class SendMessageOutputData
         return username;
     }
 
-    public final String getMessageContent() {
+    public final String getMessageContent()
+    {
         return messageContent;
     }
 
-    public final boolean isUseCaseFailed() {
+    public final boolean isUseCaseFailed()
+    {
         return useCaseFailed;
     }
 }

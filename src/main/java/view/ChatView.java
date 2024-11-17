@@ -38,6 +38,7 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
     public ChatView(ChatViewModel chatViewModel)
     {
         this.chatViewModel = chatViewModel;
+        this.chatViewModel.addPropertyChangeListener(this);
 
         // Initialize the Page Title
         final JLabel title = new JLabel(ChatViewModel.TITLE_LABEL);
@@ -77,7 +78,7 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                     public void actionPerformed(ActionEvent evt)
                     {
                         // TODO: this button should just switch the view back to the ThreadView.
-                        sendMessageController.switchToThreadView();
+                        sendMessageController.switchToThreadsView();
                     }
                 }
         );

@@ -13,7 +13,8 @@ public final class SendMessageInputData
         this.content = content;
     }
 
-    public String getContent() {
+    public String getContent()
+    {
         return content;
     }
 }
