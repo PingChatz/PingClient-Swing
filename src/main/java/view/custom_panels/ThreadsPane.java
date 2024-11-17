@@ -1,4 +1,4 @@
-package view;
+package view.custom_panels;
 
 import java.util.ArrayList;
 

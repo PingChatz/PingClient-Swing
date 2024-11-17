@@ -1,4 +1,4 @@
-package view;
+package view.custom_panels;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -9,7 +9,7 @@ import javax.swing.JTextField;
  */
 public class ButtonLabelButtonPanel extends JPanel
 {
-    ButtonLabelButtonPanel(JButton button1, JTextField textField, JButton button2)
+    public ButtonLabelButtonPanel(JButton button1, JTextField textField, JButton button2)
     {
         this.add(button1);
         this.add(textField);

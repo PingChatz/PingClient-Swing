@@ -1,4 +1,4 @@
-package view;
+package view.custom_panels;
 
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -8,7 +8,7 @@ import javax.swing.JPanel;
  */
 public class MessageDisplayPanel extends JPanel
 {
-    MessageDisplayPanel(JList<LabelLabelPanel> listOfMessages)
+    public MessageDisplayPanel(JList<LabelLabelPanel> listOfMessages)
     {
         this.add(listOfMessages);
     }

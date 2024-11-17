@@ -11,6 +11,9 @@ import javax.swing.*;
 import interface_adapter.send_message.ChatState;
 import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.send_message.SendMessageController;
+import view.custom_panels.ButtonLabelButtonPanel;
+import view.custom_panels.LabelLabelPanel;
+import view.custom_panels.MessageDisplayPanel;
 
 /**
  * The View for when the user is connected with a single Thread (i.e: a Chat).
