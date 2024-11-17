@@ -1,4 +1,4 @@
-package view;
+package view.custom_panels;
 
 import java.awt.event.ActionListener;
 
@@ -14,7 +14,7 @@ public class ButtonLabelPanel extends JPanel
     private final JButton button = new JButton("view");
     private JLabel label = new JLabel();
 
-    ButtonLabelPanel(JLabel label)
+    public ButtonLabelPanel(JLabel label)
     {
         this.label = label;
         this.add(label);

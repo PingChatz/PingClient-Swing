@@ -13,6 +13,7 @@ import javax.swing.event.DocumentListener;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
+import view.custom_panels.LabelTextPanel;
 
 /**
  * The View for the Signup Use Case.

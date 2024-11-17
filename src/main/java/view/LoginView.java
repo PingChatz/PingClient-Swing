@@ -13,6 +13,7 @@ import javax.swing.event.DocumentListener;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import view.custom_panels.LabelTextPanel;
 
 /**
  * The View for when the user is logging into the program.
