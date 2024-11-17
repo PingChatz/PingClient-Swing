@@ -10,6 +10,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.threads.ThreadsViewModel;
 import view.*;
 
 /**
@@ -34,8 +35,10 @@ public class AppBuilder
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private ChatViewModel chatViewModel;
+    private ThreadsViewModel threadsViewModel;
     private LoginView loginView;
     private ChatView chatView;
+    private ThreadsView threadsView;
 
     public AppBuilder()
     {
@@ -73,6 +76,18 @@ public class AppBuilder
     /**
      * Adds the LoggedIn View to the application.
      *
+    ThreadsView
+     * @return this builder
+     */
+    public AppBuilder addThreadsView()
+    {
+        threadsViewModel = new ThreadsViewModel();
+        threadsView = new ThreadsView(threadsViewModel);
+        cardPanel.add(threadsView, threadsView.getViewName());
+        return this;
+    }
+
+    /**
      * @return this builder
      */
     public AppBuilder addLoggedInView()
@@ -92,6 +107,15 @@ public class AppBuilder
         cardPanel.add(chatView, chatView.getViewName());
         return this;
     }
+
+    // == ADD THE USE CASES ==
+
+    /**
+     * Adds the ChatView to the application.
+     *
+     * @return this builder
+     */
+
 
     // == ADD THE USE CASES ==
 
@@ -148,7 +172,7 @@ public class AppBuilder
         application.add(cardPanel);
 
         // Set the initial view to the LoginView
-        viewManagerModel.setState(loginView.getViewName());
+        viewManagerModel.setState(threadsView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         // Make the window visible
