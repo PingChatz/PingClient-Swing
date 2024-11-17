@@ -11,6 +11,9 @@ public interface SendMessageInputBoundary
      * @param sendMessageInputData the input data
      */
     void execute(SendMessageInputData sendMessageInputData);
+
+    /**
+     * Executes the "switch to ThreadsView" use case.
+     */
+    void switchToThreadsView();
 }
-
-

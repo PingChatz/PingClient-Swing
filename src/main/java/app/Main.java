@@ -18,12 +18,11 @@ public class Main
         final JFrame application = appBuilder
                                             .addLoginView()
                                             .addSignupView()
-                                            .addLoggedInView()
-                                            .addSignupUseCase()
-                                            .addLoginUseCase()
                                             .addThreadsView()
                                             .addChatView()
                                             .addThreadsView()
+                                            .addSendMessageUseCase()
+                                            .addLoginUseCase()
                                             .build();
 
         application.pack();
