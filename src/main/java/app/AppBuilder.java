@@ -4,6 +4,8 @@ import java.awt.CardLayout;
 
 import javax.swing.*;
 
+import data_access.MessageDataAccessObject;
+import data_access.ThreadDataAccessObject;
 import data_access.UserDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -31,10 +33,16 @@ public class AppBuilder
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
     private final UserFactory userFactory = new UserFactory();
+    // TODO: create Thread/MessageFactory Entities and add them here.
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
+    // TODO: only one user will be active per instance of the application, but there will probably be multiple
+    //  thread objects and message objects. Figure out if we need to store lists of DAOs corresponding to
+    //  each Thread and each Message. If so, figure out how we want to implement it.
     private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject();
+    private final ThreadDataAccessObject threadDataAccessObject = new ThreadDataAccessObject();
+    private final MessageDataAccessObject messageDataAccessObject = new MessageDataAccessObject();
 
     private SignupView signupView;
     private SignupViewModel signupViewModel;
@@ -42,6 +50,7 @@ public class AppBuilder
     private ChatViewModel chatViewModel;
     private ThreadsViewModel threadsViewModel;
     private LoginView loginView;
+    // TODO: similarly to the TODO above, we many need to store a list of ChatViews, not just one.
     private ChatView chatView;
     private ThreadsView threadsView;
 
@@ -97,6 +106,8 @@ public class AppBuilder
      */
     public AppBuilder addChatView()
     {
+        // TODO: don't set a single chatView, set a list of them, corresponding to all the threads
+        //  currently stored in the Server.
         chatViewModel = new ChatViewModel();
         chatView = new ChatView(chatViewModel);
         cardPanel.add(chatView, chatView.getViewName());
@@ -114,7 +125,7 @@ public class AppBuilder
         final SendMessageOutputBoundary sendMessageOutputBoundary = new SendMessagePresenter(viewManagerModel,
                 chatViewModel, threadsViewModel);
         final SendMessageInputBoundary sendMessageInteractor = new SendMessageInteractor(
-                userDataAccessObject, sendMessageOutputBoundary);
+                userDataAccessObject, messageDataAccessObject, threadDataAccessObject, sendMessageOutputBoundary);
 
         final SendMessageController controller = new SendMessageController(sendMessageInteractor);
         chatView.setSendMessageController(controller);
