@@ -23,7 +23,7 @@ public class ThreadsViewModel extends ViewModel<ThreadsState>
 
     public ThreadsViewModel()
     {
-        super("ThreadsViewState");
+        super("threads");
         setState(new ThreadsState());
     }
 }

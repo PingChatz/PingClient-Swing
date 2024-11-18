@@ -79,11 +79,12 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                     {
                         // TODO: this button should just switch the view back to the ThreadView.
                         sendMessageController.switchToThreadsView();
+                        System.out.println("button pressed");
                     }
                 }
         );
 
-        // Add listeners for the text entries (actual code in helper methods below)
+        // Add listeners for the message (i.e: text) entry (actual code in helper methods below)
         addTextEntryListener();
 
         // Set Up the layout for the UI
@@ -95,7 +96,7 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
     }
 
     /**
-     * Listens for changes in the message input field and updates the current state.
+     * Listens for changes in the message input field and updates ChatViewState.
      */
     private void addTextEntryListener()
     {
@@ -108,10 +109,16 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         // TODO: write this when making the use-case.
     }
 
+    /**
+     * The actionPerformed method is defined in the anonymous classes when the buttons are added to the View in the
+     * controller.This method reacts to a button click that results in evt.
+     *
+     * @param evt the ActionEvent to react to
+     */
     @Override
-    public void actionPerformed(ActionEvent actionEvent)
+    public void actionPerformed(ActionEvent evt)
     {
-        // TODO: write this when making the use-case.
+        System.out.println("Click " + evt.getActionCommand());
     }
 
     public final String getViewName()
