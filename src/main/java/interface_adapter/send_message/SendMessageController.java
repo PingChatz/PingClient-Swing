@@ -1,6 +1,6 @@
 package interface_adapter.send_message;
 
-import use_case.signup.SignupInputBoundary;
+import use_case.send_message.SendMessageInputBoundary;
 
 /**
  * Controller for the Send Message Use Case.
@@ -8,13 +8,12 @@ import use_case.signup.SignupInputBoundary;
 public class SendMessageController
 {
     // == INSTANCE VARIABLES ==
-    // TODO: change "SignupInputBoundary" to "SendMessageInputBoundary" when that Class has been created.
-    private final SignupInputBoundary userSendMessageUseCaseInteractor;
+    private final SendMessageInputBoundary sendMessageUseCaseInteractor;
 
     // == CONSTRUCTOR ==
-    public SendMessageController(SignupInputBoundary userSendMessageUseCaseInteractor)
+    public SendMessageController(SendMessageInputBoundary userSendMessageUseCaseInteractor)
     {
-        this.userSendMessageUseCaseInteractor = userSendMessageUseCaseInteractor;
+        this.sendMessageUseCaseInteractor = userSendMessageUseCaseInteractor;
     }
 
     // == CONTROLLER METHODS ==
@@ -28,11 +27,10 @@ public class SendMessageController
     }
 
     /**
-     * Executes the "switch to Thread View" Use Case.
+     * Executes the "switch to Threads View" Use Case.
      */
-    public void switchToThreadView()
+    public void switchToThreadsView()
     {
-        // TODO: change ".switchToLoginView()" to ".switchToThreadView()" when class is ready.
-        userSendMessageUseCaseInteractor.switchToLoginView();
+        this.sendMessageUseCaseInteractor.switchToThreadsView();
     }
 }

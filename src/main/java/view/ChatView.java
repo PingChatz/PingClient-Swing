@@ -11,6 +11,9 @@ import javax.swing.*;
 import interface_adapter.send_message.ChatState;
 import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.send_message.SendMessageController;
+import view.custom_panels.ButtonLabelButtonPanel;
+import view.custom_panels.LabelLabelPanel;
+import view.custom_panels.MessageDisplayPanel;
 
 /**
  * The View for when the user is connected with a single Thread (i.e: a Chat).
@@ -35,6 +38,7 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
     public ChatView(ChatViewModel chatViewModel)
     {
         this.chatViewModel = chatViewModel;
+        this.chatViewModel.addPropertyChangeListener(this);
 
         // Initialize the Page Title
         final JLabel title = new JLabel(ChatViewModel.TITLE_LABEL);
@@ -74,12 +78,13 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                     public void actionPerformed(ActionEvent evt)
                     {
                         // TODO: this button should just switch the view back to the ThreadView.
-                        sendMessageController.switchToThreadView();
+                        sendMessageController.switchToThreadsView();
+                        System.out.println("button pressed");
                     }
                 }
         );
 
-        // Add listeners for the text entries (actual code in helper methods below)
+        // Add listeners for the message (i.e: text) entry (actual code in helper methods below)
         addTextEntryListener();
 
         // Set Up the layout for the UI
@@ -91,7 +96,7 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
     }
 
     /**
-     * Listens for changes in the message input field and updates the current state.
+     * Listens for changes in the message input field and updates ChatViewState.
      */
     private void addTextEntryListener()
     {
@@ -104,10 +109,16 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         // TODO: write this when making the use-case.
     }
 
+    /**
+     * The actionPerformed method is defined in the anonymous classes when the buttons are added to the View in the
+     * controller.This method reacts to a button click that results in evt.
+     *
+     * @param evt the ActionEvent to react to
+     */
     @Override
-    public void actionPerformed(ActionEvent actionEvent)
+    public void actionPerformed(ActionEvent evt)
     {
-        // TODO: write this when making the use-case.
+        System.out.println("Click " + evt.getActionCommand());
     }
 
     public final String getViewName()

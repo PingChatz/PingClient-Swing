@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 
 import interface_adapter.threads.ThreadsViewController;
 import interface_adapter.threads.ThreadsViewModel;
+import view.custom_panels.ButtonLabelPanel;
+import view.custom_panels.ThreadsPane;
 
 /**
  * The view for when the user is logged in and sees all of their message threads.

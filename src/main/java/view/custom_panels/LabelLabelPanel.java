@@ -1,4 +1,4 @@
-package view;
+package view.custom_panels;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 public class LabelLabelPanel extends JPanel
 {
 
-    LabelLabelPanel(JLabel label1, JLabel label2)
+    public LabelLabelPanel(JLabel label1, JLabel label2)
     {
         this.add(label1);
         this.add(label2);

@@ -3,6 +3,7 @@ package data_access;
 import entity.User;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.send_message.SendMessageUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 /**
@@ -12,7 +13,8 @@ import use_case.signup.SignupUserDataAccessInterface;
 public class UserDataAccessObject implements
         SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
-        LogoutUserDataAccessInterface
+        LogoutUserDataAccessInterface,
+        SendMessageUserDataAccessInterface
 {
 
     @Override
