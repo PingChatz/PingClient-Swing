@@ -29,7 +29,7 @@ public class GetThreadsUseCaseInteractor implements GetThreadsInputBoundary
     }
 
     // == USE CASE METHODS ==
-    @Override
+    //@Override
     public void execute(GetThreadsInputBoundary getThreadsInputData)
     {
         // TODO: the bulk of the use case logic will be in this method.
@@ -38,17 +38,10 @@ public class GetThreadsUseCaseInteractor implements GetThreadsInputBoundary
     // TODO: will probably need to split execute() into private helper functions.
 
     @Override
-    public void switchToThreadsView()
-    {
-        getThreadsPresenter.switchToThreadsView();
-    }
-
-    @Override
     public void execute()
     {
         // TODO main use case for getting threads
     }
-
 
     @Override
     public void switchToChatView()
