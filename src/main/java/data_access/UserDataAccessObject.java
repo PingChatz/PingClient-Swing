@@ -16,6 +16,12 @@ public class UserDataAccessObject implements
         LogoutUserDataAccessInterface,
         SendMessageUserDataAccessInterface
 {
+    private final PingBackend backend;
+
+    public UserDataAccessObject(PingBackend backend)
+    {
+        this.backend = backend;
+    }
 
     @Override
     public boolean existsByName(String username)
