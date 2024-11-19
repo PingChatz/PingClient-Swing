@@ -9,6 +9,13 @@ import use_case.send_message.SendMessageMessageDataAccessInterface;
 // TODO: implement this.
 public class MessageDataAccessObject implements SendMessageMessageDataAccessInterface
 {
+    private final PingBackend backend;
+
+    public MessageDataAccessObject(PingBackend backend)
+    {
+        this.backend = backend;
+    }
+
     @Override
     public void save(Message message)
     {

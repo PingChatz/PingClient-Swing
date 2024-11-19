@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import javax.swing.*;
 
 import data_access.MessageDataAccessObject;
+import data_access.PingBackend;
 import data_access.ThreadDataAccessObject;
 import data_access.UserDataAccessObject;
 import entity.UserFactory;
@@ -37,9 +38,10 @@ public class AppBuilder
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject();
-    private final ThreadDataAccessObject threadDataAccessObject = new ThreadDataAccessObject();
-    private final MessageDataAccessObject messageDataAccessObject = new MessageDataAccessObject();
+    PingBackend pingBackend = new PingBackend("http://localhost:8080/"); // ToDo: Change it to server url
+    private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject(pingBackend);
+    private final ThreadDataAccessObject threadDataAccessObject = new ThreadDataAccessObject(pingBackend);
+    private final MessageDataAccessObject messageDataAccessObject = new MessageDataAccessObject(pingBackend);
 
     private SignupView signupView;
     private SignupViewModel signupViewModel;
