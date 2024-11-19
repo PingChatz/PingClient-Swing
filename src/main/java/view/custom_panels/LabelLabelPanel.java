@@ -1,16 +1,18 @@
 package view.custom_panels;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
- * A panel containing two labels.
+ * A panel containing 2 labels.
  */
 public class LabelLabelPanel extends JPanel
 {
-
-    public LabelLabelPanel(JLabel label1, JLabel label2)
+    public LabelLabelPanel(String string1, String string2)
     {
+        // TODO: add constants to define it's shape.
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        JLabel label1 = new JLabel(string1);
+        JLabel label2 = new JLabel(string2);
         this.add(label1);
         this.add(label2);
     }
