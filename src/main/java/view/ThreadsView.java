@@ -15,7 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import interface_adapter.threads.ThreadsViewController;
+import interface_adapter.threads.GetThreadsController;
 import interface_adapter.threads.ThreadsViewModel;
 import view.custom_panels.ButtonLabelPanel;
 import view.custom_panels.ThreadsPane;
@@ -32,7 +32,7 @@ public class ThreadsView extends JPanel implements ActionListener, PropertyChang
     private final JButton logoutButton;
     private final ThreadsPane threadsList;
 
-    private ThreadsViewController threadsViewController;
+    private GetThreadsController getThreadsController;
 
     public ThreadsView(ThreadsViewModel threadsViewModel)
     {
@@ -77,7 +77,7 @@ public class ThreadsView extends JPanel implements ActionListener, PropertyChang
                         if (evt.getSource().equals(logoutButton))
                         {
                             // TODO implementing this for the use case
-                            threadsViewController.switchToLoginView();
+                            getThreadsController.switchToLoginView();
                         }
                     }
                 }
@@ -93,7 +93,7 @@ public class ThreadsView extends JPanel implements ActionListener, PropertyChang
                     String threadName = buttonLabel.getLabelContent();
                     // this was to suppress checkstyle
                     System.out.println(threadName);
-                    threadsViewController.switchToChatView();
+                    getThreadsController.switchToChatView();
                 }
             });
         }
