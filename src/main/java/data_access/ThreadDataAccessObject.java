@@ -14,6 +14,7 @@ public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterf
     @Override
     public String getCurrentThreadName()
     {
+        // get stuff from the api
         return "";
     }
 
