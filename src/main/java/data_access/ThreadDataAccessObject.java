@@ -11,6 +11,13 @@ import use_case.send_message.SendMessageThreadDataAccessInterface;
 // TODO: implement this.
 public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterface
 {
+    private final PingBackend backend;
+
+    public ThreadDataAccessObject(PingBackend backend)
+    {
+        this.backend = backend;
+    }
+
     @Override
     public String getCurrentThreadName()
     {
