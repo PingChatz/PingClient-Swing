@@ -7,15 +7,17 @@ import interface_adapter.ViewModel;
  */
 public class ChatViewModel extends ViewModel<ChatState>
 {
-    // TODO: change the name of the title so that it depends on the name of the Thread
-    public static final String TITLE_LABEL = "[name of Thread]";
-
+    // Instance variables that never change:
     public static final String SEND_BUTTON_LABEL = "Send";
-    public static final String RETURN_BUTTON_LABEL = "Return to Threads";
+    public static final String RETURN_BUTTON_LABEL = "Return To Threads";
+    public static final String REFRESH_BUTTON_LABEL = "Refresh";
+
+    // Swing size specifications:
+    // TODO: when we're done the actual functionality, add constants to make the view look nice.
 
     public ChatViewModel()
     {
-        super("send message");
+        super("chat");
+        setState(new ChatState());
     }
-
 }
