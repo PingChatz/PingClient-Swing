@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import javax.swing.*;
 
 import data_access.MessageDataAccessObject;
+import data_access.PingBackend;
 import data_access.ThreadDataAccessObject;
 import data_access.UserDataAccessObject;
 import entity.UserFactory;
@@ -40,9 +41,11 @@ public class AppBuilder
     // TODO: only one user will be active per instance of the application, but there will probably be multiple
     //  thread objects and message objects. Figure out if we need to store lists of DAOs corresponding to
     //  each Thread and each Message. If so, figure out how we want to implement it.
-    private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject();
-    private final ThreadDataAccessObject threadDataAccessObject = new ThreadDataAccessObject();
-    private final MessageDataAccessObject messageDataAccessObject = new MessageDataAccessObject();
+    // Create the Backend instance
+    PingBackend pingBackend = new PingBackend("http://localhost:8080/"); // ToDo: Change it to server url
+    private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject(pingBackend);
+    private final ThreadDataAccessObject threadDataAccessObject = new ThreadDataAccessObject(pingBackend);
+    private final MessageDataAccessObject messageDataAccessObject = new MessageDataAccessObject(pingBackend);
 
     private SignupView signupView;
     private SignupViewModel signupViewModel;
