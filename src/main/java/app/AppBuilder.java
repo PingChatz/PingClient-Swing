@@ -11,11 +11,16 @@ import data_access.UserDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.logout.LogoutController;
+import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.send_message.SendMessageController;
 import interface_adapter.send_message.SendMessagePresenter;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.threads.ThreadsViewModel;
+import use_case.logout.LogoutInputBoundary;
+import use_case.logout.LogoutInteractor;
+import use_case.logout.LogoutOutputBoundary;
 import use_case.send_message.SendMessageInputBoundary;
 import use_case.send_message.SendMessageInteractor;
 import use_case.send_message.SendMessageOutputBoundary;
@@ -38,6 +43,7 @@ public class AppBuilder
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
+    // Create the Backend instance
     PingBackend pingBackend = new PingBackend("http://localhost:8080/"); // ToDo: Change it to server url
     private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject(pingBackend);
     private final ThreadDataAccessObject threadDataAccessObject = new ThreadDataAccessObject(pingBackend);
@@ -145,6 +151,14 @@ public class AppBuilder
      */
     public AppBuilder addLogoutUseCase()
     {
+        final LogoutOutputBoundary logoutOutputBoundary = new LogoutPresenter(viewManagerModel,
+                loginViewModel, threadsViewModel);
+
+        final LogoutInputBoundary logoutInteractor =
+                new LogoutInteractor(userDataAccessObject, logoutOutputBoundary);
+
+        final LogoutController logoutController = new LogoutController(logoutInteractor);
+        threadsView.setLogoutController(logoutController);
         return this;
     }
 
