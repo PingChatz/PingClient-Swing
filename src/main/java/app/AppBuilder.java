@@ -43,10 +43,6 @@ public class AppBuilder
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    // TODO: only one user will be active per instance of the application, but there will probably be multiple
-    //  thread objects and message objects. Figure out if we need to store lists of DAOs corresponding to
-    //  each Thread and each Message. If so, figure out how we want to implement it.
-
     // Create the Backend instance
     PingBackend pingBackend = new PingBackend("http://localhost:8080/"); // ToDo: Change it to server url
     private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject(pingBackend);
@@ -59,7 +55,6 @@ public class AppBuilder
     private ChatViewModel chatViewModel;
     private ThreadsViewModel threadsViewModel;
     private LoginView loginView;
-    // TODO: similarly to the TODO above, we many need to store a list of ChatViews, not just one.
     private ChatView chatView;
     private ThreadsView threadsView;
 
@@ -110,13 +105,11 @@ public class AppBuilder
 
     /**
      * Adds the ChatView to the application.
-     *
+     * This Chat View will be empty ATM, and will be updated depending on which Thread was opened.
      * @return this builder
      */
     public AppBuilder addChatView()
     {
-        // TODO: don't set a single chatView, set a list of them, corresponding to all the threads
-        //  currently stored in the Server.
         chatViewModel = new ChatViewModel();
         chatView = new ChatView(chatViewModel);
         cardPanel.add(chatView, chatView.getViewName());
@@ -192,7 +185,7 @@ public class AppBuilder
         application.add(cardPanel);
 
         // Set the initial view to the LoginView
-        viewManagerModel.setState(chatView.getViewName());
+        viewManagerModel.setState(threadsView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         // Make the window visible
