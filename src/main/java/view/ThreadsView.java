@@ -15,7 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import interface_adapter.threads.ThreadsViewController;
+import interface_adapter.logout.LogoutController;
+import interface_adapter.threads.GetThreadsController;
+import interface_adapter.threads.ThreadsState;
 import interface_adapter.threads.ThreadsViewModel;
 import view.custom_panels.ButtonLabelPanel;
 import view.custom_panels.ThreadsPane;
@@ -23,8 +25,9 @@ import view.custom_panels.ThreadsPane;
 /**
  * The view for when the user is logged in and sees all of their message threads.
  */
-public class ThreadsView extends JPanel implements ActionListener, PropertyChangeListener
+public class ThreadsView extends JPanel
 {
+
     private final String viewName;
     private final ThreadsViewModel threadsViewModel;
 
@@ -32,7 +35,8 @@ public class ThreadsView extends JPanel implements ActionListener, PropertyChang
     private final JButton logoutButton;
     private final ThreadsPane threadsList;
 
-    private ThreadsViewController threadsViewController;
+    private GetThreadsController getThreadsController;
+    private LogoutController logoutController;
 
     public ThreadsView(ThreadsViewModel threadsViewModel)
     {
@@ -76,8 +80,7 @@ public class ThreadsView extends JPanel implements ActionListener, PropertyChang
                     {
                         if (evt.getSource().equals(logoutButton))
                         {
-                            // TODO implementing this for the use case
-                            threadsViewController.switchToLoginView();
+                            logoutController.execute(threadsViewModel.getState().getUsername());
                         }
                     }
                 }
@@ -93,11 +96,10 @@ public class ThreadsView extends JPanel implements ActionListener, PropertyChang
                     String threadName = buttonLabel.getLabelContent();
                     // this was to suppress checkstyle
                     System.out.println(threadName);
-                    threadsViewController.switchToChatView();
+                    //getThreadsController.switchToChatView();
                 }
             });
         }
-        // TODO assemble the final view UI
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(ThreadsViewModel.TOP_PANEL_LAYOUT_ROWS,
@@ -116,16 +118,8 @@ public class ThreadsView extends JPanel implements ActionListener, PropertyChang
         return viewName;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e)
+    public void setLogoutController(LogoutController logoutController)
     {
-
+        this.logoutController = logoutController;
     }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt)
-    {
-
-    }
-    // TODO  setThreadsViewController like in sendMessageView
 }

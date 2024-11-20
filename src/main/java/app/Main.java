@@ -22,6 +22,7 @@ public class Main
                                             .addThreadsView()
                                             .addSendMessageUseCase()
                                             .addLoginUseCase()
+                                            .addLogoutUseCase()
                                             .build();
 
         application.pack();
