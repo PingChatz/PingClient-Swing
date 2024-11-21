@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import interface_adapter.send_message.ChatState;
 import interface_adapter.send_message.ChatViewModel;
@@ -22,8 +24,10 @@ import view.custom_panels.MessageDisplayPanel;
  */
 public class ChatView extends JPanel implements ActionListener, PropertyChangeListener
 {
-    private final String viewName = "testing_view_name";
+    private final String viewName = "chat";
     private final ChatViewModel chatViewModel;
+
+    private final MessageDisplayPanel messageDisplay;
 
     private final JButton toThreads;
     private final JTextField messageInputField = new JTextField(15);
@@ -44,8 +48,7 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Initialize the Message View (the Scrollable JList containing all the message Labels)
-        final List<LabelLabelPanel> messagePanels = getMessagePanels();
-        final MessageDisplayPanel messageDisplay = new MessageDisplayPanel(messagePanels);
+        messageDisplay = new MessageDisplayPanel(getMessagePanels());
 
         // Initialize the Text Entry and Buttons
         this.toThreads = new JButton(ChatViewModel.RETURN_BUTTON_LABEL);
@@ -64,11 +67,9 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                 {
                     public void actionPerformed(ActionEvent evt)
                     {
-                        if (evt.getSource().equals(send))
-                        {
-                            final ChatState currentState = chatViewModel.getState();
-                            // TODO: Add the chat Controller state updater when building the use-case.
-                        }
+                        final ChatState currentState = chatViewModel.getState();
+                        sendMessageController.execute(currentState.getMessageInput(),
+                                                          currentState.getCurrentThreadID());
                     }
                 });
 
@@ -78,9 +79,8 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                 {
                     public void actionPerformed(ActionEvent evt)
                     {
-                        // TODO: this button should just switch the view back to the ThreadView.
                         sendMessageController.switchToThreadsView();
-                        System.out.println("button pressed");
+                        System.out.println("toThreads button pressed");
                     }
                 }
         );
@@ -91,10 +91,10 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                 {
                     public void actionPerformed(ActionEvent evt)
                     {
-                        // TODO: this button should get updated information from the server and
-                        //  update the chatView accordingly.
+                        // TODO: button for the refresh use case.
                     }
-                });
+                }
+        );
 
         // Add listener for the text entry (actual code in helper methods below)
         addTextEntryListener();
@@ -114,9 +114,9 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
     private List<LabelLabelPanel> getMessagePanels()
     {
         final List<LabelLabelPanel> result = new ArrayList<>();
-        for (String[] messageTuple : chatViewModel.getState().getAllMessages())
+        for (Object[] messageTuple : chatViewModel.getState().getAllMessages())
         {
-            final LabelLabelPanel newMessagePanel = new LabelLabelPanel(messageTuple[0], messageTuple[1]);
+            final LabelLabelPanel newMessagePanel = new LabelLabelPanel((String) messageTuple[0], messageTuple[1]);
             result.add(newMessagePanel);
         }
         return result;
@@ -127,21 +127,61 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
      */
     private void addTextEntryListener()
     {
-        // TODO: write this when making the use-case (TIP: use the code from the listeners in other Views)
+        messageInputField.getDocument().addDocumentListener(new DocumentListener()
+        {
+
+            private void documentListenerHelper()
+            {
+                final ChatState currentState = chatViewModel.getState();
+                currentState.setMessageInput(messageInputField.getText());
+                chatViewModel.setState(currentState);
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e)
+            {
+                // Change if a new value is added
+                documentListenerHelper();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e)
+            {
+                // Change if a value is removed
+                documentListenerHelper();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e)
+            {
+                // Change if a value is changed
+                documentListenerHelper();
+            }
+        });
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt)
     {
-        // TODO: write this when making the use-case.
+        // Listens for errors
+        final ChatState state = (ChatState) evt.getNewValue();
+        if (state.getSendMessageError() != null)
+        {
+            JOptionPane.showMessageDialog(this, state.getSendMessageError());
+        }
+
+        // Update text field when state changes
+        messageInputField.setText(state.getMessageInput());
+
+        // Update entire UI (only use this in prepareSuccessView() methods for use cases that act on the ChatView)
+        if (evt.getPropertyName().equals("full_message_update"))
+        {
+            messageInputField.setText(state.getMessageInput());
+            messageDisplay.updateMessagePanels(getMessagePanels());
+        }
     }
 
-    /**
-     * The actionPerformed method is defined in the anonymous classes when the buttons are added to the View in the
-     * controller. This method reacts to a button click that results in evt.
-     *
-     * @param evt the ActionEvent to react to
-     */
+    // TODO: figure out what this does
     @Override
     public void actionPerformed(ActionEvent evt)
     {

@@ -24,7 +24,6 @@ public class SendMessageController
      * @param threadID the threadID of the thread the message is being sent within
      * @param content the content of the message
      */
-    // TODO: add parameters depending on if we need more info for the input data (senderID?)
     public void execute(String content, Long threadID)
     {
         final SendMessageInputData sendMessageInputData = new SendMessageInputData(content, threadID);

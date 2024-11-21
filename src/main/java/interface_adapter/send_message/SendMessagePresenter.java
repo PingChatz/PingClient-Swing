@@ -28,13 +28,21 @@ public final class SendMessagePresenter implements SendMessageOutputBoundary
     @Override
     public void prepareSuccessView(SendMessageOutputData outputData)
     {
-        // TODO: implement this.
+        // Update the chatViewModel with the new message.
+        final ChatState chatState = chatViewModel.getState();
+        chatState.setMessageInput("");
+        chatState.addMessage(outputData.getUsername(), outputData.getMessageContent());
+        chatState.setSendMessageError(null);
+        chatViewModel.firePropertyChanged("full_message_update");
     }
 
     @Override
     public void prepareFailView(String errorMessage)
     {
-        // TODO: optional: decide whether or not you want to restrict message content in any way.
+        final ChatState chatState = chatViewModel.getState();
+        chatState.setSendMessageError(errorMessage);
+        chatState.setMessageInput("");
+        chatViewModel.firePropertyChanged();
     }
 
     @Override

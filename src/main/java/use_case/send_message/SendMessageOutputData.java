@@ -3,7 +3,6 @@ package use_case.send_message;
 /**
  * Output Data for the Send Message Case.
  */
-// TODO: figure out what essential data we need here (do we need 'username'?)
 public class SendMessageOutputData
 {
     private final Object messageContent;
@@ -30,5 +29,14 @@ public class SendMessageOutputData
     public final boolean isUseCaseFailed()
     {
         return useCaseFailed;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "OutputData{"
+                + "username='" + username + '\''
+                + ", content='" + messageContent + '\''
+                + '}';
     }
 }
