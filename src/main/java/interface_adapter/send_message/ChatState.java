@@ -73,6 +73,7 @@ public class ChatState
         return "ChatState{"
                 + "messageInput='" + messageInput + '\''
                 + ", allMessages='" + allMessages.toString() + '\''
+                + "currentThreadID='" + currentThreadID + '\''
                 + '}';
     }
 }

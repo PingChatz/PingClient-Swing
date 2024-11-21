@@ -8,6 +8,7 @@ import data_access.MessageDataAccessObject;
 import data_access.PingBackend;
 import data_access.ThreadDataAccessObject;
 import data_access.UserDataAccessObject;
+import entity.MessageFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
@@ -39,7 +40,8 @@ public class AppBuilder
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
     private final UserFactory userFactory = new UserFactory();
-    // TODO: create Thread/MessageFactory Entities and add them here.
+    private final MessageFactory messageFactory = new MessageFactory();
+    // TODO: create ThreadFactory Entity and add them here.
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
@@ -126,8 +128,9 @@ public class AppBuilder
     {
         final SendMessageOutputBoundary sendMessageOutputBoundary = new SendMessagePresenter(viewManagerModel,
                 chatViewModel, threadsViewModel);
-        final SendMessageInputBoundary sendMessageInteractor = new SendMessageInteractor(
-                userDataAccessObject, messageDataAccessObject, threadDataAccessObject, sendMessageOutputBoundary);
+        final SendMessageInputBoundary sendMessageInteractor =
+                new SendMessageInteractor(userDataAccessObject, messageDataAccessObject, threadDataAccessObject,
+                                          messageFactory, sendMessageOutputBoundary);
 
         final SendMessageController controller = new SendMessageController(sendMessageInteractor);
         chatView.setSendMessageController(controller);
@@ -185,7 +188,7 @@ public class AppBuilder
         application.add(cardPanel);
 
         // Set the initial view to the LoginView
-        viewManagerModel.setState(threadsView.getViewName());
+        viewManagerModel.setState(chatView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         // Make the window visible
