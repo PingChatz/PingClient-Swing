@@ -73,6 +73,23 @@ public class ChatState
         return "ChatState{"
                 + "messageInput='" + messageInput + '\''
                 + ", allMessages='" + allMessages.toString() + '\''
+                + "currentThreadID='" + currentThreadID + '\''
+                + "currentThreadName='" + currentThreadName + '\''
                 + '}';
+    }
+
+    /**
+     * Adds a message to allMessages.
+     * @param username the sender of the message (always the current user)
+     * @param messageContent the message content
+     */
+    // TODO: test this to make sure it works, in particular check the order of the pairs in the View classes
+    public void addMessage(String username, Object messageContent)
+    {
+        Object[] newMessageTuple = new Object[2];
+        newMessageTuple[0] = username;
+        newMessageTuple[1] = messageContent;
+
+        this.allMessages.add(newMessageTuple);
     }
 }

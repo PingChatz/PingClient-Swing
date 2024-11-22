@@ -10,11 +10,11 @@ import javax.swing.*;
  */
 public class MessageDisplayPanel extends JPanel
 {
+    private final JPanel boxPanel = new JPanel();
 
     public MessageDisplayPanel(List<LabelLabelPanel> messagePanels)
     {
-        // Create a panel with BoxLayout to hold the message panels
-        JPanel boxPanel = new JPanel();
+        // Set the layout of boxPanel
         boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
 
         // Add each message panel to the box panel
@@ -36,5 +36,20 @@ public class MessageDisplayPanel extends JPanel
         // Set the layout of the main panel to BorderLayout and add the bordered panel
         this.setLayout(new BorderLayout());
         this.add(borderedPanel, BorderLayout.CENTER);
+    }
+
+    /**
+     * Updates the MessageDisplayPanel with a new list of message panels.
+     * @param updatedMessagePanels the updated list of message panels.
+     */
+    public void updateMessagePanels(List<LabelLabelPanel> updatedMessagePanels)
+    {
+        boxPanel.removeAll();
+        for (LabelLabelPanel messagePanel : updatedMessagePanels)
+        {
+            boxPanel.add(messagePanel);
+        }
+        boxPanel.revalidate();
+        boxPanel.repaint();
     }
 }

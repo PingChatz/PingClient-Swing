@@ -96,6 +96,7 @@ public class ThreadsView extends JPanel
                 {
                     // TODO change to message view for the given message (use case)
                     String threadName = buttonLabel.getLabelContent();
+
                     for (Long threadIDS : threadsViewModel.getState().getThreadHash().keySet())
                     {
                         if (threadsViewModel.getState().getThreadHash().get(threadIDS).equals(threadName))
@@ -104,7 +105,6 @@ public class ThreadsView extends JPanel
                             System.out.println("visiting the thread of " + threadName);
                         }
                     }
-
                 }
             });
         }

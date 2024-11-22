@@ -9,13 +9,15 @@ public class Message
 
     private final Long threadID;
     private final Long senderID;
+    private final String senderUsername;
     private final Object content;
 
-    public Message(Object content, Thread thread, User sender)
+    public Message(Object content, Long threadID, Long senderID, String senderUsername)
     {
         this.content = content;
-        this.threadID = thread.getThreadID();
-        this.senderID = sender.getUserID();
+        this.threadID = threadID;
+        this.senderID = senderID;
+        this.senderUsername = senderUsername;
     }
 
     public final Long getSenderID()
@@ -31,5 +33,10 @@ public class Message
     public final Object getContent()
     {
         return content;
+    }
+
+    public final String getSenderUsername()
+    {
+        return senderUsername;
     }
 }
