@@ -9,7 +9,7 @@ import entity.MessageFactory;
 public class SendMessageInteractor implements SendMessageInputBoundary
 {
     // == CONSTANTS ==
-    private static final int MESSAGE_MAX_LENGTH = 10;
+    private static final int MESSAGE_MAX_LENGTH = 280;
 
     // == INSTANCE VARIABLES ==
     private final SendMessageUserDataAccessInterface userDataAccessObject;

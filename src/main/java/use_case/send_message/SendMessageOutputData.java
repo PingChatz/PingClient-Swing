@@ -5,11 +5,11 @@ package use_case.send_message;
  */
 public class SendMessageOutputData
 {
-    private final Object messageContent;
+    private final String messageContent;
     private final String username;
     private final boolean useCaseFailed;
 
-    public SendMessageOutputData(String username, Object messageContent, boolean useCaseFailed)
+    public SendMessageOutputData(String username, String messageContent, boolean useCaseFailed)
     {
         this.username = username;
         this.useCaseFailed = useCaseFailed;
@@ -21,7 +21,7 @@ public class SendMessageOutputData
         return username;
     }
 
-    public final Object getMessageContent()
+    public final String getMessageContent()
     {
         return messageContent;
     }
