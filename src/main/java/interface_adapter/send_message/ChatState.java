@@ -68,7 +68,6 @@ public class ChatState
 
     @Override
     public String toString()
-    // TODO: update or delete as required.
     {
         return "ChatState{"
                 + "messageInput='" + messageInput + '\''
@@ -83,10 +82,9 @@ public class ChatState
      * @param username the sender of the message (always the current user)
      * @param messageContent the message content
      */
-    // TODO: test this to make sure it works, in particular check the order of the pairs in the View classes
-    public void addMessage(String username, Object messageContent)
+    public void addMessage(String username, String messageContent)
     {
-        Object[] newMessageTuple = new Object[2];
+        String[] newMessageTuple = new String[2];
         newMessageTuple[0] = username;
         newMessageTuple[1] = messageContent;
 

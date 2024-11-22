@@ -13,7 +13,7 @@ public class ChatViewModel extends ViewModel<ChatState>
     public static final String REFRESH_BUTTON_LABEL = "Refresh";
 
     // Swing size specifications:
-    // TODO: when we're done the actual functionality, add constants to make the view look nice.
+    // TODO: move any view constants related to the ChatView here
 
     public ChatViewModel()
     {
