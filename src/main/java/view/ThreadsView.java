@@ -53,7 +53,9 @@ public class ThreadsView extends JPanel
         logoutButton = new JButton(ThreadsViewModel.LOGOUT_LABEL);
 
         // initialise the list of threads
-        final String[] threads = new String[1];
+        final String[] threads = {"Benj", "Ali"};
+        threadsViewModel.getState().addThread(1L, "Benj");
+        threadsViewModel.getState().addThread(2L, "Ali");
 
         // TODO replace threads with the actual threads of the user (use case)
         threadsList = new ThreadsPane(threads);
@@ -94,9 +96,15 @@ public class ThreadsView extends JPanel
                 {
                     // TODO change to message view for the given message (use case)
                     String threadName = buttonLabel.getLabelContent();
-                    // this was to suppress checkstyle
-                    System.out.println(threadName);
-                    //getThreadsController.switchToChatView();
+                    for (Long threadIDS : threadsViewModel.getState().getThreadHash().keySet())
+                    {
+                        if (threadsViewModel.getState().getThreadHash().get(threadIDS).equals(threadName))
+                        {
+                            getThreadsController.switchToChatView(threadIDS);
+                            System.out.println("visiting the thread of " + threadName);
+                        }
+                    }
+
                 }
             });
         }
@@ -121,5 +129,10 @@ public class ThreadsView extends JPanel
     public void setLogoutController(LogoutController logoutController)
     {
         this.logoutController = logoutController;
+    }
+
+    public void setGetThreadsController(GetThreadsController getThreadsController)
+    {
+        this.getThreadsController = getThreadsController;
     }
 }

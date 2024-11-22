@@ -22,7 +22,7 @@ import view.custom_panels.MessageDisplayPanel;
  */
 public class ChatView extends JPanel implements ActionListener, PropertyChangeListener
 {
-    private final String viewName = "testing_view_name";
+    private final String viewName = "chat";
     private final ChatViewModel chatViewModel;
 
     private final JButton toThreads;

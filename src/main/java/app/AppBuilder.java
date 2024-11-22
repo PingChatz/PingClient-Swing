@@ -17,7 +17,12 @@ import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.send_message.SendMessageController;
 import interface_adapter.send_message.SendMessagePresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.threads.GetThreadsController;
+import interface_adapter.threads.GetThreadsPresenter;
 import interface_adapter.threads.ThreadsViewModel;
+import use_case.get_threads.GetThreadsInputBoundary;
+import use_case.get_threads.GetThreadsOutputBoundary;
+import use_case.get_threads.GetThreadsUseCaseInteractor;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
@@ -164,7 +169,24 @@ public class AppBuilder
         threadsView.setLogoutController(logoutController);
         return this;
     }
+    /**
+     * Adds the get threads Use Case to the application.
+     *
+     * @return this builder
+     */
+    public AppBuilder addGetThreadsUseCase()
+    {
+        final GetThreadsOutputBoundary getThreadsOutputBoundary = new GetThreadsPresenter(viewManagerModel,
+                chatViewModel, threadsViewModel);
 
+        final GetThreadsInputBoundary getThreadsInteractor =
+                new GetThreadsUseCaseInteractor(userDataAccessObject,
+                        messageDataAccessObject, threadDataAccessObject, getThreadsOutputBoundary);
+
+        final GetThreadsController getThreadsController = new GetThreadsController(getThreadsInteractor);
+        threadsView.setGetThreadsController(getThreadsController);
+        return this;
+    }
     // TODO: add the rest of the builder use cases here.
 
     /**
