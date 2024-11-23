@@ -24,23 +24,48 @@ public class SignupInteractor implements SignupInputBoundary
     @Override
     public void execute(SignupInputData signupInputData)
     {
-        if (userDataAccessObject.existsByName(signupInputData.getUsername()))
-        {
-            userPresenter.prepareFailView("User already exists.");
-        }
-        else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword()))
+        // Check if the two passwords are the same
+        if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword()))
         {
             userPresenter.prepareFailView("Passwords don't match.");
         }
-        else
-        {
-            final User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(),
-                    signupInputData.getEmail());
-            userDataAccessObject.save(user);
 
-            final SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);
-            userPresenter.prepareSuccessView(signupOutputData);
+        // create new user
+        final User user = userFactory.create(signupInputData.getUsername(), signupInputData.getEmail(),
+                signupInputData.getPassword());
+
+        // Save user via api
+        try
+        {
+            userDataAccessObject.save(user);
+        } catch (Exception e)
+        {
+            userPresenter.prepareFailView(e.getMessage());
         }
+
+        // if error doss nto occur
+        final SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);
+            userPresenter.prepareSuccessView(signupOutputData);
+
+//            userDataAccessObject.save(user);
+//        if (userDataAccessObject.existsByName(signupInputData.getUsername()))
+//        {
+//            userPresenter.prepareFailView("User already exists.");
+//        }
+//        else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword()))
+//        {
+//            userPresenter.prepareFailView("Passwords don't match.");
+//        }
+//        else
+//        {
+//            final User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(),
+//                    signupInputData.getEmail());
+//            userDataAccessObject.save(user);
+//
+//            final SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);
+//            userPresenter.prepareSuccessView(signupOutputData);
+//        }
+
     }
 
     @Override

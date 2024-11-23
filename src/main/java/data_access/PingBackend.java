@@ -29,6 +29,7 @@ public class PingBackend extends APICall
 
         // Call API
         String response = sendRequest("api/v1/auth/register", "POST", body);
+        System.out.println(response);
         // Return results as a JSON
         return new JSONObject(response);
     }

@@ -17,6 +17,8 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.send_message.SendMessageController;
 import interface_adapter.send_message.SendMessagePresenter;
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.threads.ThreadsViewModel;
 import use_case.logout.LogoutInputBoundary;
@@ -25,6 +27,12 @@ import use_case.logout.LogoutOutputBoundary;
 import use_case.send_message.SendMessageInputBoundary;
 import use_case.send_message.SendMessageInteractor;
 import use_case.send_message.SendMessageOutputBoundary;
+
+import use_case.signup.SignupInputBoundary;
+import use_case.signup.SignupInteractor;
+import use_case.signup.SignupOutputBoundary;
+
+
 import view.*;
 
 /**
@@ -121,6 +129,22 @@ public class AppBuilder
     // == ADD THE USE CASES ==
 
     /**
+     * Adds the Signup Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addSignupUseCase()
+    {
+        final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
+                signupViewModel, loginViewModel);
+        final SignupInputBoundary userSignupInteractor = new SignupInteractor(
+                userDataAccessObject, signupOutputBoundary, userFactory);
+
+        final SignupController controller = new SignupController(userSignupInteractor);
+        signupView.setSignupController(controller);
+        return this;
+    }
+
+    /**
      * Adds the Send Message Use Case to the application.
      * @return this builder
      */
@@ -188,7 +212,7 @@ public class AppBuilder
         application.add(cardPanel);
 
         // Set the initial view to the LoginView
-        viewManagerModel.setState(chatView.getViewName());
+        viewManagerModel.setState(signupView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         // Make the window visible

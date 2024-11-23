@@ -20,5 +20,5 @@ public interface SignupUserDataAccessInterface
      * Saves the user.
      * @param user the user to save
      */
-    void save(User user);
+    void save(User user) throws Exception;
 }

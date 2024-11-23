@@ -8,10 +8,32 @@ public final class SignupState
 {
     private String username = "";
     private String usernameError;
+    private String email = "";
+    private String emailError;
     private String password = "";
     private String passwordError;
     private String repeatPassword = "";
     private String repeatPasswordError;
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public String getEmailError()
+    {
+        return emailError;
+    }
+
+    public void setEmailError(String emailError)
+    {
+        this.emailError = emailError;
+    }
 
     public String getUsername()
     {

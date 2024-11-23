@@ -32,6 +32,19 @@ public class UserDataAccessObject implements
     @Override
     public void save(User user)
     {
+        // call backend
+        System.out.println("save user");
+        System.out.println(user.getUsername());
+        System.out.println(user.getEmail());
+        System.out.println(user.getPassword());
+        try
+        {
+            backend.register(user.getUsername(), user.getEmail(), user.getPassword());
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

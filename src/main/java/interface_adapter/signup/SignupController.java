@@ -6,7 +6,6 @@ import use_case.signup.SignupInputData;
 /**
  * Controller for the Signup Use Case.
  */
-// TODO: overwrite with our code
 public class SignupController
 {
 
@@ -27,7 +26,7 @@ public class SignupController
     public void execute(String username, String email, String password1, String password2)
     {
         final SignupInputData signupInputData = new SignupInputData(
-                username, password1, password2, email);
+                username, email, password1, password2);
 
         userSignupUseCaseInteractor.execute(signupInputData);
     }

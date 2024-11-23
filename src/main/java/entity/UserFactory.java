@@ -13,8 +13,8 @@ public class UserFactory
      * @param email email of the user
      * @return a new user object
      */
-    public User create(String name, String password, String email)
+    public User create(String name, String email, String password)
     {
-        return new User(name, password, email);
+        return new User(name, email, password);
     }
 }

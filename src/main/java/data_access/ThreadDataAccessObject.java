@@ -8,7 +8,6 @@ import use_case.send_message.SendMessageThreadDataAccessInterface;
 /**
  * The DAO for thread data.
  */
-// TODO: implement this.
 public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterface
 {
     private final PingBackend backend;

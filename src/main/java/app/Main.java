@@ -20,6 +20,7 @@ public class Main
                                             .addThreadsView()
                                             .addChatView()
                                             .addThreadsView()
+                                            .addSignupUseCase()
                                             .addSendMessageUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()

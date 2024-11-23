@@ -21,28 +21,28 @@ public class LoginInteractor implements LoginInputBoundary
     @Override
     public void execute(LoginInputData loginInputData)
     {
-        final String username = loginInputData.getUsername();
-        final String password = loginInputData.getPassword();
-        if (!userDataAccessObject.existsByName(username))
-        {
-            loginPresenter.prepareFailView(username + ": Account does not exist.");
-        }
-        else
-        {
-            final String pwd = userDataAccessObject.get(username).getPasswordHash();
-            if (!password.equals(pwd))
-            {
-                loginPresenter.prepareFailView("Incorrect password for \"" + username + "\".");
-            }
-            else
-            {
-
-                final User user = userDataAccessObject.get(loginInputData.getUsername());
-
-                userDataAccessObject.setCurrentUsername(user.getUsername());
-                final LoginOutputData loginOutputData = new LoginOutputData(user.getUsername(), false);
-                loginPresenter.prepareSuccessView(loginOutputData);
-            }
-        }
+//        final String username = loginInputData.getUsername();
+//        final String password = loginInputData.getPassword();
+//        if (!userDataAccessObject.existsByName(username))
+//        {
+//            loginPresenter.prepareFailView(username + ": Account does not exist.");
+//        }
+//        else
+//        {
+//            final String pwd = userDataAccessObject.get(username).getPasswordHash();
+//            if (!password.equals(pwd))
+//            {
+//                loginPresenter.prepareFailView("Incorrect password for \"" + username + "\".");
+//            }
+//            else
+//            {
+//
+//                final User user = userDataAccessObject.get(loginInputData.getUsername());
+//
+//                userDataAccessObject.setCurrentUsername(user.getUsername());
+//                final LoginOutputData loginOutputData = new LoginOutputData(user.getUsername(), false);
+//                loginPresenter.prepareSuccessView(loginOutputData);
+//            }
+//        }
     }
 }
