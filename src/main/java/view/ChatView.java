@@ -96,17 +96,6 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                 }
         );
 
-        // Add Action Listener for the refresh button
-        refresh.addActionListener(
-                new ActionListener()
-                {
-                    public void actionPerformed(ActionEvent evt)
-                    {
-                        // TODO: this button should get updated information from the server and
-                        //  update the chatView accordingly.
-                    }
-                });
-
         // Add listener for the text entry (actual code in helper methods below)
         addTextEntryListener();
 
