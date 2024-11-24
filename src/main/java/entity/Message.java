@@ -2,7 +2,6 @@ package entity;
 
 /**
  * The representation of a message in our program.
- * ToDo: Check class to abstract later
  */
 public class Message
 {
@@ -10,9 +9,9 @@ public class Message
     private final Long threadID;
     private final Long senderID;
     private final String senderUsername;
-    private final Object content;
+    private final String content;
 
-    public Message(Object content, Long threadID, Long senderID, String senderUsername)
+    public Message(String content, Long threadID, Long senderID, String senderUsername)
     {
         this.content = content;
         this.threadID = threadID;
@@ -30,7 +29,7 @@ public class Message
         return threadID;
     }
 
-    public final Object getContent()
+    public final String getContent()
     {
         return content;
     }

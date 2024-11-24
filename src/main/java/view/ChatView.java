@@ -96,6 +96,17 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                 }
         );
 
+        // Add Action Listener for the refresh button
+        refresh.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent evt)
+                    {
+                        // TODO: this button should get updated information from the server and
+                        //  update the chatView accordingly.
+                    }
+                });
+
         // Add listener for the text entry (actual code in helper methods below)
         addTextEntryListener();
 
@@ -114,9 +125,10 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
     private List<LabelLabelPanel> getMessagePanels()
     {
         final List<LabelLabelPanel> result = new ArrayList<>();
-        for (Object[] messageTuple : chatViewModel.getState().getAllMessages())
+
+        for (String[] messageTuple : chatViewModel.getState().getAllMessages())
         {
-            final LabelLabelPanel newMessagePanel = new LabelLabelPanel((String) messageTuple[0], messageTuple[1]);
+            final LabelLabelPanel newMessagePanel = new LabelLabelPanel(messageTuple[0], messageTuple[1]);
             result.add(newMessagePanel);
         }
         return result;
@@ -181,7 +193,6 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         }
     }
 
-    // TODO: figure out what this does
     @Override
     public void actionPerformed(ActionEvent evt)
     {

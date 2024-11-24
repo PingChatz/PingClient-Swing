@@ -27,8 +27,8 @@ public class GetThreadsController
     /**
      * This switches the current view to the chat view(if the user presses a thread).
      */
-    public void switchToChatView()
+    public void switchToChatView(Long threadID)
     {
-        this.getThreadsUseCaseInteractor.switchToChatView();
+        this.getThreadsUseCaseInteractor.switchToChatView(threadID);
     }
 }

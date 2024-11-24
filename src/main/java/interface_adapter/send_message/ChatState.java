@@ -5,8 +5,8 @@ import java.util.List;
 
 /**
  * Represents the current state of the Chat View Model.
- * PRECONDITION: all sub-arrays of allMessages are of length 2, the first (a String) being the sender's username
- *               and the second (an Object) being the message content.
+ * PRECONDITION: all sub-arrays of allMessages are of length 2, the first String being the sender's username
+ *               and the second being the message content.
  */
 public class ChatState
 {
@@ -14,7 +14,7 @@ public class ChatState
     private String sendMessageError;
     private String currentThreadName = "";
     private Long currentThreadID;
-    private List<Object[]> allMessages = new ArrayList<>();
+    private List<String[]> allMessages = new ArrayList<>();
 
     public final String getMessageInput()
     {
@@ -56,12 +56,12 @@ public class ChatState
         this.currentThreadID = currentThreadID;
     }
 
-    public final List<Object[]> getAllMessages()
+    public final List<String[]> getAllMessages()
     {
         return allMessages;
     }
 
-    public final void setAllMessages(List<Object[]> updatedAllMessages)
+    public final void setAllMessages(List<String[]> updatedAllMessages)
     {
         this.allMessages = updatedAllMessages;
     }
@@ -82,10 +82,9 @@ public class ChatState
      * @param username the sender of the message (always the current user)
      * @param messageContent the message content
      */
-    // TODO: test this to make sure it works, in particular check the order of the pairs in the View classes
-    public void addMessage(String username, Object messageContent)
+    public void addMessage(String username, String messageContent)
     {
-        Object[] newMessageTuple = new Object[2];
+        String[] newMessageTuple = new String[2];
         newMessageTuple[0] = username;
         newMessageTuple[1] = messageContent;
 

@@ -13,7 +13,7 @@ public class MessageFactory
      * @param senderUsername the username of the sender
      * @return a new user object
      */
-    public Message create(Object content, Long threadID, Long senderID, String senderUsername)
+    public Message create(String content, Long threadID, Long senderID, String senderUsername)
     {
         return new Message(content, threadID, senderID, senderUsername);
     }

@@ -19,8 +19,8 @@ public class Main
                                             .addSignupView()
                                             .addThreadsView()
                                             .addChatView()
-                                            .addThreadsView()
                                             .addSendMessageUseCase()
+                                            .addGetThreadsUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
                                             .build();
