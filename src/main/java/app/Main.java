@@ -19,10 +19,12 @@ public class Main
                                             .addSignupView()
                                             .addThreadsView()
                                             .addChatView()
+                                            .addAddThreadsView()
                                             .addSendMessageUseCase()
                                             .addGetThreadsUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
+                                            .addAddThreadUseCase()
                                             .build();
 
         application.pack();

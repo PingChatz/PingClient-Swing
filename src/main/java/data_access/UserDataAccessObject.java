@@ -1,6 +1,8 @@
 package data_access;
 
 import entity.User;
+import use_case.add_thread.AddThreadThreadDataAccessInterface;
+import use_case.add_thread.AddThreadUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.send_message.SendMessageUserDataAccessInterface;
@@ -14,7 +16,8 @@ public class UserDataAccessObject implements
         SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
         LogoutUserDataAccessInterface,
-        SendMessageUserDataAccessInterface
+        SendMessageUserDataAccessInterface,
+        AddThreadUserDataAccessInterface
 {
     private final PingBackend backend;
 

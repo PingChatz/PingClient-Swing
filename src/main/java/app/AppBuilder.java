@@ -9,8 +9,12 @@ import data_access.PingBackend;
 import data_access.ThreadDataAccessObject;
 import data_access.UserDataAccessObject;
 import entity.MessageFactory;
+import entity.ThreadFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.add_thread.AddThreadController;
+import interface_adapter.add_thread.AddThreadPresenter;
+import interface_adapter.add_thread.AddThreadViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
@@ -21,6 +25,9 @@ import interface_adapter.signup.SignupViewModel;
 import interface_adapter.threads.GetThreadsController;
 import interface_adapter.threads.GetThreadsPresenter;
 import interface_adapter.threads.ThreadsViewModel;
+import use_case.add_thread.AddThreadInputBoundary;
+import use_case.add_thread.AddThreadInteractor;
+import use_case.add_thread.AddThreadOutputBoundary;
 import use_case.get_threads.GetThreadsInputBoundary;
 import use_case.get_threads.GetThreadsOutputBoundary;
 import use_case.get_threads.GetThreadsUseCaseInteractor;
@@ -37,7 +44,6 @@ import view.*;
  * our CA architecture; piece by piece.
  * <p/>
  * This is done by adding each View and then adding related Use Cases.
- * TODO: overwrite with our code
  */
 public class AppBuilder
 {
@@ -46,7 +52,7 @@ public class AppBuilder
     private final CardLayout cardLayout = new CardLayout();
     private final UserFactory userFactory = new UserFactory();
     private final MessageFactory messageFactory = new MessageFactory();
-    // TODO: create ThreadFactory Entity and add them here.
+    private final ThreadFactory threadFactory = new ThreadFactory();
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
@@ -61,9 +67,11 @@ public class AppBuilder
     private LoginViewModel loginViewModel;
     private ChatViewModel chatViewModel;
     private ThreadsViewModel threadsViewModel;
+    private AddThreadViewModel addThreadViewModel;
     private LoginView loginView;
     private ChatView chatView;
     private ThreadsView threadsView;
+    private AddThreadView addThreadView;
 
     public AppBuilder()
     {
@@ -120,6 +128,18 @@ public class AppBuilder
         chatViewModel = new ChatViewModel();
         chatView = new ChatView(chatViewModel);
         cardPanel.add(chatView, chatView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Add Threads View to the application.
+     * @return this builder
+     */
+    public AppBuilder addAddThreadsView()
+    {
+        addThreadViewModel = new AddThreadViewModel();
+        addThreadView = new AddThreadView(addThreadViewModel);
+        cardPanel.add(addThreadView, addThreadView.getViewName());
         return this;
     }
 
@@ -187,6 +207,24 @@ public class AppBuilder
         threadsView.setGetThreadsController(getThreadsController);
         return this;
     }
+
+    /**
+     * Adds the Add Thread Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addAddThreadUseCase()
+    {
+        final AddThreadOutputBoundary addThreadOutputBoundary = new AddThreadPresenter(viewManagerModel,
+                addThreadViewModel, threadsViewModel);
+        final AddThreadInputBoundary addThreadInteractor =
+                new AddThreadInteractor(userDataAccessObject, threadDataAccessObject, addThreadOutputBoundary,
+                        threadFactory);
+
+        final AddThreadController controller = new AddThreadController(addThreadInteractor);
+        addThreadView.setAddThreadController(controller);
+        return this;
+    }
+
     // TODO: add the rest of the builder use cases here.
 
     /**
