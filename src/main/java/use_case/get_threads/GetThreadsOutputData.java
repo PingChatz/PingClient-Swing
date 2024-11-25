@@ -1,17 +1,19 @@
 package use_case.get_threads;
+import java.util.Collections;
+import java.util.List;
 
 public class GetThreadsOutputData
 {
-    private Long threads;
+    private List<Long> threads;
     private boolean useCaseFailed;
 
     public GetThreadsOutputData(Long threads, boolean useCaseFailed)
     {
-        this.threads = threads;
+        this.threads = Collections.singletonList(threads);
         this.useCaseFailed = useCaseFailed;
     }
 
-    public Long getThreadIDs()
+    public List<Long> getThreadIDs()
     {
         return threads;
     }

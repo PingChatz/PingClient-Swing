@@ -4,48 +4,53 @@ import use_case.send_message.SendMessageMessageDataAccessInterface;
 import use_case.send_message.SendMessageThreadDataAccessInterface;
 import use_case.send_message.SendMessageUserDataAccessInterface;
 
+import java.util.List;
+
 /**
  * The get threads Interactor.
  */
-public class GetThreadsUseCaseInteractor implements GetThreadsInputBoundary
-{
-    // == INSTANCE VARIABLES ==
-    // TODO change these from SendMEssage interfaces to getThreads Interfaces( create new interfaces)
-    private final SendMessageUserDataAccessInterface userDataAccessObject;
-    private final SendMessageMessageDataAccessInterface messageDataAccessObject;
-    private final SendMessageThreadDataAccessInterface threadDataAccessObject;
-    private final GetThreadsOutputBoundary getThreadsPresenter;
+public class GetThreadsUseCaseInteractor implements GetThreadsInputBoundary {
+    private final SendMessageUserDataAccessInterface userDataAccess;
+    private final SendMessageThreadDataAccessInterface threadDataAccess;
+    private final GetThreadsOutputBoundary presenter;
 
     // == CONSTRUCTOR ==
-    public GetThreadsUseCaseInteractor(SendMessageUserDataAccessInterface userDataAccessObject,
-                                       SendMessageMessageDataAccessInterface messageDataAccessObject,
-                                       SendMessageThreadDataAccessInterface threadDataAccessObject,
-                                       GetThreadsOutputBoundary getThreadsPresenter)
-    {
-        this.getThreadsPresenter = getThreadsPresenter;
-        this.userDataAccessObject = userDataAccessObject;
-        this.messageDataAccessObject = messageDataAccessObject;
-        this.threadDataAccessObject = threadDataAccessObject;
+    public GetThreadsUseCaseInteractor(SendMessageUserDataAccessInterface userDataAccess,
+                                       SendMessageThreadDataAccessInterface threadDataAccess,
+                                       GetThreadsOutputBoundary presenter) {
+        this.userDataAccess = userDataAccess;
+        this.threadDataAccess = threadDataAccess;
+        this.presenter = presenter;
     }
 
     // == USE CASE METHODS ==
-    //@Override
-    public void execute(GetThreadsInputBoundary getThreadsInputData)
-    {
-        // TODO: the bulk of the use case logic will be in this method.
-    }
 
-    // TODO: will probably need to split execute() into private helper functions.
+    // main use case method
 
     @Override
     public void execute()
     {
-        // TODO main use case for getting threads
+        try {
+            Long userID = userDataAccess.getCurrentUserID();
+            if (userID == null) {
+                presenter.prepareFailView("User not found.");
+                return;
+            }
+
+            List<Long> threadIDs = threadDataAccess.getUserThreadIDs(userID);
+            if (threadIDs == null || threadIDs.isEmpty()) {
+                presenter.prepareFailView("No threads found.");
+                return;
+            }
+
+        }
+        catch (Exception e){
+            presenter.prepareFailView("Error Occured: " + e.getMessage());
+        }
     }
 
     @Override
-    public void switchToChatView(Long threadID)
-    {
-        this.getThreadsPresenter.switchToChatView(threadID);
+    public void switchToChatView(Long threadID) {
+        presenter.switchToChatView(threadID);
     }
 }
