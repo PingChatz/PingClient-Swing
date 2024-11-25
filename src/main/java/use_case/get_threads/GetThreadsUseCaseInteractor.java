@@ -1,6 +1,5 @@
 package use_case.get_threads;
 
-import use_case.send_message.SendMessageMessageDataAccessInterface;
 import use_case.send_message.SendMessageThreadDataAccessInterface;
 import use_case.send_message.SendMessageUserDataAccessInterface;
 

@@ -13,7 +13,7 @@ public class GetThreadsOutputData
         this.useCaseFailed = useCaseFailed;
     }
 
-    public List<Long> getThreadIDs()
+    public List<Long> getThreads()
     {
         return threads;
     }
