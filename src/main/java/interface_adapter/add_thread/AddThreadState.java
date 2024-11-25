@@ -8,6 +8,7 @@ public final class AddThreadState
     private String threadName = "";
     private String usernameList = "";
     private String addThreadError;
+    private String addThreadSuccess;
 
     public String getThreadName()
     {
@@ -24,6 +25,16 @@ public final class AddThreadState
         return usernameList;
     }
 
+    public String getAddThreadSuccess()
+    {
+        return addThreadSuccess;
+    }
+
+    public void setAddThreadSuccess(String addThreadSuccess)
+    {
+        this.addThreadSuccess = addThreadSuccess;
+    }
+
     public void setThreadName(String threadName)
     {
         this.threadName = threadName;
@@ -34,9 +45,9 @@ public final class AddThreadState
         this.addThreadError = addThreadError;
     }
 
-    public void setUsersList(String usersList)
+    public void setUsernameList(String usernameList)
     {
-        this.usernameList = usersList;
+        this.usernameList = usernameList;
     }
 
     @Override

@@ -24,16 +24,31 @@ public class AddThreadPresenter implements AddThreadOutputBoundary
     }
 
     @Override
-    public void prepareSuccessView(AddThreadOutputData outputData)
+    public void prepareSuccessView(AddThreadOutputData outputData, String successMessage)
     {
-        // TODO: output a little java guy saying: "[threadName] successfully created",
-        //  then return to ThreadsView automatically
+        // revert add thread view model to blank state
+        final AddThreadState state = addThreadViewModel.getState();
+        state.setUsernameList("");
+        state.setThreadName("");
+        state.setAddThreadSuccess(successMessage);
+        state.setAddThreadError(null);
+        addThreadViewModel.firePropertyChanged("reset-success");
+
+        // update threads view model
+        threadsViewModel.getState().addThread(outputData.getThreadID(), outputData.getThreadName());
+        threadsViewModel.firePropertyChanged();
+        // TODO: on Monday, talk about changing the Thread state (are thread names unique?)
+
+        // switch back to the threads view
+        viewManagerModel.setState(threadsViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 
     @Override
     public void prepareFailView(String errorMessage)
     {
         final AddThreadState state = addThreadViewModel.getState();
+        state.setAddThreadSuccess(null);
         state.setAddThreadError(errorMessage);
         addThreadViewModel.firePropertyChanged();
     }

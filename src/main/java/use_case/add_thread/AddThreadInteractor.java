@@ -61,14 +61,15 @@ public class AddThreadInteractor implements AddThreadInputBoundary
         {
             Thread newThread = threadFactory.create(addThreadInputData.getThreadName(),
                     addThreadInputData.getUsernameList());
-
+            
             // TODO: code the save() function and add try-except block to catch server exceptions
             threadDataAccessObject.save(newThread);
 
-            AddThreadOutputData outputData = new AddThreadOutputData(newThread.getName());
-            addThreadPresenter.prepareSuccessView(outputData);
+            AddThreadOutputData outputData = new AddThreadOutputData(newThread.getName(), newThread.getThreadID());
+            // TODO: issue: the threadID would either have to be returned by DAO.save(), or the thread name is unique
+            addThreadPresenter.prepareSuccessView(outputData,
+                    "New thread '" + newThread.getName() + "' has been successfully created.");
         }
-
     }
 
     /**

@@ -248,7 +248,7 @@ public class AppBuilder
         application.add(cardPanel);
 
         // Set the initial view to the LoginView
-        viewManagerModel.setState(addThreadView.getViewName());
+        viewManagerModel.setState(threadsView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         // Make the window visible

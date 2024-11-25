@@ -141,7 +141,7 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
             private void documentListenerHelper()
             {
                 final AddThreadState currentState = addThreadViewModel.getState();
-                currentState.setUsersList(usernameListInputField.getText());
+                currentState.setUsernameList(usernameListInputField.getText());
                 addThreadViewModel.setState(currentState);
             }
 
@@ -183,7 +183,12 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
         {
             JOptionPane.showMessageDialog(this, state.getAddThreadError());
         }
-        // TODO: add the rest of the property change functionality here
+        if (evt.getPropertyName().equals("reset-success"))
+        {
+            JOptionPane.showMessageDialog(this, state.getAddThreadSuccess());
+            threadNameInputField.setText(state.getThreadName());
+            usernameListInputField.setText(state.getUsernameList());
+        }
     }
 
     public final String getViewName()
