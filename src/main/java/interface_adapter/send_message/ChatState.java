@@ -68,6 +68,7 @@ public class ChatState
 
     @Override
     public String toString()
+    // TODO: update or delete as required.
     {
         return "ChatState{"
                 + "messageInput='" + messageInput + '\''
