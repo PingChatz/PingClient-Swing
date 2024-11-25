@@ -100,4 +100,12 @@ public class PingBackend extends APICall
         return sendRequest("api/hello", "GET", null);
     }
 
+    /**
+     * This deletes the user's access token when the user logs out.
+     */
+    public void logout()
+    {
+
+        this.setAccessToken(null);
+    }
 }

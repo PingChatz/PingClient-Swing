@@ -56,4 +56,10 @@ public class UserDataAccessObject implements
     public void setCurrentUsername(String username)
     {
     }
+
+    @Override
+    public void logout()
+    {
+        this.backend.logout();
+    }
 }

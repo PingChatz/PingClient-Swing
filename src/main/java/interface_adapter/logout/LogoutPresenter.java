@@ -6,7 +6,6 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.threads.ThreadsState;
 import interface_adapter.threads.ThreadsViewModel;
 import use_case.logout.LogoutOutputBoundary;
-import use_case.logout.LogoutOutputData;
 
 /**
  * The Presenter for the Logout Use Case.
@@ -27,7 +26,7 @@ public class LogoutPresenter implements LogoutOutputBoundary
     }
 
     @Override
-    public void prepareSuccessView(LogoutOutputData response)
+    public void prepareSuccessView()
     {
         // 1. get the LoggedInState out of the appropriate View Model,
         final ThreadsState threadsState = threadsViewModel.getState();
