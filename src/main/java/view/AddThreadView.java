@@ -27,7 +27,7 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
     private AddThreadController addThreadController;
 
     private final JTextField threadNameInputField = new JTextField(15);
-    private final JTextField usersListInputField = new JTextField(15);
+    private final JTextField usernameListInputField = new JTextField(15);
     private final JButton addThread;
     private final JButton toThreads;
 
@@ -43,7 +43,7 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
         final LabelTextPanel threadNameInfo = new LabelTextPanel(
                 new JLabel(AddThreadViewModel.THREAD_NAME_LABEL), threadNameInputField);
         final LabelTextPanel usersListInfo = new LabelTextPanel(
-                new JLabel(AddThreadViewModel.USERS_LIST_LABEL), usersListInputField);
+                new JLabel(AddThreadViewModel.USERS_LIST_LABEL), usernameListInputField);
 
         // Initialize Buttons
         final JPanel buttons = new JPanel();
@@ -69,7 +69,9 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
                 {
                     public void actionPerformed(ActionEvent evt)
                     {
-                        // TODO: add use case functionality here.
+                        final AddThreadState currentState = addThreadViewModel.getState();
+                        addThreadController.execute(currentState.getThreadName(), currentState.getUsernameList());
+                        System.out.println("Add Thread Button Pressed");
                     }
                 }
         );
@@ -133,13 +135,13 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
      */
     private void usersListListener()
     {
-        usersListInputField.getDocument().addDocumentListener(new DocumentListener()
+        usernameListInputField.getDocument().addDocumentListener(new DocumentListener()
         {
 
             private void documentListenerHelper()
             {
                 final AddThreadState currentState = addThreadViewModel.getState();
-                currentState.setThreadName(usersListInputField.getText());
+                currentState.setThreadName(usernameListInputField.getText());
                 addThreadViewModel.setState(currentState);
             }
 

@@ -33,7 +33,9 @@ public class AddThreadPresenter implements AddThreadOutputBoundary
     @Override
     public void prepareFailView(String errorMessage)
     {
-        // TODO: implement exactly as the rest of the use cases
+        final AddThreadState state = addThreadViewModel.getState();
+        state.setAddThreadError(errorMessage);
+        addThreadViewModel.firePropertyChanged();
     }
 
     @Override

@@ -6,7 +6,7 @@ package interface_adapter.add_thread;
 public final class AddThreadState
 {
     private String threadName = "";
-    private String usersList = "";
+    private String usernameList = "";
     private String addThreadError;
 
     public String getThreadName()
@@ -19,9 +19,9 @@ public final class AddThreadState
         return addThreadError;
     }
 
-    public String getUsersList()
+    public String getUsernameList()
     {
-        return usersList;
+        return usernameList;
     }
 
     public void setThreadName(String threadName)
@@ -36,7 +36,7 @@ public final class AddThreadState
 
     public void setUsersList(String usersList)
     {
-        this.usersList = usersList;
+        this.usernameList = usersList;
     }
 
     @Override
@@ -44,7 +44,7 @@ public final class AddThreadState
     {
         return "AddThreadState{"
                 + "thread_name='" + threadName + '\''
-                + ", users_list='" + usersList + '\''
+                + ", users_list='" + usernameList + '\''
                 + '}';
     }
 }

@@ -3,13 +3,16 @@ package data_access;
 import java.util.List;
 
 import entity.Message;
+import entity.Thread;
+import use_case.add_thread.AddThreadThreadDataAccessInterface;
 import use_case.send_message.SendMessageThreadDataAccessInterface;
 
 /**
  * The DAO for thread data.
  */
 // TODO: implement this.
-public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterface
+public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterface,
+        AddThreadThreadDataAccessInterface
 {
     private final PingBackend backend;
 
@@ -41,5 +44,16 @@ public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterf
     public void updateMessageList(Message message)
     {
 
+    }
+
+    @Override
+    public boolean existsByName(String threadName)
+    {
+        return false;
+    }
+
+    @Override
+    public void save(Thread thread)
+    {
     }
 }

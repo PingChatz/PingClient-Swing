@@ -3,9 +3,8 @@ package interface_adapter.add_thread;
 import interface_adapter.ViewModel;
 
 /**
- * The ViewModel for the Signup View.
+ * The ViewModel for the Add Thread View.
  */
-// TODO: overwrite with our code
 public class AddThreadViewModel extends ViewModel<AddThreadState>
 {
 

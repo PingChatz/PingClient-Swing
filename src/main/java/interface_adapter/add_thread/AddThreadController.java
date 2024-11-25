@@ -1,6 +1,7 @@
 package interface_adapter.add_thread;
 
 import use_case.add_thread.AddThreadInputBoundary;
+import use_case.add_thread.AddThreadInputData;
 
 /**
  * Controller for the Add Thread Use Case.
@@ -16,10 +17,13 @@ public class AddThreadController
 
     /**
      * Executes the Add Thread use case.
+     * @param usernameList is a comma separated string of usernames
+     * @param threadName the name of the new thread.
      */
-    public void execute()
+    public void execute(String threadName, String usernameList)
     {
-        // TODO: create input data object and probe execute() in use case interactor
+        AddThreadInputData inputData = new AddThreadInputData(threadName, usernameList);
+        addThreadUseCaseInteractor.execute(inputData);
     }
 
     /**

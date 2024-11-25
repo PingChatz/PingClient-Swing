@@ -7,17 +7,17 @@ public final class AddThreadInputData
 {
 
     private final String threadName;
-    private final String usersList;
+    private final String usernameList;
 
-    public AddThreadInputData(String threadName, String userslist)
+    public AddThreadInputData(String threadName, String usernameList)
     {
         this.threadName = threadName;
-        this.usersList = userslist;
+        this.usernameList = usernameList;
     }
 
-    public String getUsersList()
+    public String getUsernameList()
     {
-        return usersList;
+        return usernameList;
     }
 
     public String getThreadName()

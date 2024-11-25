@@ -9,6 +9,7 @@ import data_access.PingBackend;
 import data_access.ThreadDataAccessObject;
 import data_access.UserDataAccessObject;
 import entity.MessageFactory;
+import entity.ThreadFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.add_thread.AddThreadController;
@@ -43,7 +44,6 @@ import view.*;
  * our CA architecture; piece by piece.
  * <p/>
  * This is done by adding each View and then adding related Use Cases.
- * TODO: overwrite with our code
  */
 public class AppBuilder
 {
@@ -52,7 +52,7 @@ public class AppBuilder
     private final CardLayout cardLayout = new CardLayout();
     private final UserFactory userFactory = new UserFactory();
     private final MessageFactory messageFactory = new MessageFactory();
-    // TODO: create ThreadFactory Entity and add them here.
+    private final ThreadFactory threadFactory = new ThreadFactory();
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
@@ -217,7 +217,8 @@ public class AppBuilder
         final AddThreadOutputBoundary addThreadOutputBoundary = new AddThreadPresenter(viewManagerModel,
                 addThreadViewModel, threadsViewModel);
         final AddThreadInputBoundary addThreadInteractor =
-                new AddThreadInteractor(addThreadOutputBoundary);
+                new AddThreadInteractor(userDataAccessObject, threadDataAccessObject, addThreadOutputBoundary,
+                        threadFactory);
 
         final AddThreadController controller = new AddThreadController(addThreadInteractor);
         addThreadView.setAddThreadController(controller);
