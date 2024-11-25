@@ -55,4 +55,12 @@ public class ThreadsState
     {
         this.threadHash.put(threadId, threadName);
     }
+
+    public void resetThreadState()
+    {
+        this.username = "";
+        this.password = "";
+        this.passwordError = "";
+        this.threadHash = new HashMap<>();
+    }
 }
