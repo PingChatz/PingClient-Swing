@@ -1,6 +1,7 @@
 package interface_adapter.send_message;
 
 import use_case.send_message.SendMessageInputBoundary;
+import use_case.send_message.SendMessageInputData;
 
 /**
  * Controller for the Send Message Use Case.
@@ -20,10 +21,13 @@ public class SendMessageController
 
     /**
      * Executes the "Send Message" Use Case.
+     * @param threadID the threadID of the thread the message is being sent within
+     * @param content the content of the message
      */
-    public void execute()
+    public void execute(String content, Long threadID)
     {
-        // TODO: implement this when building the Use Case.
+        final SendMessageInputData sendMessageInputData = new SendMessageInputData(content, threadID);
+        sendMessageUseCaseInteractor.execute(sendMessageInputData);
     }
 
     /**

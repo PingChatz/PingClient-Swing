@@ -1,7 +1,5 @@
 package use_case.send_message;
 
-import use_case.signup.SignupOutputData;
-
 /**
  * The output boundary for the Send Message Use Case.
  */
@@ -11,7 +9,7 @@ public interface SendMessageOutputBoundary
      * Prepares the success view for the Send Message Use Case.
      * @param outputData the output data
      */
-    void prepareSuccessView(SignupOutputData outputData);
+    void prepareSuccessView(SendMessageOutputData outputData);
 
     /**
      * Prepares the failure view for the Send Message Use Case.

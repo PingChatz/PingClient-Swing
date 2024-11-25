@@ -2,20 +2,21 @@ package entity;
 
 /**
  * The representation of a message in our program.
- * ToDo: Check class to abstract later
  */
 public class Message
 {
 
     private final Long threadID;
     private final Long senderID;
-    private final Object content;
+    private final String senderUsername;
+    private final String content;
 
-    public Message(Object content, Thread thread, User sender)
+    public Message(String content, Long threadID, Long senderID, String senderUsername)
     {
         this.content = content;
-        this.threadID = thread.getThreadID();
-        this.senderID = sender.getUserID();
+        this.threadID = threadID;
+        this.senderID = senderID;
+        this.senderUsername = senderUsername;
     }
 
     public final Long getSenderID()
@@ -28,8 +29,13 @@ public class Message
         return threadID;
     }
 
-    public final Object getContent()
+    public final String getContent()
     {
         return content;
+    }
+
+    public final String getSenderUsername()
+    {
+        return senderUsername;
     }
 }

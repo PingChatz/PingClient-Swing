@@ -73,6 +73,22 @@ public class ChatState
         return "ChatState{"
                 + "messageInput='" + messageInput + '\''
                 + ", allMessages='" + allMessages.toString() + '\''
+                + "currentThreadID='" + currentThreadID + '\''
+                + "currentThreadName='" + currentThreadName + '\''
                 + '}';
+    }
+
+    /**
+     * Adds a message to allMessages.
+     * @param username the sender of the message (always the current user)
+     * @param messageContent the message content
+     */
+    public void addMessage(String username, String messageContent)
+    {
+        String[] newMessageTuple = new String[2];
+        newMessageTuple[0] = username;
+        newMessageTuple[1] = messageContent;
+
+        this.allMessages.add(newMessageTuple);
     }
 }

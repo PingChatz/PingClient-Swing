@@ -8,6 +8,7 @@ import data_access.MessageDataAccessObject;
 import data_access.PingBackend;
 import data_access.ThreadDataAccessObject;
 import data_access.UserDataAccessObject;
+import entity.MessageFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
@@ -17,7 +18,12 @@ import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.send_message.SendMessageController;
 import interface_adapter.send_message.SendMessagePresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.threads.GetThreadsController;
+import interface_adapter.threads.GetThreadsPresenter;
 import interface_adapter.threads.ThreadsViewModel;
+import use_case.get_threads.GetThreadsInputBoundary;
+import use_case.get_threads.GetThreadsOutputBoundary;
+import use_case.get_threads.GetThreadsUseCaseInteractor;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
@@ -39,13 +45,11 @@ public class AppBuilder
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
     private final UserFactory userFactory = new UserFactory();
-    // TODO: create Thread/MessageFactory Entities and add them here.
+    private final MessageFactory messageFactory = new MessageFactory();
+    // TODO: create ThreadFactory Entity and add them here.
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    // TODO: only one user will be active per instance of the application, but there will probably be multiple
-    //  thread objects and message objects. Figure out if we need to store lists of DAOs corresponding to
-    //  each Thread and each Message. If so, figure out how we want to implement it.
     // Create the Backend instance
     PingBackend pingBackend = new PingBackend("http://localhost:8080/"); // ToDo: Change it to server url
     private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject(pingBackend);
@@ -129,8 +133,9 @@ public class AppBuilder
     {
         final SendMessageOutputBoundary sendMessageOutputBoundary = new SendMessagePresenter(viewManagerModel,
                 chatViewModel, threadsViewModel);
-        final SendMessageInputBoundary sendMessageInteractor = new SendMessageInteractor(
-                userDataAccessObject, messageDataAccessObject, threadDataAccessObject, sendMessageOutputBoundary);
+        final SendMessageInputBoundary sendMessageInteractor =
+                new SendMessageInteractor(userDataAccessObject, messageDataAccessObject, threadDataAccessObject,
+                                          messageFactory, sendMessageOutputBoundary);
 
         final SendMessageController controller = new SendMessageController(sendMessageInteractor);
         chatView.setSendMessageController(controller);
@@ -164,7 +169,24 @@ public class AppBuilder
         threadsView.setLogoutController(logoutController);
         return this;
     }
+    /**
+     * Adds the get threads Use Case to the application.
+     *
+     * @return this builder
+     */
+    public AppBuilder addGetThreadsUseCase()
+    {
+        final GetThreadsOutputBoundary getThreadsOutputBoundary = new GetThreadsPresenter(viewManagerModel,
+                chatViewModel, threadsViewModel);
 
+        final GetThreadsInputBoundary getThreadsInteractor =
+                new GetThreadsUseCaseInteractor(userDataAccessObject,
+                        messageDataAccessObject, threadDataAccessObject, getThreadsOutputBoundary);
+
+        final GetThreadsController getThreadsController = new GetThreadsController(getThreadsInteractor);
+        threadsView.setGetThreadsController(getThreadsController);
+        return this;
+    }
     // TODO: add the rest of the builder use cases here.
 
     /**
@@ -188,7 +210,7 @@ public class AppBuilder
         application.add(cardPanel);
 
         // Set the initial view to the LoginView
-        viewManagerModel.setState(chatView.getViewName());
+        viewManagerModel.setState(threadsView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         // Make the window visible
