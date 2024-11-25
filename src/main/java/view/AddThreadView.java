@@ -34,6 +34,7 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
     public AddThreadView(AddThreadViewModel addThreadViewModel)
     {
         this.addThreadViewModel = addThreadViewModel;
+        this.addThreadViewModel.addPropertyChangeListener(this);
 
         // Initialize the Page Title
         final JLabel title = new JLabel(AddThreadViewModel.TITLE_LABEL);
@@ -71,7 +72,6 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
                     {
                         final AddThreadState currentState = addThreadViewModel.getState();
                         addThreadController.execute(currentState.getThreadName(), currentState.getUsernameList());
-                        System.out.println("Add Thread Button Pressed");
                     }
                 }
         );
@@ -141,7 +141,7 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
             private void documentListenerHelper()
             {
                 final AddThreadState currentState = addThreadViewModel.getState();
-                currentState.setThreadName(usernameListInputField.getText());
+                currentState.setUsersList(usernameListInputField.getText());
                 addThreadViewModel.setState(currentState);
             }
 
@@ -177,6 +177,7 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
     @Override
     public void propertyChange(PropertyChangeEvent evt)
     {
+        // check for errors
         final AddThreadState state = (AddThreadState) evt.getNewValue();
         if (state.getAddThreadError() != null)
         {

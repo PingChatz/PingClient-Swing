@@ -1,6 +1,7 @@
 package use_case.add_thread;
 
 import entity.ThreadFactory;
+import entity.Thread;
 
 /**
  * The Add Thread Interactor.
@@ -8,8 +9,7 @@ import entity.ThreadFactory;
 public class AddThreadInteractor implements AddThreadInputBoundary
 {
     private static final int THREAD_NAME_MAX_LENGTH = 100;
-    // TODO: create the 2 necessary DAIs
-    // TODO: import the DAO for threads and users (message DAO not needed here)
+    private static final int THREAD_NAME_MIN_LENGTH = 3;
     private final AddThreadUserDataAccessInterface userDataAccessObject;
     private final AddThreadThreadDataAccessInterface threadDataAccessObject;
     private final ThreadFactory threadFactory;
@@ -29,15 +29,21 @@ public class AddThreadInteractor implements AddThreadInputBoundary
     @Override
     public void execute(AddThreadInputData addThreadInputData)
     {
-        // Check whether the thread name is empty or too long
+        // Check whether the thread name is empty, too long or too short
         if (addThreadInputData.getThreadName().isEmpty())
         {
             addThreadPresenter.prepareFailView("Thread name field is empty.");
         }
-        else if (addThreadInputData.getThreadName().length() >= THREAD_NAME_MAX_LENGTH)
+        else if (addThreadInputData.getThreadName().length() > THREAD_NAME_MAX_LENGTH)
         {
             addThreadPresenter.prepareFailView(
                     "Thread name is too long. Must be under " + THREAD_NAME_MAX_LENGTH + " characters.");
+        }
+        else if (addThreadInputData.getThreadName().length() <= THREAD_NAME_MIN_LENGTH)
+        {
+            addThreadPresenter.prepareFailView(
+                    "Thread name is too short. Must be at least "
+                            + THREAD_NAME_MIN_LENGTH + " characters.");
         }
 
         // Check whether the users list is empty or poorly formatted
@@ -46,23 +52,38 @@ public class AddThreadInteractor implements AddThreadInputBoundary
             addThreadPresenter.prepareFailView("List of Users is Empty");
         }
         // TODO: check with team that usernames can't have spaces in them
-        else if (!isCommaSeparated(addThreadInputData.getUsernameList()))
+        else if (!isCommaSeparatedNoSpaces(addThreadInputData.getUsernameList()))
         {
             addThreadPresenter.prepareFailView("List of users is poorly formatted. \n "
-                    + "(should be separated by commas and no spaces)");
+                    + "(should be separated by commas and contain no spaces)");
+        }
+        else
+        {
+            Thread newThread = threadFactory.create(addThreadInputData.getThreadName(),
+                    addThreadInputData.getUsernameList());
+
+            // TODO: code the save() function and add try-except block to catch server exceptions
+            threadDataAccessObject.save(newThread);
+
+            AddThreadOutputData outputData = new AddThreadOutputData(newThread.getName());
+            addThreadPresenter.prepareSuccessView(outputData);
         }
 
     }
 
     /**
      * Returns true if the given string is comma separated.
-     * @param usernameList string to check
+     * @param string string to check
      * @return true if usernameList is comma separated, false otherwise
      */
-    private boolean isCommaSeparated(String usernameList)
+    private boolean isCommaSeparatedNoSpaces(String string)
     {
-        // TODO: write this
-        return false;
+        if (string == null || string.isEmpty())
+        {
+            return false;
+        }
+        String regex = "([^, ]+,)*[^, ]+";
+        return string.matches(regex);
     }
 
     @Override

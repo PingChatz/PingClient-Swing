@@ -45,6 +45,7 @@ public final class AddThreadState
         return "AddThreadState{"
                 + "thread_name='" + threadName + '\''
                 + ", users_list='" + usernameList + '\''
+                + ", error='" + addThreadError + '\''
                 + '}';
     }
 }

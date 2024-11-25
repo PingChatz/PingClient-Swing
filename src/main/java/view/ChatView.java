@@ -80,7 +80,6 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                     public void actionPerformed(ActionEvent evt)
                     {
                         sendMessageController.switchToThreadsView();
-                        System.out.println("toThreads button pressed");
                     }
                 }
         );
