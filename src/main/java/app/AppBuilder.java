@@ -154,8 +154,8 @@ public class AppBuilder
         final SendMessageOutputBoundary sendMessageOutputBoundary = new SendMessagePresenter(viewManagerModel,
                 chatViewModel, threadsViewModel);
         final SendMessageInputBoundary sendMessageInteractor =
-                new SendMessageInteractor(userDataAccessObject, messageDataAccessObject, threadDataAccessObject,
-                                          messageFactory, sendMessageOutputBoundary);
+                new SendMessageInteractor(userDataAccessObject, messageDataAccessObject,
+                        messageFactory, sendMessageOutputBoundary);
 
         final SendMessageController controller = new SendMessageController(sendMessageInteractor);
         chatView.setSendMessageController(controller);
@@ -189,6 +189,7 @@ public class AppBuilder
         threadsView.setLogoutController(logoutController);
         return this;
     }
+
     /**
      * Adds the get threads Use Case to the application.
      *
@@ -248,7 +249,7 @@ public class AppBuilder
         application.add(cardPanel);
 
         // Set the initial view to the LoginView
-        viewManagerModel.setState(threadsView.getViewName());
+        viewManagerModel.setState(addThreadView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         // Make the window visible

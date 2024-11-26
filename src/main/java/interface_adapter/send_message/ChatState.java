@@ -14,6 +14,7 @@ public class ChatState
     private String sendMessageError;
     private String currentThreadName = "";
     private Long currentThreadID;
+    // TODO: change String[] to accept 3 parameters to include the timestamp once the project is more finalized.
     private List<String[]> allMessages = new ArrayList<>();
 
     public final String getMessageInput()
@@ -68,7 +69,6 @@ public class ChatState
 
     @Override
     public String toString()
-    // TODO: update or delete as required.
     {
         return "ChatState{"
                 + "messageInput='" + messageInput + '\''

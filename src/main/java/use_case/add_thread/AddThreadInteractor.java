@@ -59,16 +59,17 @@ public class AddThreadInteractor implements AddThreadInputBoundary
         }
         else
         {
-            Thread newThread = threadFactory.create(addThreadInputData.getThreadName(),
+            Thread threadToSave = threadFactory.create(addThreadInputData.getThreadName(),
                     addThreadInputData.getUsernameList());
             
             // TODO: code the save() function and add try-except block to catch server exceptions
-            threadDataAccessObject.save(newThread);
+            Thread threadToPresent = threadDataAccessObject.save(threadToSave);
 
-            AddThreadOutputData outputData = new AddThreadOutputData(newThread.getName(), newThread.getThreadID());
-            // TODO: issue: the threadID would either have to be returned by DAO.save(), or the thread name is unique
+            AddThreadOutputData outputData = new AddThreadOutputData(
+                    threadToPresent.getName(),
+                    threadToPresent.getThreadID());
             addThreadPresenter.prepareSuccessView(outputData,
-                    "New thread '" + newThread.getName() + "' has been successfully created.");
+                    "New thread '" + threadToPresent.getName() + "' has been successfully created.");
         }
     }
 
@@ -83,6 +84,7 @@ public class AddThreadInteractor implements AddThreadInputBoundary
         {
             return false;
         }
+        // TODO: change regex to be more selecting when more important things are done
         String regex = "([^, ]+,)*[^, ]+";
         return string.matches(regex);
     }

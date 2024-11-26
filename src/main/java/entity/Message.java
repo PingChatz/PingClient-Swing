@@ -5,28 +5,22 @@ package entity;
  */
 public class Message
 {
-
-    private final Long threadID;
-    private final Long senderID;
     private final String senderUsername;
     private final String content;
+    private final String timestamp;
 
-    public Message(String content, Long threadID, Long senderID, String senderUsername)
+    public Message(String content, String senderUsername)
     {
         this.content = content;
-        this.threadID = threadID;
-        this.senderID = senderID;
         this.senderUsername = senderUsername;
+        this.timestamp = null;
     }
 
-    public final Long getSenderID()
+    public Message(String content, String senderUsername, String timestamp)
     {
-        return senderID;
-    }
-
-    public final Long getThreadID()
-    {
-        return threadID;
+        this.content = content;
+        this.senderUsername = senderUsername;
+        this.timestamp = timestamp;
     }
 
     public final String getContent()
@@ -37,5 +31,10 @@ public class Message
     public final String getSenderUsername()
     {
         return senderUsername;
+    }
+
+    public final String getTimestamp()
+    {
+        return timestamp;
     }
 }

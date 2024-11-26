@@ -12,18 +12,28 @@ public class ThreadFactory
     /**
      * This method creates a new thread object.
      * @param name the name of the new thread
-     * @param usernameList comma separated string of usernames
+     * @param usernameListString comma separated string of usernames
      * @return a new Thread object
      */
-    // TODO: change the body when Thread Entity changes
-    public Thread create(String name, String usernameList)
+    public Thread create(String name, String usernameListString)
     {
-        // //////
-        User newUser = new User("", "", "");
-        List<User> mockList = new ArrayList<>();
-        mockList.add(newUser);
-        // /////
-        return new Thread(name, mockList);
+        List<String> usernameList = convertCommaSeparatedToList(usernameListString);
+        return new Thread(name, usernameList);
+    }
+
+    private List<String> convertCommaSeparatedToList(String usernameListString)
+    {
+        final List<String> result = new ArrayList<>();
+
+        if (usernameListString != null && !usernameListString.isEmpty())
+        {
+            String[] parts = usernameListString.split(",");
+            for (String part : parts)
+            {
+                result.add(part.trim());
+            }
+        }
+        return result;
     }
 
 }

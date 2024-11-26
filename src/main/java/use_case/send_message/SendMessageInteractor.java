@@ -14,7 +14,6 @@ public class SendMessageInteractor implements SendMessageInputBoundary
     // == INSTANCE VARIABLES ==
     private final SendMessageUserDataAccessInterface userDataAccessObject;
     private final SendMessageMessageDataAccessInterface messageDataAccessObject;
-    private final SendMessageThreadDataAccessInterface threadDataAccessObject;
 
     private final SendMessageOutputBoundary sendMessagePresenter;
     private final MessageFactory messageFactory;
@@ -22,14 +21,12 @@ public class SendMessageInteractor implements SendMessageInputBoundary
     // == CONSTRUCTOR ==
     public SendMessageInteractor(SendMessageUserDataAccessInterface userDataAccessObject,
                                  SendMessageMessageDataAccessInterface messageDataAccessObject,
-                                 SendMessageThreadDataAccessInterface threadDataAccessObject,
                                  MessageFactory messageFactory,
                                  SendMessageOutputBoundary sendMessagePresenter)
     {
         this.sendMessagePresenter = sendMessagePresenter;
         this.userDataAccessObject = userDataAccessObject;
         this.messageDataAccessObject = messageDataAccessObject;
-        this.threadDataAccessObject = threadDataAccessObject;
         this.messageFactory = messageFactory;
     }
 
@@ -51,19 +48,21 @@ public class SendMessageInteractor implements SendMessageInputBoundary
         else
         {
             // Create the message object to save
-            final Long senderID = userDataAccessObject.getCurrentUserID();
+            // TODO: add try-except block here to handle server error
             final String senderName = userDataAccessObject.getCurrentUsername();
-            final Message message = messageFactory.create(sendMessageInputData.getContent(),
-                                                          sendMessageInputData.getThreadID(),
-                                                          senderID, senderName);
+            final Message messageToSave = messageFactory.create(sendMessageInputData.getContent(), senderName);
 
             // Save the message object, raise exception is anything server-side fails.
             // TODO: add try-except block here to handle any exceptions raised by the server
-            messageDataAccessObject.save(message);
+            final Message messageToPresent = messageDataAccessObject.save(messageToSave,
+                    sendMessageInputData.getThreadID());
 
-            //  Prepare output data object and probe presenter.
+            // Prepare output data object and probe presenter.
             final SendMessageOutputData sendMessageOutputData =
-                    new SendMessageOutputData(message.getSenderUsername(), message.getContent(), false);
+                    new SendMessageOutputData(messageToPresent.getSenderUsername(),
+                            messageToPresent.getContent(),
+                            messageToPresent.getTimestamp(), false);
+
             sendMessagePresenter.prepareSuccessView(sendMessageOutputData);
         }
     }
