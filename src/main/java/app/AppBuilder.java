@@ -42,7 +42,7 @@ public class AppBuilder
     //  thread objects and message objects. Figure out if we need to store lists of DAOs corresponding to
     //  each Thread and each Message. If so, figure out how we want to implement it.
     // Create the Backend instance
-    PingBackend pingBackend = new PingBackend("http://localhost:8080/"); // ToDo: Change it to server url
+    PingBackend pingBackend = new PingBackend("http://pingserver-env.eba-u7hgzajj.ca-central-1.elasticbeanstalk.com/");
     private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject(pingBackend);
     private final ThreadDataAccessObject threadDataAccessObject = new ThreadDataAccessObject(pingBackend);
     private final MessageDataAccessObject messageDataAccessObject = new MessageDataAccessObject(pingBackend);
