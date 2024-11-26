@@ -3,7 +3,6 @@ package use_case.logout;
 /**
  * The Logout Interactor.
  */
-// TODO: overwrite with our code
 public class LogoutInteractor implements LogoutInputBoundary
 {
     private LogoutUserDataAccessInterface userDataAccessObject;
@@ -17,9 +16,8 @@ public class LogoutInteractor implements LogoutInputBoundary
     }
 
     @Override
-    public void execute(LogoutInputData logoutInputData)
+    public void execute()
     {
-        // TODO: implement the logic of the Logout Use Case (depends on the LogoutInputData.java TODO)
         // * set the username to null in the DAO;
         userDataAccessObject.logout();
         logoutPresenter.prepareSuccessView();
