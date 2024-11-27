@@ -93,14 +93,15 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
             {
                 public void actionPerformed(ActionEvent evt)
                 {
-                    // TODO: make sure that this use case updates the thread name and thread ID of the chat it visits
+                    // TODO: update "switch to chat view" use case so that it updates the chat state
+                    //  with the correct data
                     String threadName = buttonLabel.getLabelContent();
 
-                    for (Long threadIDs : threadsViewModel.getState().getThreadHash().keySet())
+                    for (Long threadID : threadsViewModel.getState().getThreadHash().keySet())
                     {
-                        if (threadsViewModel.getState().getThreadHash().get(threadIDs).equals(threadName))
+                        if (threadsViewModel.getState().getThreadHash().get(threadID).equals(threadName))
                         {
-                            getThreadsController.switchToChatView(threadIDs);
+                            getThreadsController.switchToChatView(threadID);
                             System.out.println("visiting the thread of " + threadName);
                         }
                     }
@@ -146,10 +147,6 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
         {
             final String[] updatedThreadNames = state.getThreadNamesList();
             threadsList.updateThreadPanel(updatedThreadNames);
-
-            // refresh UI after updating threadList
-            threadsList.revalidate();
-            threadsList.repaint();
         }
     }
 }

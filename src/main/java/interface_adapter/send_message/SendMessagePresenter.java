@@ -49,6 +49,14 @@ public final class SendMessagePresenter implements SendMessageOutputBoundary
     @Override
     public void switchToThreadsView()
     {
+        // set chat state's error message and text entry back to default
+        final ChatState chatState = chatViewModel.getState();
+        chatState.setSendMessageError(null);
+        chatState.setMessageInput("");
+        chatViewModel.firePropertyChanged();
+        // TODO: might need a full message update here
+
+        // switch the active state in the view manager
         viewManagerModel.setState(threadsViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

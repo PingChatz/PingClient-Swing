@@ -25,7 +25,8 @@ public class GetThreadsController
     }
 
     /**
-     * This switches the current view to the chat view(if the user presses a thread).
+     * This switches the current view to the chat view (if the user presses a thread).
+     * @param threadID the ID of the thread/chat to switch into
      */
     public void switchToChatView(Long threadID)
     {
