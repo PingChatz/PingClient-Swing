@@ -9,13 +9,10 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import interface_adapter.logout.LogoutController;
+import interface_adapter.send_message.ChatState;
 import interface_adapter.threads.GetThreadsController;
 import interface_adapter.threads.ThreadsState;
 import interface_adapter.threads.ThreadsViewModel;
@@ -25,7 +22,7 @@ import view.custom_panels.ThreadsPane;
 /**
  * The view for when the user is logged in and sees all of their message threads.
  */
-public class ThreadsView extends JPanel
+public class ThreadsView extends JPanel implements PropertyChangeListener
 {
 
     private final String viewName;
@@ -126,13 +123,27 @@ public class ThreadsView extends JPanel
         return viewName;
     }
 
-    public void setLogoutController(LogoutController logoutController)
+    public final void setLogoutController(LogoutController logoutController)
     {
         this.logoutController = logoutController;
     }
 
-    public void setGetThreadsController(GetThreadsController getThreadsController)
+    public final void setGetThreadsController(GetThreadsController getThreadsController)
     {
         this.getThreadsController = getThreadsController;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt)
+    {
+        // Listens changes in the state and update view accordingly
+        final ThreadsState state = (ThreadsState) evt.getNewValue();
+
+        // Update threads list (fired when add thread use case is successful)
+        if (evt.getPropertyName().equals("update-thread"))
+        {
+            // TODO: update the view with the new thread
+        }
+
     }
 }

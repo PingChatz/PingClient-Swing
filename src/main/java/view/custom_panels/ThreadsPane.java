@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
- * This creates a component jPanel which is a list of all of the threads and their buttons.
+ * This creates a component jPanel which is a list of all the threads and their buttons.
  */
 public class ThreadsPane extends JScrollPane
 {
@@ -31,8 +31,16 @@ public class ThreadsPane extends JScrollPane
 
     }
 
-    public ArrayList<ButtonLabelPanel> getButtonLabels()
+    public final ArrayList<ButtonLabelPanel> getButtonLabels()
     {
         return buttonLabels;
+    }
+
+    /**
+     * Updates this thread panel with new data when the threadHash in ThreadsState updates.
+     */
+    public void updateThreadPanel(String[] updatedThreads)
+    {
+        // TODO: create the logic that does this
     }
 }

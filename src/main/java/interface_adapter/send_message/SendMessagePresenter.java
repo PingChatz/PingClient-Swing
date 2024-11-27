@@ -32,7 +32,7 @@ public final class SendMessagePresenter implements SendMessageOutputBoundary
         final ChatState chatState = chatViewModel.getState();
         chatState.setMessageInput("");
         // TODO: add the timestamp once more progress has been completed on refresh use case
-        chatState.addMessage(outputData.getUsername(), outputData.getContent());
+        chatState.addMessage(outputData.getSenderUsername(), outputData.getContent());
         chatState.setSendMessageError(null);
         chatViewModel.firePropertyChanged("full_message_update");
     }

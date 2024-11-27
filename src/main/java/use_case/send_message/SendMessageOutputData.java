@@ -6,21 +6,21 @@ package use_case.send_message;
 public class SendMessageOutputData
 {
     private final String content;
-    private final String username;
+    private final String senderUsername;
     private final boolean useCaseFailed;
     private final String timestamp;
 
-    public SendMessageOutputData(String username, String content, String timestamp, boolean useCaseFailed)
+    public SendMessageOutputData(String senderUsername, String content, String timestamp, boolean useCaseFailed)
     {
-        this.username = username;
+        this.senderUsername = senderUsername;
         this.useCaseFailed = useCaseFailed;
         this.content = content;
         this.timestamp = timestamp;
     }
 
-    public final String getUsername()
+    public final String getSenderUsername()
     {
-        return username;
+        return senderUsername;
     }
 
     public final String getContent()
@@ -42,7 +42,7 @@ public class SendMessageOutputData
     public String toString()
     {
         return "OutputData{"
-                + "username='" + username + '\''
+                + "username='" + senderUsername + '\''
                 + ", content='" + content + '\''
                 + ", timestamp='" + content + '\''
                 + '}';
