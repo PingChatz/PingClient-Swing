@@ -91,10 +91,14 @@ public class ChatState
 
         this.allMessages.add(newMessageTuple);
     }
+
+    /**
+     * Resets the chat state, to be used on logout.
+     */
     public void resetChatState()
     {
         this.messageInput = "";
-        this.sendMessageError = "";
+        this.sendMessageError = null;
         this.currentThreadName = "";
         this.currentThreadID = null;
         this.allMessages = new ArrayList<>();

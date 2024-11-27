@@ -81,7 +81,7 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
                     {
                         if (evt.getSource().equals(logoutButton))
                         {
-                            logoutController.execute(threadsViewModel.getState().getCurrentUsername());
+                            logoutController.execute();
                         }
                     }
                 }

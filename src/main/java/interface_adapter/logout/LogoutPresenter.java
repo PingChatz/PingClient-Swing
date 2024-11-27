@@ -15,10 +15,10 @@ import use_case.logout.LogoutOutputBoundary;
 public class LogoutPresenter implements LogoutOutputBoundary
 {
 
-    private ViewManagerModel viewManagerModel;
-    private LoginViewModel loginViewModel;
-    private ThreadsViewModel threadsViewModel;
-    private ChatViewModel chatViewModel;
+    private final ViewManagerModel viewManagerModel;
+    private final LoginViewModel loginViewModel;
+    private final ThreadsViewModel threadsViewModel;
+    private final ChatViewModel chatViewModel;
 
     public LogoutPresenter(ViewManagerModel viewManagerModel,
                            LoginViewModel loginViewModel, ThreadsViewModel threadsViewModel, ChatViewModel chatViewModel)
@@ -48,12 +48,12 @@ public class LogoutPresenter implements LogoutOutputBoundary
         chatViewModel.firePropertyChanged();
 
         // 5. get the LoginState out of the appropriate View Model,
-        final LoginState logoutState = loginViewModel.getState();
+        final LoginState loginState = loginViewModel.getState();
         // 6. set the username and password in the state to the empty string
-        logoutState.setUsername("");
-        logoutState.setPassword("");
+        loginState.setUsername("");
+        loginState.setPassword("");
         // 7. set the state in the LoginViewModel to the updated state
-        loginViewModel.setState(logoutState);
+        loginViewModel.setState(loginState);
         // 8. firePropertyChanged so that the View that is listening is updated.
         loginViewModel.firePropertyChanged();
 
@@ -66,6 +66,5 @@ public class LogoutPresenter implements LogoutOutputBoundary
     public void prepareFailView(String error)
     {
         // No need to add code here. We'll assume that logout can't fail.
-        // Thought question: is this a reasonable assumption?
     }
 }
