@@ -3,6 +3,8 @@ package interface_adapter.logout;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.send_message.ChatState;
+import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.threads.ThreadsState;
 import interface_adapter.threads.ThreadsViewModel;
 import use_case.logout.LogoutOutputBoundary;
@@ -16,13 +18,15 @@ public class LogoutPresenter implements LogoutOutputBoundary
     private ViewManagerModel viewManagerModel;
     private LoginViewModel loginViewModel;
     private ThreadsViewModel threadsViewModel;
+    private ChatViewModel chatViewModel;
 
     public LogoutPresenter(ViewManagerModel viewManagerModel,
-                           LoginViewModel loginViewModel, ThreadsViewModel threadsViewModel)
+                           LoginViewModel loginViewModel, ThreadsViewModel threadsViewModel, ChatViewModel chatViewModel)
     {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
         this.threadsViewModel = threadsViewModel;
+        this.chatViewModel = chatViewModel;
     }
 
     @Override
@@ -36,6 +40,12 @@ public class LogoutPresenter implements LogoutOutputBoundary
         threadsViewModel.setState(threadsState);
         // 4. firePropertyChanged so that the View that is listening is updated.
         threadsViewModel.firePropertyChanged();
+
+        // delete the information in the chat state
+        final ChatState chatState = chatViewModel.getState();
+        chatState.resetChatState();
+        chatViewModel.setState(chatState);
+        chatViewModel.firePropertyChanged();
 
         // 5. get the LoginState out of the appropriate View Model,
         final LoginState logoutState = loginViewModel.getState();

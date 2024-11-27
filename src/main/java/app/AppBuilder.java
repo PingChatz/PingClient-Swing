@@ -180,7 +180,7 @@ public class AppBuilder
     public AppBuilder addLogoutUseCase()
     {
         final LogoutOutputBoundary logoutOutputBoundary = new LogoutPresenter(viewManagerModel,
-                loginViewModel, threadsViewModel);
+                loginViewModel, threadsViewModel, chatViewModel);
 
         final LogoutInputBoundary logoutInteractor =
                 new LogoutInteractor(userDataAccessObject, logoutOutputBoundary);
