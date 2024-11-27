@@ -5,6 +5,8 @@ package entity;
  */
 public class Message
 {
+    public static final int MESSAGE_MAX_LENGTH = 280;
+
     private final String senderUsername;
     private final String content;
     private final String timestamp;

@@ -6,6 +6,7 @@ import data_access.ThreadDataAccessObject;
 import data_access.UserDataAccessObject;
 import entity.*;
 import entity.Thread;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,25 +42,32 @@ public class SendMessageInteractorTest
         SendMessageInputData inputData = new SendMessageInputData(
                 "Hello! This is a test message.", testThreadID);
 
-        // create test Message object
+        // create test Message object (sent by testUser) and save it in the database
         MessageFactory messageFactory = new MessageFactory();
-        Message testMessage = messageFactory.create(inputData.getContent(), inputData.getThreadID());
+        Message testMessage = messageFactory.create(inputData.getContent(), testUser.getUsername());
+        messageDAO.save(testMessage, inputData.getThreadID());
+
+        // TODO: create mock output data
 
         // This creates a custom successPresenter that tests whether the test case is as we expect.
-        SendMessageOutputBoundary successPresenter = new SendMessageOutputBoundary() {
+        SendMessageOutputBoundary successPresenter = new SendMessageOutputBoundary()
+        {
             @Override
-            public void prepareSuccessView(SendMessageOutputData outputData) {
+            public void prepareSuccessView(SendMessageOutputData outputData)
+            {
                 // check that the output data contains the username
                 assertEquals("TestBill", outputData.getSenderUsername());
             }
 
             @Override
-            public void prepareFailView(String error) {
+            public void prepareFailView(String error)
+            {
                 fail("Use case failure is unexpected.");
             }
 
             @Override
-            public void switchToThreadsView() {
+            public void switchToThreadsView()
+            {
                 fail("Use case failure is unexpected.");
             }
         };
@@ -71,4 +79,3 @@ public class SendMessageInteractorTest
     }
 }
 
-}

@@ -103,7 +103,11 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         this.add(title);
         this.add(messageDisplay);
         this.add(bottom);
-        this.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
+        this.setBorder(BorderFactory.createEmptyBorder(
+                ChatViewModel.BORDER_DIMENSIONS,
+                ChatViewModel.BORDER_DIMENSIONS,
+                ChatViewModel.BORDER_DIMENSIONS,
+                ChatViewModel.BORDER_DIMENSIONS));
     }
 
     /**
@@ -176,9 +180,6 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         // Update entire UI (only use this in prepareSuccessView() methods for use cases that act on the ChatView)
         if (evt.getPropertyName().equals("full_message_update"))
         {
-            // TODO: send message data no longer updates visually,
-            //  because the output data is gotten directly from the server.
-            //  When server is up, make sure it still updates
             messageInputField.setText(state.getMessageInput());
             messageDisplay.updateMessagePanels(getMessagePanels());
         }

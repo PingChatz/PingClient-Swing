@@ -8,6 +8,8 @@ import java.util.List;
  */
 public class Thread
 {
+    public static final int THREAD_NAME_MAX_LENGTH = 100;
+    public static final int THREAD_NAME_MIN_LENGTH = 3;
 
     private final Long threadID;
     private String name;
@@ -50,6 +52,11 @@ public class Thread
     public final Long getThreadID()
     {
         return this.threadID;
+    }
+
+    public final List<Message> getMessageList()
+    {
+        return messageList;
     }
 }
 

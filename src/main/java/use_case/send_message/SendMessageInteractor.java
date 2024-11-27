@@ -8,17 +8,13 @@ import entity.MessageFactory;
  */
 public class SendMessageInteractor implements SendMessageInputBoundary
 {
-    // == CONSTANTS ==
-    private static final int MESSAGE_MAX_LENGTH = 280;
 
-    // == INSTANCE VARIABLES ==
     private final SendMessageUserDataAccessInterface userDataAccessObject;
     private final SendMessageMessageDataAccessInterface messageDataAccessObject;
 
     private final SendMessageOutputBoundary sendMessagePresenter;
     private final MessageFactory messageFactory;
 
-    // == CONSTRUCTOR ==
     public SendMessageInteractor(SendMessageUserDataAccessInterface userDataAccessObject,
                                  SendMessageMessageDataAccessInterface messageDataAccessObject,
                                  MessageFactory messageFactory,
@@ -30,7 +26,6 @@ public class SendMessageInteractor implements SendMessageInputBoundary
         this.messageFactory = messageFactory;
     }
 
-    // == USE CASE METHODS ==
     @Override
     public void execute(SendMessageInputData sendMessageInputData)
     {
@@ -39,10 +34,10 @@ public class SendMessageInteractor implements SendMessageInputBoundary
         {
             sendMessagePresenter.prepareFailView("Message field is empty.");
         }
-        else if (sendMessageInputData.getContent().length() >= MESSAGE_MAX_LENGTH)
+        else if (sendMessageInputData.getContent().length() >= Message.MESSAGE_MAX_LENGTH)
         {
             sendMessagePresenter.prepareFailView(
-                    "Message is too long. Must be under " + MESSAGE_MAX_LENGTH + " characters.");
+                    "Message is too long. Must be under " + Message.MESSAGE_MAX_LENGTH + " characters.");
         }
         // Otherwise, create Message object and save it to the database
         else
@@ -62,9 +57,22 @@ public class SendMessageInteractor implements SendMessageInputBoundary
                     new SendMessageOutputData(messageToPresent.getSenderUsername(),
                             messageToPresent.getContent(),
                             messageToPresent.getTimestamp(), false);
+            // TODO: replace timestamp parameter with formatted timestamp
 
             sendMessagePresenter.prepareSuccessView(sendMessageOutputData);
         }
+    }
+
+    // TODO: determine if you want to move this formatting logic to the message DAO
+    /**
+     * Returns a human-readable timestamp.
+     * @param rawTimestamp the String outputted by the server
+     * @return a human-readable timestamp in string format
+     */
+    private String convertTimestamp(String rawTimestamp)
+    {
+        // TODO: code this
+        return "not implemented";
     }
 
     @Override

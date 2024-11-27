@@ -36,8 +36,7 @@ public class AddThreadPresenter implements AddThreadOutputBoundary
 
         // update threads view model
         threadsViewModel.getState().addThread(outputData.getThreadID(), outputData.getThreadName());
-        // TODO: make sure the threadsViewModel properly changes it's state and view
-        threadsViewModel.firePropertyChanged("update-thread");
+        threadsViewModel.firePropertyChanged("update-thread-list");
 
         // switch back to the threads view
         viewManagerModel.setState(threadsViewModel.getViewName());
