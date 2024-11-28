@@ -1,15 +1,13 @@
 package use_case.add_thread;
 
-import entity.ThreadFactory;
 import entity.Thread;
+import entity.ThreadFactory;
 
 /**
  * The Add Thread Interactor.
  */
 public class AddThreadInteractor implements AddThreadInputBoundary
 {
-    private static final int THREAD_NAME_MAX_LENGTH = 100;
-    private static final int THREAD_NAME_MIN_LENGTH = 3;
     private final AddThreadUserDataAccessInterface userDataAccessObject;
     private final AddThreadThreadDataAccessInterface threadDataAccessObject;
     private final ThreadFactory threadFactory;
@@ -34,16 +32,17 @@ public class AddThreadInteractor implements AddThreadInputBoundary
         {
             addThreadPresenter.prepareFailView("Thread name field is empty.");
         }
-        else if (addThreadInputData.getThreadName().length() > THREAD_NAME_MAX_LENGTH)
+        else if (addThreadInputData.getThreadName().length() > Thread.THREAD_NAME_MAX_LENGTH)
         {
             addThreadPresenter.prepareFailView(
-                    "Thread name is too long. Must be under " + THREAD_NAME_MAX_LENGTH + " characters.");
+                    "Thread name is too long. Must be under "
+                            + Thread.THREAD_NAME_MAX_LENGTH + " characters.");
         }
-        else if (addThreadInputData.getThreadName().length() <= THREAD_NAME_MIN_LENGTH)
+        else if (addThreadInputData.getThreadName().length() <= Thread.THREAD_NAME_MIN_LENGTH)
         {
             addThreadPresenter.prepareFailView(
                     "Thread name is too short. Must be at least "
-                            + THREAD_NAME_MIN_LENGTH + " characters.");
+                            + Thread.THREAD_NAME_MIN_LENGTH + " characters.");
         }
 
         // Check whether the users list is empty or poorly formatted
@@ -51,7 +50,6 @@ public class AddThreadInteractor implements AddThreadInputBoundary
         {
             addThreadPresenter.prepareFailView("List of Users is Empty");
         }
-        // TODO: check with team that usernames can't have spaces in them
         else if (!isCommaSeparatedNoSpaces(addThreadInputData.getUsernameList()))
         {
             addThreadPresenter.prepareFailView("List of users is poorly formatted. \n "
@@ -59,16 +57,23 @@ public class AddThreadInteractor implements AddThreadInputBoundary
         }
         else
         {
-            Thread newThread = threadFactory.create(addThreadInputData.getThreadName(),
-                    addThreadInputData.getUsernameList());
-            
-            // TODO: code the save() function and add try-except block to catch server exceptions
-            threadDataAccessObject.save(newThread);
+            // complete the username list with the current user's username.
+            // TODO: code the getCurrentUsername() function and add try-except block to catch server exceptions
+            final String fullUserList = createFullUserList(
+                    addThreadInputData.getUsernameList(),
+                    userDataAccessObject.getCurrentUsername());
 
-            AddThreadOutputData outputData = new AddThreadOutputData(newThread.getName(), newThread.getThreadID());
-            // TODO: issue: the threadID would either have to be returned by DAO.save(), or the thread name is unique
+            // create thread object and save it to the server
+            Thread threadToSave = threadFactory.create(addThreadInputData.getThreadName(), fullUserList);
+            // TODO: code the save() function and add try-except block to catch server exceptions
+            Thread threadToPresent = threadDataAccessObject.save(threadToSave);
+
+            // create output data and fire presenter
+            AddThreadOutputData outputData = new AddThreadOutputData(
+                    threadToPresent.getName(),
+                    threadToPresent.getThreadID());
             addThreadPresenter.prepareSuccessView(outputData,
-                    "New thread '" + newThread.getName() + "' has been successfully created.");
+                    "New thread '" + threadToPresent.getName() + "' has been successfully created.");
         }
     }
 
@@ -83,8 +88,20 @@ public class AddThreadInteractor implements AddThreadInputBoundary
         {
             return false;
         }
+        // TODO: change regex to be more selecting when more important things are done
         String regex = "([^, ]+,)*[^, ]+";
         return string.matches(regex);
+    }
+
+    /**
+     * Returns the full list of users in the thread.
+     * @param userList the list of users from the input data
+     * @param currentUsername the username of the current user
+     * @return a concatenation of the two that follows the regex
+     */
+    private String createFullUserList(String userList, String currentUsername)
+    {
+        return userList + "," + currentUsername;
     }
 
     @Override

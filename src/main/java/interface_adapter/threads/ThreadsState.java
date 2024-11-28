@@ -10,40 +10,47 @@ import java.util.Map;
 public class ThreadsState
 {
 
-    private String username = "";
-
-    // Not sure if hashmap is the right data type
+    private String currentUsername = "";
     private Map<Long, String> threadHash = new HashMap<>();
-    private String password = "";
-    private String passwordError;
 
     public ThreadsState(ThreadsState copy)
     {
-        username = copy.username;
-        password = copy.password;
-        passwordError = copy.passwordError;
+        currentUsername = copy.currentUsername;
         threadHash = copy.threadHash;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
     public ThreadsState()
     {
-
     }
 
-    public final String getUsername()
+    public final String getCurrentUsername()
     {
-        return username;
+        return currentUsername;
     }
 
-    public final void setUsername(String username)
+    public final void setCurrentUsername(String currentUsername)
     {
-        this.username = username;
+        this.currentUsername = currentUsername;
     }
 
     public final Map<Long, String> getThreadHash()
     {
         return threadHash;
+    }
+
+    public final void setThreadHash(Map<Long, String> threadHash)
+    {
+        this.threadHash = threadHash;
+    }
+
+    /**
+     * Returns an array of thread names from threadHash.
+     * @return an array of thread names
+     */
+    public final String[] getThreadNamesList()
+    {
+        return threadHash.values().toArray(new String[0]);
     }
 
     /**
@@ -54,13 +61,5 @@ public class ThreadsState
     public final void addThread(Long threadId, String threadName)
     {
         this.threadHash.put(threadId, threadName);
-    }
-
-    public void resetThreadState()
-    {
-        this.username = "";
-        this.password = "";
-        this.passwordError = "";
-        this.threadHash = new HashMap<>();
     }
 }

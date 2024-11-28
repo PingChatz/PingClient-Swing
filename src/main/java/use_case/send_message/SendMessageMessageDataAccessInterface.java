@@ -2,18 +2,16 @@ package use_case.send_message;
 
 import entity.Message;
 
-import java.util.List;
-
 /**
  * DAO for the Send Message Use Case ; for the Message.
- * Contains all necessary methods to gather / change the data from / for the message that's being sent.
  */
-// TODO: figure out what data we need for the entire send message use case from the Thread.
 public interface SendMessageMessageDataAccessInterface
 {
     /**
-     * Saves the sent message.
+     * Saves the sent message and returns a message object with a timestamp from the server.
      * @param message the sent message to save
+     * @param threadID the ID of the thread to save the message within
+     * @return a representation of the new message that was created
      */
-    void save(Message message);
+    Message save(Message message, Long threadID);
 }

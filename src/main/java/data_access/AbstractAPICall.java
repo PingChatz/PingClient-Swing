@@ -1,6 +1,5 @@
 package data_access;
 
-import java.net.HttpURLConnection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -9,12 +8,15 @@ import java.net.URL;
 
 import org.json.JSONObject;
 
-public abstract class APICall
+/**
+ * Abstract class containing the logic to make API calls.
+ */
+public abstract class AbstractAPICall
 {
-    private String accessToken = null;
+    private String accessToken;
     private String serverURL = "http://pingserver-env.eba-u7hgzajj.ca-central-1.elasticbeanstalk.com/";
 
-    public APICall(String serverURL)
+    public AbstractAPICall(String serverURL)
     {
         if (serverURL != null)
         {
@@ -22,6 +24,14 @@ public abstract class APICall
         }
     }
 
+    /**
+     * Logic to send a request to the server.
+     * @param endpoint [description here]
+     * @param method [description here]
+     * @param body [description here]
+     * @return [description here]
+     * @throws Exception if the API call goes wrong
+     */
     public String sendRequest(String endpoint, String method, JSONObject body) throws Exception
     {
         URL url = new URL(serverURL + endpoint);
@@ -61,12 +71,12 @@ public abstract class APICall
         return response.toString();
     }
 
-    public String getAccessToken()
+    public final String getAccessToken()
     {
         return accessToken;
     }
 
-    public void setAccessToken(String accessToken)
+    public final void setAccessToken(String accessToken)
     {
         this.accessToken = accessToken;
     }

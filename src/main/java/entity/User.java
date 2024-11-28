@@ -5,19 +5,22 @@ package entity;
  */
 public class User
 {
-
-    private final Long userID = null;
     private final String username;
-    private final String passwordHash = null;
     private final String email;
-    // TODO: when below TODOs have been solved, remove 'null'
+    private final String password;
 
     public User(String username, String password, String email)
     {
-        // TODO: generate a unique userID and a userAddress
-        // TODO: hash <password> and save it locally in the "passwordHash" instance variable
         this.username = username;
         this.email = email;
+        this.password = password;
+    }
+
+    public User(String username)
+    {
+        this.username = username;
+        this.email = null;
+        this.password = null;
     }
 
     public final String getEmail()
@@ -30,13 +33,8 @@ public class User
         return this.username;
     }
 
-    public final Long getUserID()
+    public final String getPassword()
     {
-        return this.userID;
-    }
-
-    public final String getPasswordHash()
-    {
-        return this.passwordHash;
+        return password;
     }
 }
