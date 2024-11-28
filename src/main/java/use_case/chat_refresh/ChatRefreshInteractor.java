@@ -1,7 +1,7 @@
 package use_case.chat_refresh;
 import data_access.ThreadDataAccessObject;
 import entity.Message;
-import interface_adapter.chat_refresh.ChatrefreshPresenter;
+import interface_adapter.chat_refresh.ChatRefreshPresenter;
 import interface_adapter.send_message.ChatState;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginUserDataAccessInterface;
@@ -14,8 +14,8 @@ import java.util.List;
         private final ThreadDataAccessObject threadDataAccessObject;
         //private final ChatRefreshOutputBoundary ChatRefreshPresenter;
 
-        private final ChatrefreshPresenter chatRefreshPresenter;
-        public ChatRefreshInteractor(data_access.ThreadDataAccessObject threadDataAccessObject, ChatrefreshPresenter chatRefreshPresenter) {
+        private final ChatRefreshPresenter chatRefreshPresenter;
+        public ChatRefreshInteractor(data_access.ThreadDataAccessObject threadDataAccessObject, ChatRefreshPresenter chatRefreshPresenter) {
             this.threadDataAccessObject = threadDataAccessObject;
 
             this.chatRefreshPresenter = chatRefreshPresenter;
