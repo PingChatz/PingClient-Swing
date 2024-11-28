@@ -1,4 +1,42 @@
 package use_case.chat_refresh;
+import data_access.ThreadDataAccessObject;
+import entity.Message;
+import interface_adapter.chat_refresh.ChatrefreshPresenter;
+import interface_adapter.send_message.ChatState;
+import use_case.login.LoginOutputBoundary;
+import use_case.login.LoginUserDataAccessInterface;
 
-public class ChatRefreshInteractor {
+import java.util.ArrayList;
+import java.util.List;
+
+    public class ChatRefreshInteractor implements ChatRefreshInputBoundary {
+        //intsance variables
+        private final ThreadDataAccessObject threadDataAccessObject;
+        //private final ChatRefreshOutputBoundary ChatRefreshPresenter;
+
+        private final ChatrefreshPresenter chatRefreshPresenter;
+        public ChatRefreshInteractor(data_access.ThreadDataAccessObject threadDataAccessObject, ChatrefreshPresenter chatRefreshPresenter) {
+            this.threadDataAccessObject = threadDataAccessObject;
+
+            this.chatRefreshPresenter = chatRefreshPresenter;
+        }
+
+        // == USE CASE METHODS ==
+        @Override
+        public void execute() {
+            // updates chat message
+            final List<Message> messageList = threadDataAccessObject.getMessageList();
+
+            List<String[]> messages = new ArrayList<>();
+            for (Message message : messageList) {
+                String[] lst = {message.getContent().toString(), message.getSenderID().toString()};
+                messages.add(lst);
+
+            }
+
+            final ChatRefreshOutputData chatRefreshOutputData = new ChatRefreshOutputData(messages);
+            this.chatRefreshPresenter.prepareSucessView(chatRefreshOutputData);
+
+
+        }
 }
