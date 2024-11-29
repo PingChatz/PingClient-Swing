@@ -197,7 +197,7 @@ public class AppBuilder
     public AppBuilder addGetThreadsUseCase()
     {
         final GetThreadsOutputBoundary getThreadsOutputBoundary = new GetThreadsPresenter(viewManagerModel,
-                chatViewModel, threadsViewModel);
+                chatViewModel, threadsViewModel, addThreadViewModel);
 
         final GetThreadsInputBoundary getThreadsInteractor =
                 new GetThreadsUseCaseInteractor(userDataAccessObject,
@@ -205,6 +205,7 @@ public class AppBuilder
 
         final GetThreadsController getThreadsController = new GetThreadsController(getThreadsInteractor);
         threadsView.setGetThreadsController(getThreadsController);
+
         return this;
     }
 

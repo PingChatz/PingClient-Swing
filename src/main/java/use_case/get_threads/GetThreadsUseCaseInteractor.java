@@ -48,4 +48,10 @@ public class GetThreadsUseCaseInteractor implements GetThreadsInputBoundary
     {
         this.getThreadsPresenter.switchToChatView(threadID);
     }
+
+    @Override
+    public void switchToAddThreadView()
+    {
+        getThreadsPresenter.switchToAddThreadView();
+    }
 }

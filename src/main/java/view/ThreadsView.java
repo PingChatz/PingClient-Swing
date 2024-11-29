@@ -33,6 +33,7 @@ public class ThreadsView extends JPanel
 
     private final JButton refreshButton;
     private final JButton logoutButton;
+    private final JButton addThreadButton;
     private final ThreadsPane threadsList;
 
     private GetThreadsController getThreadsController;
@@ -48,15 +49,15 @@ public class ThreadsView extends JPanel
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font("Arial", Font.BOLD, ThreadsViewModel.TITLE_FONT_SIZE));
 
-        // Initialize the two buttons
+        // Initialize the three buttons
         refreshButton = new JButton(ThreadsViewModel.REFRESH_LABEL);
         logoutButton = new JButton(ThreadsViewModel.LOGOUT_LABEL);
+        addThreadButton = new JButton(ThreadsViewModel.ADDTHREAD_LABEL);
 
         // initialise the list of threads
-        final String[] threads = {"Benj", "Ali"};
         threadsViewModel.getState().addThread(1L, "Benj");
         threadsViewModel.getState().addThread(2L, "Ali");
-
+        String[] threads = threadsViewModel.getState().getThreadHash().values().toArray(new String[3]);
         // TODO replace threads with the actual threads of the user (use case)
         threadsList = new ThreadsPane(threads);
         threadsList.setPreferredSize(new Dimension(ThreadsViewModel.THREADSLIST_WIDTH,
@@ -87,14 +88,25 @@ public class ThreadsView extends JPanel
                     }
                 }
         );
-        // Add an actionlistener for each view buttom in the threads views
+        addThreadButton.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent evt)
+                    {
+                        if (evt.getSource().equals(addThreadButton))
+                        {
+                            getThreadsController.switchToAddThreadView();
+                        }
+                    }
+                }
+        );
+        // Add an actionlistener for each view button in the threads views
         for (ButtonLabelPanel buttonLabel: threadsList.getButtonLabels())
         {
             buttonLabel.setActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent evt)
                 {
-                    // TODO change to message view for the given message (use case)
                     String threadName = buttonLabel.getLabelContent();
 
                     for (Long threadIDS : threadsViewModel.getState().getThreadHash().keySet())
@@ -114,6 +126,7 @@ public class ThreadsView extends JPanel
                 ThreadsViewModel.TOP_PANEL_LAYOUT_COLUMNS, 0, 0));
         topPanel.add(refreshButton);
         topPanel.add(logoutButton);
+        topPanel.add(addThreadButton);
         this.add(topPanel);
         this.add(titleLabel);
         this.add(threadsList);
@@ -135,4 +148,5 @@ public class ThreadsView extends JPanel
     {
         this.getThreadsController = getThreadsController;
     }
+
 }

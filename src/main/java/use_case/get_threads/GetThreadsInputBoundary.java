@@ -5,4 +5,6 @@ public interface GetThreadsInputBoundary {
     void execute();
 
     void switchToChatView(Long threadID);
+
+    void switchToAddThreadView();
 }

@@ -31,4 +31,9 @@ public class GetThreadsController
     {
         this.getThreadsUseCaseInteractor.switchToChatView(threadID);
     }
+
+    public void switchToAddThreadView()
+    {
+        this.getThreadsUseCaseInteractor.switchToAddThreadView();
+    }
 }
