@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -25,7 +27,7 @@ import view.custom_panels.ThreadsPane;
 /**
  * The view for when the user is logged in and sees all of their message threads.
  */
-public class ThreadsView extends JPanel
+public class ThreadsView extends JPanel implements PropertyChangeListener
 {
 
     private final String viewName;
@@ -57,7 +59,7 @@ public class ThreadsView extends JPanel
         // initialise the list of threads
         threadsViewModel.getState().addThread(1L, "Benj");
         threadsViewModel.getState().addThread(2L, "Ali");
-        String[] threads = threadsViewModel.getState().getThreadHash().values().toArray(new String[3]);
+        String[] threads = threadsViewModel.getState().getThreadHash().values().toArray(new String[2]);
         // TODO replace threads with the actual threads of the user (use case)
         threadsList = new ThreadsPane(threads);
         threadsList.setPreferredSize(new Dimension(ThreadsViewModel.THREADSLIST_WIDTH,
@@ -149,4 +151,30 @@ public class ThreadsView extends JPanel
         this.getThreadsController = getThreadsController;
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt)
+    {
+        System.out.println("adding thread");
+        ThreadsState threadState = (ThreadsState) evt.getNewValue();
+        //find the new thread added
+        String newThread = null;
+        List<String> previousThreads = new ArrayList<String>();
+        for (ButtonLabelPanel buttonLabel: threadsList.getButtonLabels())
+        {
+            previousThreads.add(buttonLabel.getLabelContent());
+        }
+        for (Long threadID : threadState.getThreadHash().keySet())
+        {
+            if (previousThreads.contains(threadState.getThreadHash().get(threadID)))
+            {
+                newThread = threadState.getThreadHash().get(threadID);
+            }
+        }
+        if (newThread != null)
+        {
+            System.out.println(newThread);
+            this.threadsList.addThread(newThread);
+
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package view.custom_panels;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -14,10 +15,11 @@ public class ThreadsPane extends JScrollPane
 {
 
     private ArrayList<ButtonLabelPanel> buttonLabels = new ArrayList<ButtonLabelPanel>();
+    private JPanel listPanel ;
 
     public ThreadsPane(String[] threads)
     {
-        JPanel listPanel = new JPanel();
+        this.listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
         for (String thread : threads)
         {
@@ -34,5 +36,17 @@ public class ThreadsPane extends JScrollPane
     public ArrayList<ButtonLabelPanel> getButtonLabels()
     {
         return buttonLabels;
+    }
+
+    public void addThread(String thread)
+    {
+        ButtonLabelPanel newPanel = new ButtonLabelPanel(new JLabel(thread));
+        this.buttonLabels.add(newPanel);
+        listPanel.add(newPanel);
+        this.setViewportView(listPanel);
+        this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        listPanel.revalidate();
+        listPanel.repaint();
     }
 }
