@@ -7,11 +7,9 @@ package use_case.add_thread;
 public interface AddThreadUserDataAccessInterface
 {
     /**
-     * Checks if the given username  exists.
-     *
-     * @param threadName the username to look for
-     * @return true if a user with the given username exists; false otherwise
+     * Returns the current user's username.
+     * @return the current user's username
      */
-    boolean existsByName(String threadName);
+    String getCurrentUsername();
 }
 

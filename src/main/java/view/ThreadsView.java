@@ -9,11 +9,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import interface_adapter.logout.LogoutController;
 import interface_adapter.threads.GetThreadsController;
@@ -25,7 +21,7 @@ import view.custom_panels.ThreadsPane;
 /**
  * The view for when the user is logged in and sees all of their message threads.
  */
-public class ThreadsView extends JPanel
+public class ThreadsView extends JPanel implements PropertyChangeListener
 {
 
     private final String viewName;
@@ -42,6 +38,7 @@ public class ThreadsView extends JPanel
     public ThreadsView(ThreadsViewModel threadsViewModel)
     {
         this.threadsViewModel = threadsViewModel;
+        this.threadsViewModel.addPropertyChangeListener(this);
 
         this.viewName = "threads";
         // Initialise the Page Title
@@ -58,7 +55,8 @@ public class ThreadsView extends JPanel
         threadsViewModel.getState().addThread(1L, "Benj");
         threadsViewModel.getState().addThread(2L, "Ali");
         String[] threads = threadsViewModel.getState().getThreadHash().values().toArray(new String[3]);
-        // TODO replace threads with the actual threads of the user (use case)
+        // TODO: replace above tester code with below when ready
+        // final String[] threadNames = threadsViewModel.getState().getThreadNamesList();
         threadsList = new ThreadsPane(threads);
         threadsList.setPreferredSize(new Dimension(ThreadsViewModel.THREADSLIST_WIDTH,
                 ThreadsViewModel.THREADSLIST_HEIGHT));
@@ -72,6 +70,7 @@ public class ThreadsView extends JPanel
                         if (evt.getSource().equals(refreshButton))
                         {
                             // TODO This should somehow call the get messages use case/ api call (use case)
+                            System.out.println("Not implemented yet");
                         }
                     }
                 }
@@ -83,11 +82,12 @@ public class ThreadsView extends JPanel
                     {
                         if (evt.getSource().equals(logoutButton))
                         {
-                            logoutController.execute(threadsViewModel.getState().getUsername());
+                            logoutController.execute();
                         }
                     }
                 }
         );
+        
         addThreadButton.addActionListener(
                 new ActionListener()
                 {
@@ -100,6 +100,7 @@ public class ThreadsView extends JPanel
                     }
                 }
         );
+        
         // Add an actionlistener for each view button in the threads views
         for (ButtonLabelPanel buttonLabel: threadsList.getButtonLabels())
         {
@@ -107,13 +108,15 @@ public class ThreadsView extends JPanel
             {
                 public void actionPerformed(ActionEvent evt)
                 {
+                    // TODO: update "switch to chat view" use case so that it updates the chat state
+                    //  with the correct data
                     String threadName = buttonLabel.getLabelContent();
 
-                    for (Long threadIDS : threadsViewModel.getState().getThreadHash().keySet())
+                    for (Long threadID : threadsViewModel.getState().getThreadHash().keySet())
                     {
-                        if (threadsViewModel.getState().getThreadHash().get(threadIDS).equals(threadName))
+                        if (threadsViewModel.getState().getThreadHash().get(threadID).equals(threadName))
                         {
-                            getThreadsController.switchToChatView(threadIDS);
+                            getThreadsController.switchToChatView(threadID);
                             System.out.println("visiting the thread of " + threadName);
                         }
                     }
@@ -139,14 +142,27 @@ public class ThreadsView extends JPanel
         return viewName;
     }
 
-    public void setLogoutController(LogoutController logoutController)
+    public final void setLogoutController(LogoutController logoutController)
     {
         this.logoutController = logoutController;
     }
 
-    public void setGetThreadsController(GetThreadsController getThreadsController)
+    public final void setGetThreadsController(GetThreadsController getThreadsController)
     {
         this.getThreadsController = getThreadsController;
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt)
+    {
+        // Listens changes in the state and update view accordingly
+        final ThreadsState state = (ThreadsState) evt.getNewValue();
+
+        // Set threads list to an updated one (fired when add thread use case or the refresh use case is successful)
+        if (evt.getPropertyName().equals("update-thread-list"))
+        {
+            final String[] updatedThreadNames = state.getThreadNamesList();
+            threadsList.updateThreadPanel(updatedThreadNames);
+        }
+    }
 }

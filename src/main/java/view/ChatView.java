@@ -103,7 +103,11 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         this.add(title);
         this.add(messageDisplay);
         this.add(bottom);
-        this.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
+        this.setBorder(BorderFactory.createEmptyBorder(
+                ChatViewModel.BORDER_DIMENSIONS,
+                ChatViewModel.BORDER_DIMENSIONS,
+                ChatViewModel.BORDER_DIMENSIONS,
+                ChatViewModel.BORDER_DIMENSIONS));
     }
 
     /**

@@ -17,7 +17,9 @@ public class MessageDataAccessObject implements SendMessageMessageDataAccessInte
     }
 
     @Override
-    public void save(Message message)
+    public Message save(Message message, Long threadID)
     {
+        // TODO: code this properly to use the returned values from server calls
+        return new Message("", "", "");
     }
 }

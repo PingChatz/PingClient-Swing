@@ -9,15 +9,9 @@ import entity.Thread;
 public interface AddThreadThreadDataAccessInterface
 {
     /**
-     * Checks if the given thread name exists.
-     * @param threadName the thread name to look for
-     * @return true if a thread with the given thread name exists; false otherwise
-     */
-    boolean existsByName(String threadName);
-
-    /**
-     * Saves the new thread.
+     * Saves and the new thread to the server and returns a fully constructed one.
      * @param thread the thread to save
+     * @return a representation of the newly created thread as it exists in the server
      */
-    void save(Thread thread);
+    Thread save(Thread thread);
 }

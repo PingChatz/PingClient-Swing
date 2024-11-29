@@ -34,6 +34,8 @@ public class SignupInteractor implements SignupInputBoundary
         }
         else
         {
+            // TODO: IMPORTANT add another checker that checks that the inputted username contains no spaces
+
             final User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(),
                     signupInputData.getEmail());
             userDataAccessObject.save(user);

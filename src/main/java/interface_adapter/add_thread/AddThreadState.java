@@ -5,10 +5,21 @@ package interface_adapter.add_thread;
  */
 public final class AddThreadState
 {
+    private String currentUsername = "";
     private String threadName = "";
     private String usernameList = "";
     private String addThreadError;
     private String addThreadSuccess;
+
+    public String getCurrentUsername()
+    {
+        return currentUsername;
+    }
+
+    public void setCurrentUsername(String currentUsername)
+    {
+        this.currentUsername = currentUsername;
+    }
 
     public String getThreadName()
     {

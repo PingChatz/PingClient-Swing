@@ -8,32 +8,30 @@ import java.util.List;
  */
 public class Thread
 {
+    public static final int THREAD_NAME_MAX_LENGTH = 100;
+    public static final int THREAD_NAME_MIN_LENGTH = 3;
 
-    private final Long threadID = null;
+    private final Long threadID;
     private String name;
-    private final List<User> userList;
+    private final List<String> usernameList;
     private final List<Message> messageList;
-    // TODO: remove 'null' when below TODOs are completed
 
-    // 2 constructors, the first one is just a default Thread (no users)
-    public Thread(String name)
+    // Constructor for the creation of a new Thread with no messages.
+    public Thread(String name, List<String> usernameList)
     {
         this.name = name;
-        this.userList = new ArrayList<>();
+        this.usernameList = usernameList;
         this.messageList = new ArrayList<>();
-        // TODO: SpringBoot save a randomized threadID
-        //  (maybe use a private helper method below to generate the ID to avoid repeating the code in both
-        //   constructors)
+        this.threadID = null;
     }
 
-    public Thread(String name, List<User> userList)
+    // Constructor for a Thread that already exists in the database
+    public Thread(String name, List<String> usernameList, List<Message> messageList, Long threadID)
     {
         this.name = name;
-        this.userList = userList;
-        this.messageList = new ArrayList<>();
-        // TODO: SpringBoot save a randomized threadID
-        //  (maybe use a private helper method below to generate the ID to avoid repeating the code in both
-        //   constructors)
+        this.usernameList = usernameList;
+        this.messageList = messageList;
+        this.threadID = threadID;
     }
 
     public final String getName()
@@ -46,9 +44,9 @@ public class Thread
         this.name = newName;
     }
 
-    public final List<User> getUserList()
+    public final List<String> getUsernameList()
     {
-        return this.userList;
+        return this.usernameList;
     }
 
     public final Long getThreadID()
@@ -56,22 +54,9 @@ public class Thread
         return this.threadID;
     }
 
-    /**
-     * Adds a new User to the Thread.
-     * @param newUser is the new User.
-     */
-    public void addUser(User newUser)
+    public final List<Message> getMessageList()
     {
-        this.userList.add(newUser);
-    }
-
-    /**
-     * Removes a user from the Thread. Do nothing if the user is not in the Thread.
-     * @param userToRemove is that user.
-     */
-    public void removeUser(User userToRemove)
-    {
-        this.userList.remove(userToRemove);
+        return messageList;
     }
 }
 

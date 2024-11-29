@@ -71,7 +71,9 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
                     public void actionPerformed(ActionEvent evt)
                     {
                         final AddThreadState currentState = addThreadViewModel.getState();
-                        addThreadController.execute(currentState.getThreadName(), currentState.getUsernameList());
+                        addThreadController.execute(
+                                currentState.getThreadName(),
+                                currentState.getUsernameList());
                     }
                 }
         );
