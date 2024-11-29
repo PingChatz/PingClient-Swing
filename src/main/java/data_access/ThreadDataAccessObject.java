@@ -1,5 +1,6 @@
 package data_access;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entity.Message;
@@ -10,9 +11,8 @@ import use_case.send_message.SendMessageThreadDataAccessInterface;
 /**
  * The DAO for thread data.
  */
-// TODO: implement this.
-public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterface,
-        AddThreadThreadDataAccessInterface
+public class ThreadDataAccessObject implements AddThreadThreadDataAccessInterface,
+        SendMessageThreadDataAccessInterface
 {
     private final PingBackend backend;
 
@@ -22,38 +22,11 @@ public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterf
     }
 
     @Override
-    public String getCurrentThreadName()
+    public Thread save(Thread thread)
     {
-        // get stuff from the api
-        return "";
-    }
-
-    @Override
-    public String getCurrentThreadID()
-    {
-        return "";
-    }
-
-    @Override
-    public List<Message> getMessageList()
-    {
-        return List.of();
-    }
-
-    @Override
-    public void updateMessageList(Message message)
-    {
-
-    }
-
-    @Override
-    public boolean existsByName(String threadName)
-    {
-        return false;
-    }
-
-    @Override
-    public void save(Thread thread)
-    {
+        // TODO: code this once the server is up, current code is filler to make it compile.
+        List<Message> mockList1 = new ArrayList<>();
+        List<String> mockList2 = new ArrayList<>();
+        return new Thread("", mockList2, mockList1, 1L);
     }
 }

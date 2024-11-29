@@ -57,7 +57,7 @@ public class AppBuilder
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // Create the Backend instance
-    PingBackend pingBackend = new PingBackend("http://localhost:8080/"); // ToDo: Change it to server url
+    PingBackend pingBackend = new PingBackend("http://pingserver-env.eba-u7hgzajj.ca-central-1.elasticbeanstalk.com/");
     private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject(pingBackend);
     private final ThreadDataAccessObject threadDataAccessObject = new ThreadDataAccessObject(pingBackend);
     private final MessageDataAccessObject messageDataAccessObject = new MessageDataAccessObject(pingBackend);
@@ -154,8 +154,8 @@ public class AppBuilder
         final SendMessageOutputBoundary sendMessageOutputBoundary = new SendMessagePresenter(viewManagerModel,
                 chatViewModel, threadsViewModel);
         final SendMessageInputBoundary sendMessageInteractor =
-                new SendMessageInteractor(userDataAccessObject, messageDataAccessObject, threadDataAccessObject,
-                                          messageFactory, sendMessageOutputBoundary);
+                new SendMessageInteractor(userDataAccessObject, messageDataAccessObject,
+                        messageFactory, sendMessageOutputBoundary);
 
         final SendMessageController controller = new SendMessageController(sendMessageInteractor);
         chatView.setSendMessageController(controller);
@@ -180,7 +180,7 @@ public class AppBuilder
     public AppBuilder addLogoutUseCase()
     {
         final LogoutOutputBoundary logoutOutputBoundary = new LogoutPresenter(viewManagerModel,
-                loginViewModel, threadsViewModel);
+                loginViewModel, threadsViewModel, chatViewModel);
 
         final LogoutInputBoundary logoutInteractor =
                 new LogoutInteractor(userDataAccessObject, logoutOutputBoundary);
@@ -189,6 +189,7 @@ public class AppBuilder
         threadsView.setLogoutController(logoutController);
         return this;
     }
+
     /**
      * Adds the get threads Use Case to the application.
      *
@@ -249,7 +250,7 @@ public class AppBuilder
         application.add(cardPanel);
 
         // Set the initial view to the LoginView
-        viewManagerModel.setState(threadsView.getViewName());
+        viewManagerModel.setState(addThreadView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         // Make the window visible

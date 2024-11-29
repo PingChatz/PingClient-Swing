@@ -31,7 +31,8 @@ public final class SendMessagePresenter implements SendMessageOutputBoundary
         // Update the chatViewModel with the new message.
         final ChatState chatState = chatViewModel.getState();
         chatState.setMessageInput("");
-        chatState.addMessage(outputData.getUsername(), outputData.getMessageContent());
+        // TODO: add the timestamp once more progress has been completed on refresh use case
+        chatState.addMessage(outputData.getSenderUsername(), outputData.getContent());
         chatState.setSendMessageError(null);
         chatViewModel.firePropertyChanged("full_message_update");
     }
@@ -48,6 +49,14 @@ public final class SendMessagePresenter implements SendMessageOutputBoundary
     @Override
     public void switchToThreadsView()
     {
+        // set chat state's error message and text entry back to default
+        final ChatState chatState = chatViewModel.getState();
+        chatState.setSendMessageError(null);
+        chatState.setMessageInput("");
+        chatViewModel.firePropertyChanged();
+        // TODO: might need a full message update here
+
+        // switch the active state in the view manager
         viewManagerModel.setState(threadsViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
