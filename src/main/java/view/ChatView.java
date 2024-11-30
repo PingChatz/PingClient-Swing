@@ -16,7 +16,7 @@ import interface_adapter.send_message.ChatState;
 import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.send_message.SendMessageController;
 import view.custom_panels.ButtonLabelButtonButtonPanel;
-import view.custom_panels.LabelLabelPanel;
+import view.custom_panels.LabelLabelLabelPanel;
 import view.custom_panels.MessageDisplayPanel;
 
 /**
@@ -69,7 +69,8 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                     {
                         final ChatState currentState = chatViewModel.getState();
                         sendMessageController.execute(currentState.getMessageInput(),
-                                                          currentState.getCurrentThreadID());
+                                                          currentState.getCurrentThreadID(),
+                                                          currentState.getCurrentUsername());
                     }
                 });
 
@@ -114,13 +115,14 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
      * Returns a list of all the messages currently in this thread (as per the ChatState).
      * @return a list of message panels
      */
-    private List<LabelLabelPanel> getMessagePanels()
+    private List<LabelLabelLabelPanel> getMessagePanels()
     {
-        final List<LabelLabelPanel> result = new ArrayList<>();
+        final List<LabelLabelLabelPanel> result = new ArrayList<>();
 
         for (String[] messageTuple : chatViewModel.getState().getAllMessages())
         {
-            final LabelLabelPanel newMessagePanel = new LabelLabelPanel(messageTuple[0], messageTuple[1]);
+            final LabelLabelLabelPanel newMessagePanel = new LabelLabelLabelPanel(
+                    messageTuple[0], messageTuple[1], messageTuple[2]);
             result.add(newMessagePanel);
         }
         return result;

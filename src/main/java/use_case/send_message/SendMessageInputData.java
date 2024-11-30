@@ -8,11 +8,13 @@ public final class SendMessageInputData
 
     private final Long threadID;
     private final String content;
+    private final String senderUsername;
 
-    public SendMessageInputData(String content, Long threadID)
+    public SendMessageInputData(String content, Long threadID, String senderUsername)
     {
         this.threadID = threadID;
         this.content = content;
+        this.senderUsername = senderUsername;
     }
 
     public String getContent()
@@ -23,5 +25,10 @@ public final class SendMessageInputData
     public Long getThreadID()
     {
         return threadID;
+    }
+
+    public String getSenderUsername()
+    {
+        return senderUsername;
     }
 }

@@ -57,7 +57,8 @@ public class AppBuilder
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // Create the Backend instance
-    PingBackend pingBackend = new PingBackend("http://pingserver-env.eba-u7hgzajj.ca-central-1.elasticbeanstalk.com/");
+    private final PingBackend pingBackend = new PingBackend(
+            "http://pingserver-env.eba-u7hgzajj.ca-central-1.elasticbeanstalk.com/");
     private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject(pingBackend);
     private final ThreadDataAccessObject threadDataAccessObject = new ThreadDataAccessObject(pingBackend);
     private final MessageDataAccessObject messageDataAccessObject = new MessageDataAccessObject(pingBackend);
@@ -154,8 +155,7 @@ public class AppBuilder
         final SendMessageOutputBoundary sendMessageOutputBoundary = new SendMessagePresenter(viewManagerModel,
                 chatViewModel, threadsViewModel);
         final SendMessageInputBoundary sendMessageInteractor =
-                new SendMessageInteractor(userDataAccessObject, messageDataAccessObject,
-                        messageFactory, sendMessageOutputBoundary);
+                new SendMessageInteractor(messageDataAccessObject, messageFactory, sendMessageOutputBoundary);
 
         final SendMessageController controller = new SendMessageController(sendMessageInteractor);
         chatView.setSendMessageController(controller);
@@ -202,7 +202,7 @@ public class AppBuilder
 
         final GetThreadsInputBoundary getThreadsInteractor =
                 new GetThreadsUseCaseInteractor(userDataAccessObject,
-                        messageDataAccessObject, threadDataAccessObject, getThreadsOutputBoundary);
+                        threadDataAccessObject, getThreadsOutputBoundary);
 
         final GetThreadsController getThreadsController = new GetThreadsController(getThreadsInteractor);
         threadsView.setGetThreadsController(getThreadsController);
@@ -218,7 +218,7 @@ public class AppBuilder
         final AddThreadOutputBoundary addThreadOutputBoundary = new AddThreadPresenter(viewManagerModel,
                 addThreadViewModel, threadsViewModel);
         final AddThreadInputBoundary addThreadInteractor =
-                new AddThreadInteractor(userDataAccessObject, threadDataAccessObject, addThreadOutputBoundary,
+                new AddThreadInteractor(threadDataAccessObject, addThreadOutputBoundary,
                         threadFactory);
 
         final AddThreadController controller = new AddThreadController(addThreadInteractor);

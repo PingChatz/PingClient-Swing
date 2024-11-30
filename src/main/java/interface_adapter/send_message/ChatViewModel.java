@@ -7,14 +7,12 @@ import interface_adapter.ViewModel;
  */
 public class ChatViewModel extends ViewModel<ChatState>
 {
-    // Instance variables that never change:
     public static final String SEND_BUTTON_LABEL = "Send";
     public static final String RETURN_BUTTON_LABEL = "Return To Threads";
     public static final String REFRESH_BUTTON_LABEL = "Refresh";
 
-    // Swing size specifications:
     public static final int BORDER_DIMENSIONS = 40;
-    // TODO: move any view constants related to the ChatView here
+    // TODO: figure out the constants for what a message should look like
 
     public ChatViewModel()
     {

@@ -3,6 +3,7 @@ package use_case.get_threads;
 import use_case.send_message.SendMessageThreadDataAccessInterface;
 import use_case.send_message.SendMessageUserDataAccessInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +37,8 @@ public class GetThreadsUseCaseInteractor implements GetThreadsInputBoundary {
                 return;
             }
 
-            List<Long> threadIDs = threadDataAccess.getUserThreadIDs(userID);
+            List<Long> threadIDs = new ArrayList<>();
+            // List<Long> threadIDs = threadDataAccess.getUserThreadIDs(userID);
             if (threadIDs == null || threadIDs.isEmpty()) {
                 presenter.prepareFailView("No threads found.");
                 return;

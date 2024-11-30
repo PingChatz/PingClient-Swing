@@ -1,6 +1,7 @@
 package data_access;
 
 import entity.Message;
+import org.json.JSONObject;
 import use_case.send_message.SendMessageMessageDataAccessInterface;
 
 /**
@@ -17,9 +18,14 @@ public class MessageDataAccessObject implements SendMessageMessageDataAccessInte
     }
 
     @Override
-    public Message save(Message message, Long threadID)
+    public Message save(Message message, Long threadID) throws Exception
     {
-        // TODO: code this properly to use the returned values from server calls
+        // call the server
+        JSONObject serverOutput = backend.sendMessage(
+                Integer.parseInt(String.valueOf(threadID)), "text", message.getContent());
+
+        // format the JSON into a new Message object
+        // TODO: JSON formatting (+ timestamp formatting)
         return new Message("", "", "");
     }
 }

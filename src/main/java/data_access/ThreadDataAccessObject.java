@@ -4,13 +4,13 @@ import java.util.List;
 
 import entity.Message;
 import entity.Thread;
+import org.json.JSONObject;
 import use_case.add_thread.AddThreadThreadDataAccessInterface;
 import use_case.send_message.SendMessageThreadDataAccessInterface;
 
 /**
  * The DAO for thread data.
  */
-// TODO: implement this.
 public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterface,
         AddThreadThreadDataAccessInterface
 {
@@ -47,13 +47,14 @@ public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterf
     }
 
     @Override
-    public boolean existsByName(String threadName)
+    public Thread save(Thread thread) throws Exception
     {
-        return false;
-    }
+        // tell server to create a new thread
+        JSONObject serverOutput = backend.createThread(
+                thread.getName(), thread.getUsernameList().toArray(new String[0]));
 
-    @Override
-    public void save(Thread thread)
-    {
+        // read from the JSONObject and create a thread to return
+        // TODO: create this once you have the information on what the outputted JSON looks like
+        return null;
     }
 }
