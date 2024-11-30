@@ -3,6 +3,7 @@ import data_access.ThreadDataAccessObject;
 import entity.Message;
 import interface_adapter.chat_refresh.ChatRefreshPresenter;
 import interface_adapter.send_message.ChatState;
+import org.checkerframework.checker.units.qual.A;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginUserDataAccessInterface;
 
@@ -25,18 +26,18 @@ import java.util.List;
         @Override
         public void execute() {
             // updates chat message
-            final List<Message> messageList = threadDataAccessObject.getMessageList();
+            // final List<Message> messageList = threadDataAccessObject.getMessageList();
+            List<Message> messageList = new ArrayList<>();
 
             List<String[]> messages = new ArrayList<>();
             for (Message message : messageList) {
-                String[] lst = {message.getContent().toString(), message.getSenderID().toString()};
+                String[] lst = {message.getContent().toString(), message.getSenderUsername().toString()};
                 messages.add(lst);
 
             }
 
             final ChatRefreshOutputData chatRefreshOutputData = new ChatRefreshOutputData(messages);
             this.chatRefreshPresenter.prepareSucessView(chatRefreshOutputData);
-
 
         }
 }
