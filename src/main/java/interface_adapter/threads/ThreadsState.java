@@ -62,4 +62,11 @@ public class ThreadsState
     {
         this.threadHash.put(threadId, threadName);
     }
+
+    /**
+     * Clears all thread data.
+     */
+    public final void clearThreadData() {
+        this.threadHash.clear();
+    }
 }
