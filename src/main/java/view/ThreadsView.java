@@ -49,12 +49,11 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
         refreshButton = new JButton(ThreadsViewModel.REFRESH_LABEL);
         logoutButton = new JButton(ThreadsViewModel.LOGOUT_LABEL);
 
-        // initialise the list of threadNames (below is an example for testing purposes, will be replaced)
-        final String[] threadNames = {"Benj", "Ali"};
-        threadsViewModel.getState().addThread(1L, "Benj");
-        threadsViewModel.getState().addThread(2L, "Ali");
-        // TODO: replace above tester code with below when ready
-        // final String[] threadNames = threadsViewModel.getState().getThreadNamesList();
+//        // initialise the list of threadNames (below is an example for testing purposes, will be replaced)
+//        final String[] threadNames = {"Benj", "Ali"};
+//        threadsViewModel.getState().addThread(1L, "Benj");
+//        threadsViewModel.getState().addThread(2L, "Ali");
+        final String[] threadNames = threadsViewModel.getState().getThreadNamesList();
 
         threadsList = new ThreadsPane(threadNames);
         threadsList.setPreferredSize(new Dimension(ThreadsViewModel.THREADSLIST_WIDTH,
@@ -68,8 +67,7 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
                     {
                         if (evt.getSource().equals(refreshButton))
                         {
-                            // TODO This should somehow call the get messages use case/ api call (use case)
-                            System.out.println("Not implemented yet");
+                            getThreadsController.execute();
                         }
                     }
                 }
@@ -93,8 +91,6 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
             {
                 public void actionPerformed(ActionEvent evt)
                 {
-                    // TODO: update "switch to chat view" use case so that it updates the chat state
-                    //  with the correct data
                     String threadName = buttonLabel.getLabelContent();
 
                     for (Long threadID : threadsViewModel.getState().getThreadHash().keySet())
@@ -102,7 +98,7 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
                         if (threadsViewModel.getState().getThreadHash().get(threadID).equals(threadName))
                         {
                             getThreadsController.switchToChatView(threadID);
-                            System.out.println("visiting the thread of " + threadName);
+                            System.out.println("Switched to thread: " + threadName);
                         }
                     }
                 }
