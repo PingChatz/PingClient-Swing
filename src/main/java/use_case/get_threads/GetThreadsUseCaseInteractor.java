@@ -10,13 +10,13 @@ import java.util.List;
  * The get threads Interactor.
  */
 public class GetThreadsUseCaseInteractor implements GetThreadsInputBoundary {
-    private final SendMessageUserDataAccessInterface userDataAccess;
-    private final SendMessageThreadDataAccessInterface threadDataAccess;
+    private final GetThreadsUserDataAccessInterface userDataAccess;
+    private final GetThreadsThreadDataAccessInterface threadDataAccess;
     private final GetThreadsOutputBoundary presenter;
 
     // == CONSTRUCTOR ==
-    public GetThreadsUseCaseInteractor(SendMessageUserDataAccessInterface userDataAccess,
-                                       SendMessageThreadDataAccessInterface threadDataAccess,
+    public GetThreadsUseCaseInteractor(GetThreadsUserDataAccessInterface userDataAccess,
+                                       GetThreadsThreadDataAccessInterface threadDataAccess,
                                        GetThreadsOutputBoundary presenter) {
         this.userDataAccess = userDataAccess;
         this.threadDataAccess = threadDataAccess;
