@@ -11,9 +11,9 @@ public class GetThreadsController
     private final GetThreadsInputBoundary getThreadsUseCaseInteractor;
 
     // == CONSTRUCTOR ==
-    public GetThreadsController(GetThreadsInputBoundary userSendMessageUseCaseInteractor)
+    public GetThreadsController(GetThreadsInputBoundary getThreadsUseCaseInteractor)
     {
-        this.getThreadsUseCaseInteractor = userSendMessageUseCaseInteractor;
+        this.getThreadsUseCaseInteractor = getThreadsUseCaseInteractor;
     }
 
     /**
@@ -21,7 +21,7 @@ public class GetThreadsController
      */
     public void execute()
     {
-        // TODO this will implement the use case logic from the use case interactor.
+        this.getThreadsUseCaseInteractor.execute(); //triggering the GetThreads Use case
     }
 
     /**
