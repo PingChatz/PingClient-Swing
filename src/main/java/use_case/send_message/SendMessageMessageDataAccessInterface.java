@@ -13,5 +13,5 @@ public interface SendMessageMessageDataAccessInterface
      * @param threadID the ID of the thread to save the message within
      * @return a representation of the new message that was created
      */
-    Message save(Message message, Long threadID);
+    Message save(Message message, Long threadID) throws Exception;
 }

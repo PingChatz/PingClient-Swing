@@ -73,7 +73,8 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
                         final AddThreadState currentState = addThreadViewModel.getState();
                         addThreadController.execute(
                                 currentState.getThreadName(),
-                                currentState.getUsernameList());
+                                currentState.getUsernameList(),
+                                currentState.getCurrentUsername());
                     }
                 }
         );
@@ -90,8 +91,13 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
         this.add(usersListInfo);
         this.add(buttons);
 
-        // Add margin of 40 pixels on all sides
-        this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        // Add margin of BORDER_DIMENSIONS pixels on all sides
+        this.setBorder(BorderFactory.createEmptyBorder(
+                AddThreadViewModel.BORDER_DIMENSIONS,
+                AddThreadViewModel.BORDER_DIMENSIONS,
+                AddThreadViewModel.BORDER_DIMENSIONS,
+                AddThreadViewModel.BORDER_DIMENSIONS
+        ));
     }
 
     /**

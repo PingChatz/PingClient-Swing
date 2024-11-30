@@ -17,12 +17,14 @@ public class AddThreadController
 
     /**
      * Executes the Add Thread use case.
-     * @param usernameList is a comma separated string of usernames
-     * @param threadName the name of the new thread.
+     *
+     * @param threadName      the name of the new thread.
+     * @param usernameList    is a comma separated string of usernames
+     * @param currentUsername the username of the current user of the program
      */
-    public void execute(String threadName, String usernameList)
+    public void execute(String threadName, String usernameList, String currentUsername)
     {
-        AddThreadInputData inputData = new AddThreadInputData(threadName, usernameList);
+        AddThreadInputData inputData = new AddThreadInputData(threadName, usernameList, currentUsername);
         addThreadUseCaseInteractor.execute(inputData);
     }
 

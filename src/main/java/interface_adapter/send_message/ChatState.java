@@ -5,16 +5,16 @@ import java.util.List;
 
 /**
  * Represents the current state of the Chat View Model.
- * PRECONDITION: all sub-arrays of allMessages are of length 2, the first String being the sender's username
- *               and the second being the message content.
+ * PRECONDITION: all sub-arrays of allMessages are of length 3, the first String being the sender's username,
+ *               the second being the message content and the third being the timestamp.
  */
 public class ChatState
 {
     private String messageInput = "";
     private String sendMessageError;
+    private String currentUsername;
     private String currentThreadName = "";
     private Long currentThreadID;
-    // TODO: change String[] to accept 3 parameters to include the timestamp once the project is more finalized.
     private List<String[]> allMessages = new ArrayList<>();
 
     public final String getMessageInput()
@@ -67,6 +67,16 @@ public class ChatState
         this.allMessages = updatedAllMessages;
     }
 
+    public final String getCurrentUsername()
+    {
+        return currentUsername;
+    }
+
+    public final void setCurrentUsername(String currentUsername)
+    {
+        this.currentUsername = currentUsername;
+    }
+
     @Override
     public String toString()
     {
@@ -75,6 +85,7 @@ public class ChatState
                 + ", allMessages='" + allMessages.toString() + '\''
                 + "currentThreadID='" + currentThreadID + '\''
                 + "currentThreadName='" + currentThreadName + '\''
+                + "currentUsername='" + currentUsername + '\''
                 + '}';
     }
 
@@ -82,12 +93,14 @@ public class ChatState
      * Adds a message to allMessages.
      * @param username the sender of the message (always the current user)
      * @param messageContent the message content
+     * @param timestamp the timestamp of the message
      */
-    public void addMessage(String username, String messageContent)
+    public void addMessage(String username, String messageContent, String timestamp)
     {
-        String[] newMessageTuple = new String[2];
+        String[] newMessageTuple = new String[3];
         newMessageTuple[0] = username;
         newMessageTuple[1] = messageContent;
+        newMessageTuple[2] = timestamp;
 
         this.allMessages.add(newMessageTuple);
     }

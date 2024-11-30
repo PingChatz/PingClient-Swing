@@ -8,17 +8,14 @@ import entity.ThreadFactory;
  */
 public class AddThreadInteractor implements AddThreadInputBoundary
 {
-    private final AddThreadUserDataAccessInterface userDataAccessObject;
     private final AddThreadThreadDataAccessInterface threadDataAccessObject;
     private final ThreadFactory threadFactory;
     private final AddThreadOutputBoundary addThreadPresenter;
 
-    public AddThreadInteractor(AddThreadUserDataAccessInterface userDataAccessObject,
-                               AddThreadThreadDataAccessInterface threadDataAccessObject,
+    public AddThreadInteractor(AddThreadThreadDataAccessInterface threadDataAccessObject,
                                AddThreadOutputBoundary addThreadPresenter,
                                ThreadFactory threadFactory)
     {
-        this.userDataAccessObject = userDataAccessObject;
         this.threadDataAccessObject = threadDataAccessObject;
         this.addThreadPresenter = addThreadPresenter;
         this.threadFactory = threadFactory;
@@ -38,19 +35,21 @@ public class AddThreadInteractor implements AddThreadInputBoundary
                     "Thread name is too long. Must be under "
                             + Thread.THREAD_NAME_MAX_LENGTH + " characters.");
         }
-        else if (addThreadInputData.getThreadName().length() <= Thread.THREAD_NAME_MIN_LENGTH)
+        else if (addThreadInputData.getThreadName().length() < Thread.THREAD_NAME_MIN_LENGTH)
         {
             addThreadPresenter.prepareFailView(
                     "Thread name is too short. Must be at least "
                             + Thread.THREAD_NAME_MIN_LENGTH + " characters.");
         }
 
+        // TODO: check for formatting for Thread Name?
+
         // Check whether the users list is empty or poorly formatted
         else if (addThreadInputData.getUsernameList().isEmpty())
         {
             addThreadPresenter.prepareFailView("List of Users is Empty");
         }
-        else if (!isCommaSeparatedNoSpaces(addThreadInputData.getUsernameList()))
+        else if (!userListIsWellFormatted(addThreadInputData.getUsernameList()))
         {
             addThreadPresenter.prepareFailView("List of users is poorly formatted. \n "
                     + "(should be separated by commas and contain no spaces)");
@@ -58,48 +57,54 @@ public class AddThreadInteractor implements AddThreadInputBoundary
         else
         {
             // complete the username list with the current user's username.
-            // TODO: code the getCurrentUsername() function and add try-except block to catch server exceptions
-            final String fullUserList = createFullUserList(
+            String fullUserList = createFullFormattedUserList(
                     addThreadInputData.getUsernameList(),
-                    userDataAccessObject.getCurrentUsername());
+                    addThreadInputData.getCurrentUsername());
 
-            // create thread object and save it to the server
+            // create thread object to save
             Thread threadToSave = threadFactory.create(addThreadInputData.getThreadName(), fullUserList);
-            // TODO: code the save() function and add try-except block to catch server exceptions
-            Thread threadToPresent = threadDataAccessObject.save(threadToSave);
 
-            // create output data and fire presenter
-            AddThreadOutputData outputData = new AddThreadOutputData(
-                    threadToPresent.getName(),
-                    threadToPresent.getThreadID());
-            addThreadPresenter.prepareSuccessView(outputData,
-                    "New thread '" + threadToPresent.getName() + "' has been successfully created.");
+            // try to save the new thread to the server
+            try
+            {
+                Thread threadToPresent = threadDataAccessObject.save(threadToSave);
+
+                // create output data and fire presenter
+                AddThreadOutputData outputData = new AddThreadOutputData(
+                        threadToPresent.getName(),
+                        threadToPresent.getThreadID());
+                addThreadPresenter.prepareSuccessView(outputData,
+                        "New thread '" + threadToPresent.getName() + "' has been successfully created.");
+            }
+            catch (Exception exception)
+            {
+                addThreadPresenter.prepareFailView("Server Error");
+            }
         }
     }
 
     /**
-     * Returns true if the given string is comma separated.
+     * Returns true if the given string is well-formatted, according to the regex.
      * @param string string to check
-     * @return true if usernameList is comma separated, false otherwise
+     * @return true if usernameList is well-formatted, false otherwise
      */
-    private boolean isCommaSeparatedNoSpaces(String string)
+    private boolean userListIsWellFormatted(String string)
     {
         if (string == null || string.isEmpty())
         {
             return false;
         }
-        // TODO: change regex to be more selecting when more important things are done
-        String regex = "([^, ]+,)*[^, ]+";
+        String regex = "^ *[a-zA-Z0-9]+( *, *[a-zA-Z0-9]+)* *$";
         return string.matches(regex);
     }
 
     /**
-     * Returns the full list of users in the thread.
+     * Returns the full list of users in the thread, as a comma-separated String.
      * @param userList the list of users from the input data
      * @param currentUsername the username of the current user
      * @return a concatenation of the two that follows the regex
      */
-    private String createFullUserList(String userList, String currentUsername)
+    private String createFullFormattedUserList(String userList, String currentUsername)
     {
         return userList + "," + currentUsername;
     }
