@@ -34,6 +34,15 @@ public class Thread
         this.threadID = threadID;
     }
 
+    // New Constructor for threads fetched from the backend.
+    public Thread(Long threadID, String name) {
+        this.threadID = threadID;
+        this.name = name;
+        this.usernameList = new ArrayList<>(); // Empty username list by default
+        this.messageList = new ArrayList<>(); // Empty message list by default
+    }
+
+
     public final String getName()
     {
         return this.name;
