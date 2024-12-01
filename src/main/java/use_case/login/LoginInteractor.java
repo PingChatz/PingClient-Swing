@@ -27,18 +27,18 @@ public class LoginInteractor implements LoginInputBoundary
         try
         {
             JSONObject response = userDataAccessObject.validateCredentials(usernameOrEmail, password);
-            if (response != null && response.has("authToken"))
+            if (response.has("authToken"))
             {
                 String username = response.optString("username");
                 String message = response.optString("message");
                 LoginOutputData loginOutputData = new LoginOutputData(username, message, false);
                 loginPresenter.prepareSuccessView(loginOutputData);
-            } else if (response != null && response.has("error"))
+            } else if (response.has("error"))
             {
                 String errorMessage = response.optString("message");
                 loginPresenter.prepareFailView(errorMessage);
-            } else
-            {
+            }
+            else{
                 loginPresenter.prepareFailView("Login failed");
             }
         } catch (Exception e)
