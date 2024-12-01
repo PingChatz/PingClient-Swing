@@ -1,13 +1,19 @@
 package data_access;
 
-import entity.Message;
+import java.io.IOException;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.json.JSONObject;
+
+import entity.Message;
 import use_case.send_message.SendMessageMessageDataAccessInterface;
 
 /**
  * The DAO for message data.
  */
-// TODO: implement this.
 public class MessageDataAccessObject implements SendMessageMessageDataAccessInterface
 {
     private final PingBackend backend;
@@ -20,12 +26,46 @@ public class MessageDataAccessObject implements SendMessageMessageDataAccessInte
     @Override
     public Message save(Message message, Long threadID) throws Exception
     {
-        // call the server
+        // Send a request to the server to save the new message
         JSONObject serverOutput = backend.sendMessage(
-                Integer.parseInt(String.valueOf(threadID)), "text", message.getContent());
+                Math.toIntExact(threadID), "text", message.getContent());
 
-        // format the JSON into a new Message object
-        // TODO: JSON formatting (+ timestamp formatting)
-        return new Message("", "", "");
+        // If it's the error JSON object:
+        if (serverOutput.has("error"))
+        {
+            // Throw an exception with the server error message
+            String errorMessage = serverOutput.getString("message");
+            throw new IOException("Server Error: " + errorMessage);
+        }
+
+        // Parse the successful response and create a new Message object
+        if (serverOutput.has("sender") && serverOutput.has("messageId")
+                && serverOutput.has("content") && serverOutput.has("timestamp"))
+        {
+            String sender = serverOutput.getString("sender");
+            String content = serverOutput.getString("content");
+            String timestamp = formatTimestamp(serverOutput.getString("timestamp"));
+
+            return new Message(content, sender, timestamp);
+        }
+
+        // If the response doesn't match either expected format, throw an exception
+        throw new IOException("Unexpected server response: " + serverOutput);
+    }
+
+    private static String formatTimestamp(String isoTimestamp)
+    {
+        // Define the Toronto timezone
+        ZoneId torontoTimeZone = ZoneId.of("America/Toronto");
+
+        // Parse the ISO timestamp
+        Instant instant = Instant.parse(isoTimestamp);
+
+        // Convert to Toronto time
+        ZonedDateTime torontoTime = instant.atZone(torontoTimeZone);
+
+        // Format the timestamp to the desired format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd | h:mm a");
+        return torontoTime.format(formatter);
     }
 }

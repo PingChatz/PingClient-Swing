@@ -1,5 +1,7 @@
 package view.custom_panels;
 
+import interface_adapter.send_message.ChatViewModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -11,15 +13,16 @@ public class MessageDisplayPanel extends JPanel
 {
     private final JPanel boxPanel = new JPanel();
 
-    public MessageDisplayPanel(List<LabelLabelLabelPanel> messagePanels)
+    public MessageDisplayPanel(List<MessagePanel> messagePanels)
     {
         // Set the layout of boxPanel
         boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
 
         // Add each message panel to the box panel
-        for (LabelLabelLabelPanel messagePanel : messagePanels)
+        for (MessagePanel messagePanel : messagePanels)
         {
             boxPanel.add(messagePanel);
+            boxPanel.add(Box.createVerticalStrut(ChatViewModel.MESSAGE_SPACING));
         }
 
         // Create a JScrollPane to make the box panel scrollable
@@ -42,10 +45,10 @@ public class MessageDisplayPanel extends JPanel
      *
      * @param updatedMessagePanels the updated list of message panels.
      */
-    public void updateMessagePanels(List<LabelLabelLabelPanel> updatedMessagePanels)
+    public void updateMessagePanels(List<MessagePanel> updatedMessagePanels)
     {
         boxPanel.removeAll();
-        for (LabelLabelLabelPanel messagePanel : updatedMessagePanels)
+        for (MessagePanel messagePanel : updatedMessagePanels)
         {
             boxPanel.add(messagePanel);
         }

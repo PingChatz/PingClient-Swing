@@ -4,7 +4,7 @@ import interface_adapter.send_message.ChatState;
 import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.send_message.SendMessageController;
 import view.custom_panels.ButtonLabelButtonButtonPanel;
-import view.custom_panels.LabelLabelLabelPanel;
+import view.custom_panels.MessagePanel;
 import view.custom_panels.MessageDisplayPanel;
 
 import javax.swing.*;
@@ -67,7 +67,8 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                     public void actionPerformed(ActionEvent evt)
                     {
                         final ChatState currentState = chatViewModel.getState();
-                        sendMessageController.execute(currentState.getMessageInput(),
+                        sendMessageController.execute(
+                                currentState.getMessageInput(),
                                 currentState.getCurrentThreadID(),
                                 currentState.getCurrentUsername());
                     }
@@ -115,14 +116,17 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
      *
      * @return a list of message panels
      */
-    private List<LabelLabelLabelPanel> getMessagePanels()
+    private List<MessagePanel> getMessagePanels()
     {
-        final List<LabelLabelLabelPanel> result = new ArrayList<>();
+        final List<MessagePanel> result = new ArrayList<>();
 
         for (String[] messageTuple : chatViewModel.getState().getAllMessages())
         {
-            final LabelLabelLabelPanel newMessagePanel = new LabelLabelLabelPanel(
-                    messageTuple[0], messageTuple[1], messageTuple[2]);
+            // check if the username matches the current username in the state
+            final boolean coloured = messageTuple[0].equals(chatViewModel.getState().getCurrentUsername());
+
+            final MessagePanel newMessagePanel = new MessagePanel(
+                    messageTuple[0], messageTuple[1], messageTuple[2], coloured);
             result.add(newMessagePanel);
         }
         return result;
@@ -179,7 +183,7 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         // Update text field when state changes
         messageInputField.setText(state.getMessageInput());
 
-        // Update entire UI (only use this in prepareSuccessView() methods for use cases that act on the ChatView)
+        // Update entire UI
         if (evt.getPropertyName().equals("full_message_update"))
         {
             messageInputField.setText(state.getMessageInput());
