@@ -54,6 +54,6 @@ public class GetThreadsUseCaseInteractor implements GetThreadsInputBoundary {
     @Override
     public void switchToAddThreadView()
     {
-        getThreadsPresenter.switchToAddThreadView();
+        presenter.switchToAddThreadView();
     }
 }
