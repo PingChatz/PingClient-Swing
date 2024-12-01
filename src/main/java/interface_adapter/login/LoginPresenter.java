@@ -21,7 +21,8 @@ public class LoginPresenter implements LoginOutputBoundary
     private final AddThreadViewModel addThreadViewModel;
 
     public LoginPresenter(LoginViewModel loginViewModel, ViewManagerModel viewManagerModel, SignupViewModel signupViewModel,
-                          ThreadsViewModel threadsViewModel, ChatViewModel chatViewModel, AddThreadViewModel addThreadViewModel) {
+                          ThreadsViewModel threadsViewModel, ChatViewModel chatViewModel, AddThreadViewModel addThreadViewModel)
+    {
         this.loginViewModel = loginViewModel;
         this.viewManagerModel = viewManagerModel;
         this.signupViewModel = signupViewModel;
@@ -66,7 +67,8 @@ public class LoginPresenter implements LoginOutputBoundary
     }
 
     @Override
-    public void switchToSignUpView() {
+    public void switchToSignUpView()
+    {
         //Switch to the SignUpView
         viewManagerModel.setState(signupViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

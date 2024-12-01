@@ -2,15 +2,15 @@ package use_case.logout;
 
 import data_access.PingBackend;
 import data_access.UserDataAccessObject;
-import entity.User;
-import entity.UserFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LogoutInteractorTest {
+public class LogoutInteractorTest
+{
     @Test
-    void successTest() throws Exception {
+    void successTest() throws Exception
+    {
         PingBackend backend = new PingBackend("http://pingserver-env.eba-u7hgzajj.ca-central-1.elasticbeanstalk.com/");
         LogoutUserDataAccessInterface dataAccessObject = new UserDataAccessObject(backend);
 
@@ -20,15 +20,18 @@ public class LogoutInteractorTest {
         assertNotEquals(backend.getAccessToken(), null);
 
         // This creates a successPresenter that tests whether the test case is as we expect.
-        LogoutOutputBoundary successPresenter = new LogoutOutputBoundary() {
+        LogoutOutputBoundary successPresenter = new LogoutOutputBoundary()
+        {
             @Override
-            public void prepareSuccessView() {
+            public void prepareSuccessView()
+            {
                 // check that the token was deleted once the user logged out
                 assertNull(backend.getAccessToken());
             }
 
             @Override
-            public void prepareFailView(String error) {
+            public void prepareFailView(String error)
+            {
                 fail("Use case failure is unexpected.");
             }
         };

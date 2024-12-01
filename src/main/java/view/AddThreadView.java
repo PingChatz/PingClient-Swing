@@ -1,20 +1,19 @@
 package view;
 
 
+import interface_adapter.add_thread.AddThreadController;
+import interface_adapter.add_thread.AddThreadState;
+import interface_adapter.add_thread.AddThreadViewModel;
+import view.custom_panels.LabelTextPanel;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
-import interface_adapter.add_thread.AddThreadController;
-import interface_adapter.add_thread.AddThreadState;
-import interface_adapter.add_thread.AddThreadViewModel;
-import view.custom_panels.LabelTextPanel;
 
 /**
  * The View for the Add Thread Use Case.
@@ -24,12 +23,11 @@ public class AddThreadView extends JPanel implements ActionListener, PropertyCha
     private final String viewName = "add thread";
 
     private final AddThreadViewModel addThreadViewModel;
-    private AddThreadController addThreadController;
-
     private final JTextField threadNameInputField = new JTextField(15);
     private final JTextField usernameListInputField = new JTextField(15);
     private final JButton addThread;
     private final JButton toThreads;
+    private AddThreadController addThreadController;
 
     public AddThreadView(AddThreadViewModel addThreadViewModel)
     {

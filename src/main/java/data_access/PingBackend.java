@@ -18,8 +18,9 @@ public class PingBackend extends AbstractAPICall
 
     /**
      * Method used to register a new account.
+     *
      * @param username of the new user
-     * @param email of the new user
+     * @param email    of the new user
      * @param password of the new user
      * @return the state of success of the call
      * @throws Exception if api call goes wrong.
@@ -38,7 +39,8 @@ public class PingBackend extends AbstractAPICall
 
     public JSONObject login(String usernameOrEmail, String password) throws Exception
     {
-        try {
+        try
+        {
             // Construct the body
             JSONObject body = new JSONObject();
             body.put("usernameOrEmail", usernameOrEmail);
@@ -50,7 +52,8 @@ public class PingBackend extends AbstractAPICall
 
             // Return results as a JSON
             return new JSONObject(response);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             System.out.println("Login failed: " + e.getMessage());
             throw e;
         }
@@ -58,7 +61,8 @@ public class PingBackend extends AbstractAPICall
 
     /**
      * Method to save a new thread in the server.
-     * @param threadName the name of the thread to be created
+     *
+     * @param threadName           the name of the thread to be created
      * @param participantUsernames the users in the thread to be created
      * @return a json object with all the data needed to create a Thread object
      * @throws Exception if the API call goes wrong
@@ -78,9 +82,10 @@ public class PingBackend extends AbstractAPICall
 
     /**
      * Method to save a new message in the server, within a thread.
-     * @param threadId the ID of the thread to associate the message with
+     *
+     * @param threadId    the ID of the thread to associate the message with
      * @param messageType the ype of the message to save
-     * @param content the content of the message to save
+     * @param content     the content of the message to save
      * @return a json object with all the data needed to create a Message object
      * @throws Exception if the API call goes wrong
      */
@@ -100,6 +105,7 @@ public class PingBackend extends AbstractAPICall
 
     /**
      * Method to get all the messages in a given thread.
+     *
      * @param threadId the ID of the thread to get messages from
      * @return a json object with a list of message data necessary to create a List of Message objects
      * @throws Exception if the API call goes wrong
@@ -114,6 +120,7 @@ public class PingBackend extends AbstractAPICall
 
     /**
      * Method to get all the threads currently saved in the server.
+     *
      * @return a json object with...
      * @throws Exception if the API call goes wrong
      */
@@ -128,6 +135,7 @@ public class PingBackend extends AbstractAPICall
 
     /**
      * Returns "Hello World".
+     *
      * @return "Hello World"
      * @throws Exception if the API call goes wrong
      */

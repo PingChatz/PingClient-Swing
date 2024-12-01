@@ -18,8 +18,9 @@ public class LoginController
 
     /**
      * Executes the Login Use Case.
+     *
      * @param usernameOrEmail the username or email of the user logging in
-     * @param password the password of the user logging in
+     * @param password        the password of the user logging in
      */
     public void execute(String usernameOrEmail, String password)
     {
@@ -27,5 +28,9 @@ public class LoginController
 
         loginUseCaseInteractor.execute(loginInputData);
     }
-    public void switchToSignUpView() {this.loginUseCaseInteractor.switchToSignUpView();}
+
+    public void switchToSignUpView()
+    {
+        this.loginUseCaseInteractor.switchToSignUpView();
+    }
 }

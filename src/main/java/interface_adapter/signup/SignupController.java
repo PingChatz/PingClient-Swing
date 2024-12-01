@@ -19,15 +19,21 @@ public class SignupController
 
     /**
      * Executes the Signup Use Case.
-     * @param username the username to sign up
-     * @param email the email of the user
+     *
+     * @param username  the username to sign up
+     * @param email     the email of the user
      * @param password1 the password
      * @param password2 the password repeated
      */
     public void execute(String username, String email, String password1, String password2)
     {
+//        System.out.println(username + " " + email + " " + password1 + " " + password2);
         final SignupInputData signupInputData = new SignupInputData(
-                username, password1, password2, email);
+                username,
+                password1,
+                password2,
+                email
+        );
 
         userSignupUseCaseInteractor.execute(signupInputData);
     }

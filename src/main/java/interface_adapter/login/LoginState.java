@@ -14,19 +14,25 @@ public final class LoginState
         return usernameOrEmail;
     }
 
+    public void setUsernameOrEmail(String usernameOrEmail)
+    {
+        this.usernameOrEmail = usernameOrEmail;
+    }
+
     public String getLoginError()
     {
         return loginError;
+    }
+
+    public void setLoginError(String usernameError)
+    {
+        this.loginError = usernameError;
     }
 
     public String getPassword()
     {
         return password;
     }
-
-    public void setUsernameOrEmail(String usernameOrEmail) {this.usernameOrEmail =usernameOrEmail;}
-
-    public void setLoginError(String usernameError) {this.loginError = usernameError;}
 
     public void setPassword(String password)
     {

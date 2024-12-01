@@ -42,6 +42,7 @@ public class SignupPresenter implements SignupOutputBoundary
     @Override
     public void prepareFailView(String error)
     {
+        System.out.println(error);
         final SignupState signupState = signupViewModel.getState();
         signupState.setUsernameError(error);
         signupViewModel.firePropertyChanged();

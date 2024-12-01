@@ -1,6 +1,7 @@
 package use_case.chat_refresh;
 
-public interface ChatRefreshInputBoundary {
+public interface ChatRefreshInputBoundary
+{
     /**
      * Exectutes the ChatRefresh Usecase
      */

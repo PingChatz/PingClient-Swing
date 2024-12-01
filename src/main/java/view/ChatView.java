@@ -1,5 +1,15 @@
 package view;
 
+import interface_adapter.send_message.ChatState;
+import interface_adapter.send_message.ChatViewModel;
+import interface_adapter.send_message.SendMessageController;
+import view.custom_panels.ButtonLabelButtonButtonPanel;
+import view.custom_panels.LabelLabelLabelPanel;
+import view.custom_panels.MessageDisplayPanel;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,17 +17,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
-import interface_adapter.send_message.ChatState;
-import interface_adapter.send_message.ChatViewModel;
-import interface_adapter.send_message.SendMessageController;
-import view.custom_panels.ButtonLabelButtonButtonPanel;
-import view.custom_panels.LabelLabelLabelPanel;
-import view.custom_panels.MessageDisplayPanel;
 
 /**
  * The View for when the user is connected with a single Thread (i.e: a Chat).
@@ -69,8 +68,8 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                     {
                         final ChatState currentState = chatViewModel.getState();
                         sendMessageController.execute(currentState.getMessageInput(),
-                                                          currentState.getCurrentThreadID(),
-                                                          currentState.getCurrentUsername());
+                                currentState.getCurrentThreadID(),
+                                currentState.getCurrentUsername());
                     }
                 });
 
@@ -113,6 +112,7 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
 
     /**
      * Returns a list of all the messages currently in this thread (as per the ChatState).
+     *
      * @return a list of message panels
      */
     private List<LabelLabelLabelPanel> getMessagePanels()

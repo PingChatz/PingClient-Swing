@@ -16,8 +16,8 @@ public class AddThreadPresenter implements AddThreadOutputBoundary
     private final ViewManagerModel viewManagerModel;
 
     public AddThreadPresenter(ViewManagerModel viewManagerModel,
-                                AddThreadViewModel addThreadViewModel,
-                                ThreadsViewModel threadsViewModel)
+                              AddThreadViewModel addThreadViewModel,
+                              ThreadsViewModel threadsViewModel)
     {
         this.addThreadViewModel = addThreadViewModel;
         this.threadsViewModel = threadsViewModel;

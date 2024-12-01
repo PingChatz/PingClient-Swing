@@ -11,7 +11,8 @@ public class ThreadFactory
 
     /**
      * This method creates a new thread object.
-     * @param name the name of the new thread
+     *
+     * @param name               the name of the new thread
      * @param usernameListString comma separated string of usernames
      * @return a new Thread object
      */

@@ -1,10 +1,7 @@
 package view.custom_panels;
 
+import javax.swing.*;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  * A panel containing a label, then a button.
@@ -23,6 +20,7 @@ public class ButtonLabelPanel extends JPanel
 
     /**
      * This initialises an actionListener for the button in this panel.
+     *
      * @param listener the actionlistener for this button.
      */
     public void setActionListener(ActionListener listener)
@@ -32,6 +30,7 @@ public class ButtonLabelPanel extends JPanel
 
     /**
      * This returns the text content of the label.
+     *
      * @return the contents of the label.
      */
     public String getLabelContent()

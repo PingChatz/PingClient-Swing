@@ -1,9 +1,5 @@
 package app;
 
-import java.awt.CardLayout;
-
-import javax.swing.*;
-
 import data_access.MessageDataAccessObject;
 import data_access.PingBackend;
 import data_access.ThreadDataAccessObject;
@@ -23,6 +19,8 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.send_message.SendMessageController;
 import interface_adapter.send_message.SendMessagePresenter;
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.threads.GetThreadsController;
 import interface_adapter.threads.GetThreadsPresenter;
@@ -42,7 +40,13 @@ import use_case.logout.LogoutOutputBoundary;
 import use_case.send_message.SendMessageInputBoundary;
 import use_case.send_message.SendMessageInteractor;
 import use_case.send_message.SendMessageOutputBoundary;
+import use_case.signup.SignupInputBoundary;
+import use_case.signup.SignupInteractor;
+import use_case.signup.SignupOutputBoundary;
 import view.*;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -113,6 +117,7 @@ public class AppBuilder
 
     /**
      * Adds the Threads View to the application.
+     *
      * @return this builder
      */
     public AppBuilder addThreadsView()
@@ -126,6 +131,7 @@ public class AppBuilder
     /**
      * Adds the ChatView to the application.
      * This Chat View will be empty ATM, and will be updated depending on which Thread was opened.
+     *
      * @return this builder
      */
     public AppBuilder addChatView()
@@ -138,6 +144,7 @@ public class AppBuilder
 
     /**
      * Adds the Add Threads View to the application.
+     *
      * @return this builder
      */
     public AppBuilder addAddThreadsView()
@@ -152,6 +159,7 @@ public class AppBuilder
 
     /**
      * Adds the Send Message Use Case to the application.
+     *
      * @return this builder
      */
     public AppBuilder addSendMessageUseCase()
@@ -166,6 +174,26 @@ public class AppBuilder
         chatView.setSendMessageController(controller);
         return this;
     }
+
+    public AppBuilder addSignupUseCase()
+    {
+        final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(
+                viewManagerModel,
+                signupViewModel,
+                loginViewModel
+        );
+
+        final SignupInputBoundary signupInteractor = new SignupInteractor(
+                userDataAccessObject,
+                signupOutputBoundary,
+                userFactory
+        );
+
+        final SignupController signupController = new SignupController(signupInteractor);
+        signupView.setSignupController(signupController);
+        return this;
+    }
+
 
     /**
      * Adds the Login Use Case to the application.
@@ -182,6 +210,7 @@ public class AppBuilder
         loginView.setLoginController(loginController);
         return this;
     }
+
 
     /**
      * Adds the Logout Use Case to the application.
@@ -224,6 +253,7 @@ public class AppBuilder
 
     /**
      * Adds the Add Thread Use Case to the application.
+     *
      * @return this builder
      */
     public AppBuilder addAddThreadUseCase()
@@ -262,7 +292,7 @@ public class AppBuilder
         application.add(cardPanel);
 
         // Set the initial view to the LoginView
-        viewManagerModel.setState(addThreadView.getViewName());
+        viewManagerModel.setState(signupView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         // Make the window visible

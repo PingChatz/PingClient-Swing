@@ -26,14 +26,29 @@ public final class AddThreadState
         return threadName;
     }
 
+    public void setThreadName(String threadName)
+    {
+        this.threadName = threadName;
+    }
+
     public String getAddThreadError()
     {
         return addThreadError;
     }
 
+    public void setAddThreadError(String addThreadError)
+    {
+        this.addThreadError = addThreadError;
+    }
+
     public String getUsernameList()
     {
         return usernameList;
+    }
+
+    public void setUsernameList(String usernameList)
+    {
+        this.usernameList = usernameList;
     }
 
     public String getAddThreadSuccess()
@@ -44,21 +59,6 @@ public final class AddThreadState
     public void setAddThreadSuccess(String addThreadSuccess)
     {
         this.addThreadSuccess = addThreadSuccess;
-    }
-
-    public void setThreadName(String threadName)
-    {
-        this.threadName = threadName;
-    }
-
-    public void setAddThreadError(String addThreadError)
-    {
-        this.addThreadError = addThreadError;
-    }
-
-    public void setUsernameList(String usernameList)
-    {
-        this.usernameList = usernameList;
     }
 
     @Override
