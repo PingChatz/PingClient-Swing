@@ -33,16 +33,20 @@ public class UserDataAccessObject implements
     }
 
     @Override
-    public JSONObject validateCredentials(String email, String password) {
-        try {
+    public JSONObject validateCredentials(String email, String password)
+    {
+        try
+        {
             JSONObject response = backend.login(email, password);
-            if (response != null && response.has("authToken")) {
+            if (response != null && response.has("authToken"))
+            {
                 System.out.println("Logged in successfully");
                 System.out.println(response.optString("authToken"));
                 backend.setAccessToken(response.optString("authToken"));
             }
             return response;
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
@@ -51,6 +55,23 @@ public class UserDataAccessObject implements
     @Override
     public void save(User user)
     {
+        try
+        {
+            String response = backend.register(user.getUsername(), user.getEmail(), user.getPassword());
+            JSONObject jsonResponse = new JSONObject(response);
+
+            if (jsonResponse.has("error"))
+            {
+                // Server returned an error; throw an exception with the error message
+                throw new Exception(jsonResponse.getString("message"));
+            }
+            // If no error, registration was successful
+        } catch (Exception e)
+        {
+            // Rethrow the exception to be handled in the interactor
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

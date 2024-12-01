@@ -8,6 +8,8 @@ public final class SignupState
 {
     private String username = "";
     private String usernameError;
+    private String email;
+    private String emailError;
     private String password = "";
     private String passwordError;
     private String repeatPassword = "";
@@ -71,6 +73,26 @@ public final class SignupState
     public void setRepeatPasswordError(String repeatPasswordError)
     {
         this.repeatPasswordError = repeatPasswordError;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public String getEmailError()
+    {
+        return emailError;
+    }
+
+    public void setEmailError(String emailError)
+    {
+        this.emailError = emailError;
     }
 
     @Override

@@ -1,9 +1,5 @@
 package app;
 
-import java.awt.CardLayout;
-
-import javax.swing.*;
-
 import data_access.MessageDataAccessObject;
 import data_access.PingBackend;
 import data_access.ThreadDataAccessObject;
@@ -43,6 +39,9 @@ import use_case.send_message.SendMessageInputBoundary;
 import use_case.send_message.SendMessageInteractor;
 import use_case.send_message.SendMessageOutputBoundary;
 import view.*;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -113,6 +112,7 @@ public class AppBuilder
 
     /**
      * Adds the Threads View to the application.
+     *
      * @return this builder
      */
     public AppBuilder addThreadsView()
@@ -126,6 +126,7 @@ public class AppBuilder
     /**
      * Adds the ChatView to the application.
      * This Chat View will be empty ATM, and will be updated depending on which Thread was opened.
+     *
      * @return this builder
      */
     public AppBuilder addChatView()
@@ -138,6 +139,7 @@ public class AppBuilder
 
     /**
      * Adds the Add Threads View to the application.
+     *
      * @return this builder
      */
     public AppBuilder addAddThreadsView()
@@ -152,6 +154,7 @@ public class AppBuilder
 
     /**
      * Adds the Send Message Use Case to the application.
+     *
      * @return this builder
      */
     public AppBuilder addSendMessageUseCase()
@@ -224,6 +227,7 @@ public class AppBuilder
 
     /**
      * Adds the Add Thread Use Case to the application.
+     *
      * @return this builder
      */
     public AppBuilder addAddThreadUseCase()
@@ -262,7 +266,7 @@ public class AppBuilder
         application.add(cardPanel);
 
         // Set the initial view to the LoginView
-        viewManagerModel.setState(addThreadView.getViewName());
+        viewManagerModel.setState(signupView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         // Make the window visible
