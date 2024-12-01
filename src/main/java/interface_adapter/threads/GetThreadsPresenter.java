@@ -1,5 +1,6 @@
 package interface_adapter.threads;
 
+import entity.Thread;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.send_message.ChatState;
 import interface_adapter.send_message.ChatViewModel;
@@ -29,8 +30,8 @@ public class GetThreadsPresenter implements GetThreadsOutputBoundary
         Map<Long, String> threadMap = new HashMap<>();
 
         // fill the threadMap with thread data
-        for (Long threadID : outputData.getThreads()) {
-            threadMap.put(threadID, "Thread " + threadID); // placeholder for any thread names
+        for (Thread thread : outputData.getThreads()) {
+            threadMap.put(thread.getThreadID(), thread.getName()); // placeholder for any thread names
         }
 
         threadsState.setThreadHash(threadMap);
