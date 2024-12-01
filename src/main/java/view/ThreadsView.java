@@ -67,7 +67,16 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
                     {
                         if (evt.getSource().equals(refreshButton))
                         {
-                            getThreadsController.execute();
+                            if (getThreadsController != null)
+                            {
+                                String username = threadsViewModel.getState().getCurrentUsername();
+                                getThreadsController.execute(username);
+                            }
+
+                            else
+                            {
+                                System.out.println("Error: GetThreadsController is not set.");
+                            }
                         }
                     }
                 }
