@@ -2,6 +2,7 @@ package data_access;
 
 import entity.User;
 import org.json.JSONObject;
+import use_case.add_thread.AddThreadUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.send_message.SendMessageUserDataAccessInterface;
