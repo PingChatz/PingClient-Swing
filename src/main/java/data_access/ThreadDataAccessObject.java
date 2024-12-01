@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import use_case.add_thread.AddThreadThreadDataAccessInterface;
 import use_case.get_threads.GetThreadsThreadDataAccessInterface;
-import use_case.send_message.SendMessageThreadDataAccessInterface;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,9 +17,7 @@ import java.util.Set;
 /**
  * The DAO for thread data.
  */
-// TODO: implement this.
-public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterface,
-        AddThreadThreadDataAccessInterface, GetThreadsThreadDataAccessInterface
+public class ThreadDataAccessObject implements AddThreadThreadDataAccessInterface, GetThreadsThreadDataAccessInterface
 {
     private static final String PARTICIPANTS = "participants";
     private final PingBackend backend;
@@ -30,7 +27,7 @@ public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterf
         this.backend = backend;
     }
 
-    //very similar logic throughout these three methods
+    // very similar logic throughout these three methods
     @Override
     public List<Long> getUserThreadIDs(Long userID)
     {
@@ -106,35 +103,11 @@ public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterf
             }
 
             return userThreads;
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             throw new RuntimeException("Failed to fetch threads for username: " + username, e);
         }
-    }
-
-    @Override
-    public String getCurrentThreadName()
-    {
-        // get stuff from the api
-        return "";
-    }
-
-    @Override
-    public String getCurrentThreadID()
-    {
-        return "";
-    }
-
-    @Override
-    public List<Message> getMessageList()
-    {
-        return List.of();
-    }
-
-    @Override
-    public void updateMessageList(Message message)
-    {
-
     }
 
     @Override
