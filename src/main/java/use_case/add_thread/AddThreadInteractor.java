@@ -4,7 +4,7 @@ import entity.Thread;
 import entity.ThreadFactory;
 
 /**
- * The Add Thread Interactor.
+ * The Add Thread Interactor..
  */
 public class AddThreadInteractor implements AddThreadInputBoundary
 {
