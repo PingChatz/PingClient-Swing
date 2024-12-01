@@ -22,6 +22,7 @@ public class Main
                                             .addAddThreadsView()
                                             .addSendMessageUseCase()
                                             .addGetThreadsUseCase()
+                                            .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
                                             .addAddThreadUseCase()

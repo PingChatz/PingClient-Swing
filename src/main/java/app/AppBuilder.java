@@ -19,6 +19,8 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.send_message.SendMessageController;
 import interface_adapter.send_message.SendMessagePresenter;
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.threads.GetThreadsController;
 import interface_adapter.threads.GetThreadsPresenter;
@@ -38,6 +40,9 @@ import use_case.logout.LogoutOutputBoundary;
 import use_case.send_message.SendMessageInputBoundary;
 import use_case.send_message.SendMessageInteractor;
 import use_case.send_message.SendMessageOutputBoundary;
+import use_case.signup.SignupInputBoundary;
+import use_case.signup.SignupInteractor;
+import use_case.signup.SignupOutputBoundary;
 import view.*;
 
 import javax.swing.*;
@@ -170,6 +175,26 @@ public class AppBuilder
         return this;
     }
 
+    public AppBuilder addSignupUseCase()
+    {
+        final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(
+                viewManagerModel,
+                signupViewModel,
+                loginViewModel
+        );
+
+        final SignupInputBoundary signupInteractor = new SignupInteractor(
+                userDataAccessObject,
+                signupOutputBoundary,
+                userFactory
+        );
+
+        final SignupController signupController = new SignupController(signupInteractor);
+        signupView.setSignupController(signupController);
+        return this;
+    }
+
+
     /**
      * Adds the Login Use Case to the application.
      *
@@ -185,6 +210,7 @@ public class AppBuilder
         loginView.setLoginController(loginController);
         return this;
     }
+
 
     /**
      * Adds the Logout Use Case to the application.

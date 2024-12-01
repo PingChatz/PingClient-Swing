@@ -26,6 +26,7 @@ public class SignupController
      */
     public void execute(String username, String email, String password1, String password2)
     {
+//        System.out.println(username + " " + email + " " + password1 + " " + password2);
         final SignupInputData signupInputData = new SignupInputData(
                 username,
                 password1,

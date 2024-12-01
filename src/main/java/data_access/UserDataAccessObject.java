@@ -1,12 +1,15 @@
 package data_access;
 
 import entity.User;
+import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.add_thread.AddThreadUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.send_message.SendMessageUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
+
+import java.io.IOException;
 
 /**
  * The DAO for user data.
@@ -52,8 +55,7 @@ public class UserDataAccessObject implements
         }
     }
 
-    @Override
-    public void save(User user)
+    public void save(User user) throws Exception
     {
         try
         {
@@ -66,11 +68,18 @@ public class UserDataAccessObject implements
                 throw new Exception(jsonResponse.getString("message"));
             }
             // If no error, registration was successful
+        } catch (IOException e)
+        {
+            // Handle network errors
+            throw new Exception("Network error occurred while registering. Please check your connection.");
+        } catch (JSONException e)
+        {
+            // Handle JSON parsing errors
+            throw new Exception("Unexpected server response. Please try again later.");
         } catch (Exception e)
         {
-            // Rethrow the exception to be handled in the interactor
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e);
+            // General exception
+            throw new Exception("An error occurred during registration: " + e.getMessage());
         }
     }
 

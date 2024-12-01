@@ -23,32 +23,84 @@ public class SignupInteractor implements SignupInputBoundary
 
     public void execute(SignupInputData signupInputData)
     {
-        if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword()))
+        String username = signupInputData.getUsername();
+        String email = signupInputData.getEmail();
+        String password = signupInputData.getPassword();
+        String repeatPassword = signupInputData.getRepeatPassword();
+
+        System.out.println(username + " " + email + " " + password + " " + repeatPassword);
+
+        // Username validation
+        if (username == null || username.trim().isEmpty())
+        {
+            userPresenter.prepareFailView("Username cannot be empty.");
+            return;
+        }
+        if (!username.matches("^[a-zA-Z0-9_]{3,15}$"))
+        {
+            userPresenter.prepareFailView("Username must be 3-15 characters and contain only letters, numbers, or underscores.");
+            return;
+        }
+
+        // Email validation
+        if (email == null || email.trim().isEmpty())
+        {
+            userPresenter.prepareFailView("Email cannot be empty.");
+            return;
+        }
+        if (!isValidEmail(email))
+        {
+            userPresenter.prepareFailView("Please enter a valid email address.");
+            return;
+        }
+
+        // Password validation
+        if (password == null || password.isEmpty())
+        {
+            userPresenter.prepareFailView("Password cannot be empty.");
+            return;
+        }
+        if (password.length() < 8)
+        {
+            userPresenter.prepareFailView("Password must be at least 8 characters long.");
+            return;
+        }
+        if (!password.equals(repeatPassword))
         {
             userPresenter.prepareFailView("Passwords don't match.");
-        } else
-        {
-            final User user = userFactory.create(
-                    signupInputData.getUsername(),
-                    signupInputData.getPassword(),
-                    signupInputData.getEmail()
-            );
-
-            try
-            {
-                // Attempt to save the user via the DAO
-                userDataAccessObject.save(user);
-
-                // On success, prepare the success view
-                final SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);
-                userPresenter.prepareSuccessView(signupOutputData);
-
-            } catch (Exception e)
-            {
-                // On failure, extract the error message and pass it to the presenter
-                userPresenter.prepareFailView(e.getMessage());
-            }
+            return;
         }
+
+        final User user = userFactory.create(
+                signupInputData.getUsername(),
+                signupInputData.getPassword(),
+                signupInputData.getEmail()
+        );
+
+        try
+        {
+            // Attempt to save the user via the DAO
+            userDataAccessObject.save(user);
+
+            // On success, prepare the success view
+            final SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);
+            userPresenter.prepareSuccessView(signupOutputData);
+
+        } catch (Exception e)
+        {
+            // Log the exception (optional)
+            e.printStackTrace();
+
+            // Provide a generic error message to the user
+            userPresenter.prepareFailView("An error occurred during sign-up. Please try again later.");
+        }
+    }
+
+    // Helper method to validate email format
+    private boolean isValidEmail(String email)
+    {
+        String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        return email.matches(emailRegex);
     }
 
     @Override
@@ -57,3 +109,4 @@ public class SignupInteractor implements SignupInputBoundary
         userPresenter.switchToLoginView();
     }
 }
+
