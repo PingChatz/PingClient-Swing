@@ -60,7 +60,7 @@ public class SendMessageInteractor implements SendMessageInputBoundary
             }
             catch (Exception exception)
             {
-                sendMessagePresenter.prepareFailView("Server error");
+                sendMessagePresenter.prepareFailView("Server Error");
             }
         }
     }
