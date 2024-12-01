@@ -39,10 +39,9 @@ public class Thread
     {
         this.threadID = threadID;
         this.name = name;
-        this.usernameList = new ArrayList<>(); // Empty username list by default
-        this.messageList = new ArrayList<>(); // Empty message list by default
+        this.usernameList = new ArrayList<>();
+        this.messageList = new ArrayList<>();
     }
-
 
     public final String getName()
     {
@@ -68,5 +67,15 @@ public class Thread
     {
         return messageList;
     }
-}
 
+    @Override
+    public String toString()
+    {
+        return "Thread{" +
+                "threadID=" + threadID +
+                ", name='" + name + '\'' +
+                ", usernameList=" + usernameList +
+                ", messageList=" + messageList +
+                '}';
+    }
+}

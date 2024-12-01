@@ -72,7 +72,8 @@ public class PingBackend extends AbstractAPICall
         // Construct the body
         JSONObject body = new JSONObject();
         body.put("threadName", threadName);
-        body.put("participantUsernames", participantUsernames);
+        body.put("threadName", threadName);
+        body.put("participants", participantUsernames);
 
         // Call API
         String response = sendRequest("api/v1/threads", POST, body);
