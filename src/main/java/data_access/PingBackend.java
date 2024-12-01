@@ -34,21 +34,24 @@ public class PingBackend extends APICall
         return new JSONObject(response);
     }
 
-    public JSONObject login(String email, String password) throws Exception
+    public JSONObject login(String usernameOrEmail, String password) throws Exception
     {
-        // Construct the body
-        JSONObject body = new JSONObject();
-        body.put("email", email);
-        body.put("password", password);
+        try {
+            // Construct the body
+            JSONObject body = new JSONObject();
+            body.put("usernameOrEmail", usernameOrEmail);
+            body.put("password", password);
 
-        // Call API
-        String response = sendRequest("api/v1/auth/login", "POST", body);
 
-        JSONObject jsonResponse = new JSONObject(response);
-        // Save auth token
-        this.setAccessToken(jsonResponse.optString("auth_token"));
-        // Return results as a JSON
-        return jsonResponse;
+            // Call API
+            String response = sendRequest("api/v1/auth/login", "POST", body);
+
+            // Return results as a JSON
+            return new JSONObject(response);
+        } catch (Exception e) {
+            System.out.println("Login failed: " + e.getMessage());
+            throw e;
+        }
     }
 
     public JSONObject createThread(String threadName, String[] participantUsernames) throws Exception

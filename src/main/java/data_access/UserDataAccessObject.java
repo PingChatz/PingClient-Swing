@@ -1,6 +1,7 @@
 package data_access;
 
 import entity.User;
+import org.json.JSONObject;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.send_message.SendMessageUserDataAccessInterface;
@@ -27,6 +28,22 @@ public class UserDataAccessObject implements
     public boolean existsByName(String username)
     {
         return false;
+    }
+
+    @Override
+    public JSONObject validateCredentials(String email, String password) {
+        try {
+            JSONObject response = backend.login(email, password);
+            if (response != null && response.has("authToken")) {
+                System.out.println("Logged in successfully");
+                System.out.println(response.optString("authToken"));
+                backend.setAccessToken(response.optString("authToken"));
+            }
+            return response;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

@@ -11,6 +11,8 @@ import data_access.UserDataAccessObject;
 import entity.MessageFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
@@ -21,6 +23,9 @@ import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.threads.ThreadsViewModel;
+import use_case.login.LoginInputBoundary;
+import use_case.login.LoginInteractor;
+import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
@@ -54,7 +59,7 @@ public class AppBuilder
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // Create the Backend instance
-    PingBackend pingBackend = new PingBackend("http://localhost:8080/"); // ToDo: Change it to server url
+    PingBackend pingBackend = new PingBackend("http://pingserver-env.eba-u7hgzajj.ca-central-1.elasticbeanstalk.com/"); // ToDo: Change it to server url
     private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject(pingBackend);
     private final ThreadDataAccessObject threadDataAccessObject = new ThreadDataAccessObject(pingBackend);
     private final MessageDataAccessObject messageDataAccessObject = new MessageDataAccessObject(pingBackend);
@@ -168,6 +173,12 @@ public class AppBuilder
      */
     public AppBuilder addLoginUseCase()
     {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, viewManagerModel,
+                signupViewModel,threadsViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        loginView.setLoginController(loginController);
         return this;
     }
 

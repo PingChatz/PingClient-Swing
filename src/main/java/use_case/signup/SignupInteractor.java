@@ -48,7 +48,7 @@ public class SignupInteractor implements SignupInputBoundary
             userPresenter.prepareSuccessView(signupOutputData);
 
 //            userDataAccessObject.save(user);
-//        if (userDataAccessObject.existsByName(signupInputData.getUsername()))
+//        if (userDataAccessObject.existsByName(signupInputData.getEmail()))
 //        {
 //            userPresenter.prepareFailView("User already exists.");
 //        }
@@ -58,11 +58,11 @@ public class SignupInteractor implements SignupInputBoundary
 //        }
 //        else
 //        {
-//            final User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(),
+//            final User user = userFactory.create(signupInputData.getEmail(), signupInputData.getPassword(),
 //                    signupInputData.getEmail());
 //            userDataAccessObject.save(user);
 //
-//            final SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);
+//            final SignupOutputData signupOutputData = new SignupOutputData(user.getEmail(), false);
 //            userPresenter.prepareSuccessView(signupOutputData);
 //        }
 

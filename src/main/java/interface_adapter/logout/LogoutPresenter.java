@@ -41,7 +41,7 @@ public class LogoutPresenter implements LogoutOutputBoundary
         // 5. get the LoginState out of the appropriate View Model,
         final LoginState logoutState = loginViewModel.getState();
         // 6. set the username and password in the state to the empty string
-        logoutState.setUsername("");
+        logoutState.setUsernameOrEmail("");
         logoutState.setPassword("");
         // 7. set the state in the LoginViewModel to the updated state
         this.loginViewModel.setState(logoutState);

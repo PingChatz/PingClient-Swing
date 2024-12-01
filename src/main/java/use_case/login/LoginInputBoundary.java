@@ -3,7 +3,6 @@ package use_case.login;
 /**
  * Input Boundary for actions which are related to logging in.
  */
-// TODO: overwrite with our code
 public interface LoginInputBoundary
 {
 
@@ -12,4 +11,5 @@ public interface LoginInputBoundary
      * @param loginInputData the input data
      */
     void execute(LoginInputData loginInputData);
+    void switchToSignUpView();
 }
