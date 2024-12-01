@@ -57,12 +57,10 @@ public class AddThreadInteractor implements AddThreadInputBoundary
         else
         {
             // complete the username list with the current user's username.
-            String fullUserList = createFullFormattedUserList(
-                    addThreadInputData.getUsernameList(),
-                    addThreadInputData.getCurrentUsername());
+            String userList = createFormattedUserList(addThreadInputData.getUsernameList());
 
             // create thread object to save
-            Thread threadToSave = threadFactory.create(addThreadInputData.getThreadName(), fullUserList);
+            Thread threadToSave = threadFactory.create(addThreadInputData.getThreadName(), userList);
 
             // try to save the new thread to the server
             try
@@ -101,12 +99,11 @@ public class AddThreadInteractor implements AddThreadInputBoundary
     /**
      * Returns the full list of users in the thread, as a comma-separated String.
      * @param userList the list of users from the input data
-     * @param currentUsername the username of the current user
      * @return a concatenation of the two that follows the regex
      */
-    private String createFullFormattedUserList(String userList, String currentUsername)
+    private String createFormattedUserList(String userList)
     {
-        return userList + "," + currentUsername;
+        return userList.replaceAll("\\s+", "");
     }
 
     @Override
