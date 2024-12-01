@@ -174,7 +174,7 @@ public class AppBuilder
     public AppBuilder addLoginUseCase()
     {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, viewManagerModel,
-                signupViewModel,threadsViewModel);
+                signupViewModel, threadsViewModel, chatViewModel, addThreadViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccessObject, loginOutputBoundary);
 
         final LoginController loginController = new LoginController(loginInteractor);

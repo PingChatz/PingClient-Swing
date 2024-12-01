@@ -1,6 +1,8 @@
 package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.add_thread.AddThreadViewModel;
+import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.threads.ThreadsViewModel;
 import use_case.login.LoginOutputBoundary;
@@ -15,13 +17,17 @@ public class LoginPresenter implements LoginOutputBoundary
     private final ViewManagerModel viewManagerModel;
     private final SignupViewModel signupViewModel;
     private final ThreadsViewModel threadsViewModel;
+    private final ChatViewModel chatViewModel;
+    private final AddThreadViewModel addThreadViewModel;
 
     public LoginPresenter(LoginViewModel loginViewModel, ViewManagerModel viewManagerModel, SignupViewModel signupViewModel,
-                          ThreadsViewModel threadsViewModel) {
+                          ThreadsViewModel threadsViewModel, ChatViewModel chatViewModel, AddThreadViewModel addThreadViewModel) {
         this.loginViewModel = loginViewModel;
         this.viewManagerModel = viewManagerModel;
         this.signupViewModel = signupViewModel;
         this.threadsViewModel = threadsViewModel;
+        this.chatViewModel = chatViewModel;
+        this.addThreadViewModel = addThreadViewModel;
     }
 
     @Override
@@ -33,6 +39,16 @@ public class LoginPresenter implements LoginOutputBoundary
         loginState.setLoginError("");
         loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
+
+        // Update the Current Username in each ViewModel
+        threadsViewModel.getState().setCurrentUsername(outputData.getUsername());
+        threadsViewModel.firePropertyChanged();
+
+        chatViewModel.getState().setCurrentUsername(outputData.getUsername());
+        chatViewModel.firePropertyChanged();
+
+        addThreadViewModel.getState().setCurrentUsername(outputData.getUsername());
+        addThreadViewModel.firePropertyChanged();
 
         //Switch to the ThreadsView
         viewManagerModel.setState(threadsViewModel.getViewName());
