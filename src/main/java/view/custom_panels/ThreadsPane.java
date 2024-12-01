@@ -16,6 +16,7 @@ public class ThreadsPane extends JScrollPane
 
     private final List<ButtonLabelPanel> buttonLabels = new ArrayList<>();
 
+
     public ThreadsPane(String[] threadNames)
     {
         JPanel listPanel = new JPanel();

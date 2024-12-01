@@ -29,6 +29,7 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
 
     private final JButton refreshButton;
     private final JButton logoutButton;
+    private final JButton addThreadButton;
     private final ThreadsPane threadsList;
 
     private GetThreadsController getThreadsController;
@@ -45,9 +46,10 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font("Arial", Font.BOLD, ThreadsViewModel.TITLE_FONT_SIZE));
 
-        // Initialize the two buttons
+        // Initialize the three buttons
         refreshButton = new JButton(ThreadsViewModel.REFRESH_LABEL);
         logoutButton = new JButton(ThreadsViewModel.LOGOUT_LABEL);
+        addThreadButton = new JButton(ThreadsViewModel.ADDTHREAD_LABEL);
 
 //        // initialise the list of threadNames (below is an example for testing purposes, will be replaced)
 //        final String[] threadNames = {"Benj", "Ali"};
@@ -56,6 +58,7 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
         final String[] threadNames = threadsViewModel.getState().getThreadNamesList();
 
         threadsList = new ThreadsPane(threadNames);
+        
         threadsList.setPreferredSize(new Dimension(ThreadsViewModel.THREADSLIST_WIDTH,
                 ThreadsViewModel.THREADSLIST_HEIGHT));
 
@@ -93,7 +96,21 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
                     }
                 }
         );
-        // Add an action listener for each view button in the threadNames views
+
+        addThreadButton.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent evt)
+                    {
+                        if (evt.getSource().equals(addThreadButton))
+                        {
+                            getThreadsController.switchToAddThreadView();
+                        }
+                    }
+                }
+        );
+
+        // Add an actionlistener for each view button in the threads views
         for (ButtonLabelPanel buttonLabel: threadsList.getButtonLabels())
         {
             buttonLabel.setActionListener(new ActionListener()
@@ -119,6 +136,7 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
                 ThreadsViewModel.TOP_PANEL_LAYOUT_COLUMNS, 0, 0));
         topPanel.add(refreshButton);
         topPanel.add(logoutButton);
+        topPanel.add(addThreadButton);
         this.add(topPanel);
         this.add(titleLabel);
         this.add(threadsList);

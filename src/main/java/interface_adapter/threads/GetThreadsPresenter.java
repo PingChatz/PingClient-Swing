@@ -2,6 +2,8 @@ package interface_adapter.threads;
 
 import entity.Thread;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.add_thread.AddThreadState;
+import interface_adapter.add_thread.AddThreadViewModel;
 import interface_adapter.send_message.ChatState;
 import interface_adapter.send_message.ChatViewModel;
 import use_case.get_threads.GetThreadsOutputBoundary;
@@ -15,12 +17,14 @@ public class GetThreadsPresenter implements GetThreadsOutputBoundary
     private ViewManagerModel viewManagerModel;
     private ChatViewModel chatViewModel;
     private ThreadsViewModel threadsViewModel;
+    private AddThreadViewModel addThreadViewModel;
 
-    public GetThreadsPresenter(ViewManagerModel viewManagerModel, ChatViewModel chatViewModel, ThreadsViewModel threadsViewModel)
+    public GetThreadsPresenter(ViewManagerModel viewManagerModel, ChatViewModel chatViewModel, ThreadsViewModel threadsViewModel, AddThreadViewModel addThreadViewModel)
     {
         this.viewManagerModel = viewManagerModel;
         this.chatViewModel = chatViewModel;
         this.threadsViewModel = threadsViewModel;
+        this.addThreadViewModel = addThreadViewModel;
     }
 
     @Override
@@ -65,6 +69,14 @@ public class GetThreadsPresenter implements GetThreadsOutputBoundary
         viewManagerModel.setState(chatViewModel.getViewName());
 
         System.out.println(viewManagerModel.getState());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToAddThreadView()
+    {
+        // This code tells the View Manager to switch to the AddThreads view.
+        viewManagerModel.setState(addThreadViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }
