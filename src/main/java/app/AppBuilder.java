@@ -159,7 +159,8 @@ public class AppBuilder
         final SendMessageOutputBoundary sendMessageOutputBoundary = new SendMessagePresenter(viewManagerModel,
                 chatViewModel, threadsViewModel);
         final SendMessageInputBoundary sendMessageInteractor =
-                new SendMessageInteractor(messageDataAccessObject, messageFactory, sendMessageOutputBoundary);
+                new SendMessageInteractor(messageDataAccessObject,
+                        messageFactory, sendMessageOutputBoundary);
 
         final SendMessageController controller = new SendMessageController(sendMessageInteractor);
         chatView.setSendMessageController(controller);
@@ -210,9 +211,10 @@ public class AppBuilder
         final GetThreadsOutputBoundary getThreadsOutputBoundary = new GetThreadsPresenter(viewManagerModel,
                 chatViewModel, threadsViewModel);
 
-        final GetThreadsInputBoundary getThreadsInteractor =
-                new GetThreadsUseCaseInteractor(userDataAccessObject,
-                        threadDataAccessObject, getThreadsOutputBoundary);
+        final GetThreadsInputBoundary getThreadsInteractor = new GetThreadsUseCaseInteractor(
+                threadDataAccessObject,
+                getThreadsOutputBoundary
+        );
 
         final GetThreadsController getThreadsController = new GetThreadsController(getThreadsInteractor);
         threadsView.setGetThreadsController(getThreadsController);

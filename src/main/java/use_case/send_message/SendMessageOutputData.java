@@ -37,14 +37,4 @@ public class SendMessageOutputData
     {
         return useCaseFailed;
     }
-
-    @Override
-    public String toString()
-    {
-        return "OutputData{"
-                + "username='" + senderUsername + '\''
-                + ", content='" + content + '\''
-                + ", timestamp='" + content + '\''
-                + '}';
-    }
 }
