@@ -1,7 +1,11 @@
 package use_case.get_threads;
 
-import use_case.send_message.SendMessageThreadDataAccessInterface;
-import use_case.send_message.SendMessageUserDataAccessInterface;
+
+import entity.Thread;
+import use_case.get_threads.GetThreadsInputBoundary;
+import use_case.get_threads.GetThreadsInputData;
+import use_case.get_threads.GetThreadsOutputBoundary;
+import use_case.get_threads.GetThreadsOutputData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +14,12 @@ import java.util.List;
  * The get threads Interactor.
  */
 public class GetThreadsUseCaseInteractor implements GetThreadsInputBoundary {
-    private final GetThreadsUserDataAccessInterface userDataAccess;
     private final GetThreadsThreadDataAccessInterface threadDataAccess;
     private final GetThreadsOutputBoundary presenter;
 
     // == CONSTRUCTOR ==
-    public GetThreadsUseCaseInteractor(GetThreadsUserDataAccessInterface userDataAccess,
-                                       GetThreadsThreadDataAccessInterface threadDataAccess,
+    public GetThreadsUseCaseInteractor(GetThreadsThreadDataAccessInterface threadDataAccess,
                                        GetThreadsOutputBoundary presenter) {
-        this.userDataAccess = userDataAccess;
         this.threadDataAccess = threadDataAccess;
         this.presenter = presenter;
     }
@@ -26,27 +27,22 @@ public class GetThreadsUseCaseInteractor implements GetThreadsInputBoundary {
     // == USE CASE METHODS ==
 
     // main use case method
-
     @Override
-    public void execute()
-    {
+    public void execute(GetThreadsInputData inputData) {
         try {
-            Long userID = userDataAccess.getCurrentUserID();
-            if (userID == null) {
-                presenter.prepareFailView("User not found.");
-                return;
-            }
+            // Use the username from inputData
+            String username = inputData.getUsername();
 
-            List<Long> threadIDs = new ArrayList<>();
-            // List<Long> threadIDs = threadDataAccess.getUserThreadIDs(userID);
-            if (threadIDs == null || threadIDs.isEmpty()) {
-                presenter.prepareFailView("No threads found.");
-                return;
-            }
+            // Fetch threads for the given username
+            List<Thread> threads = threadDataAccess.getThreadsByUsername(username);
 
-        }
-        catch (Exception e){
-            presenter.prepareFailView("Error Occured: " + e.getMessage());
+            if (threads.isEmpty()) {
+                presenter.prepareFailView("No threads found for user: " + username);
+            } else {
+                presenter.prepareSuccessView(new GetThreadsOutputData(threads));
+            }
+        } catch (Exception e) {
+            presenter.prepareFailView("Error occurred: " + e.getMessage());
         }
     }
 
