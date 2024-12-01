@@ -27,7 +27,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JLabel usernameErrorField = new JLabel();
 
     private final JPasswordField passwordInputField = new JPasswordField(15);
-    private final JLabel passwordErrorField = new JLabel();
 
     private final JButton logIn;
     private final JButton cancel;
@@ -44,6 +43,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         final JLabel title = new JLabel("Login Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        usernameErrorField.setPreferredSize(new Dimension(300, 20));
+        usernameErrorField.setMaximumSize(new Dimension(300, 20));
+        usernameErrorField.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         final LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel("Username"), usernameInputField);
         final LabelTextPanel passwordInfo = new LabelTextPanel(
@@ -56,18 +59,21 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         buttons.add(cancel);
 
         logIn.addActionListener(
-                new ActionListener()
-                {
-                    public void actionPerformed(ActionEvent evt)
-                    {
-                        if (evt.getSource().equals(logIn))
-                        {
-                            final LoginState currentState = loginViewModel.getState();
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(logIn)) {
+                            String username = usernameInputField.getText().trim();
+                            String password = new String(passwordInputField.getPassword()).trim();
 
-                            loginController.execute(
-                                    currentState.getUsernameOrEmail(),
-                                    currentState.getPassword()
-                            );
+                            if (!username.isEmpty() && !password.isEmpty()) {
+                                final LoginState currentState = loginViewModel.getState();
+                                loginController.execute(
+                                        currentState.getUsernameOrEmail(),
+                                        currentState.getPassword()
+                                );
+                            } else {
+                                usernameErrorField.setText("Username and password must not be empty");
+                            }
                         }
                     }
                 }
@@ -86,6 +92,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                             loginViewModel.setState(currentState);
                             loginViewModel.firePropertyChanged();
                             loginController.switchToSignUpView();
+                            usernameErrorField.setText("");
                         }
                     }
                 }

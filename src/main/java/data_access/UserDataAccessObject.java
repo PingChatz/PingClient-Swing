@@ -43,8 +43,6 @@ public class UserDataAccessObject implements
             JSONObject response = backend.login(email, password);
             if (response != null && response.has("authToken"))
             {
-                System.out.println("Logged in successfully");
-                System.out.println(response.optString("authToken"));
                 backend.setAccessToken(response.optString("authToken"));
             }
             return response;
