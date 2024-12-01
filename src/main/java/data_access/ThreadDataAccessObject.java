@@ -26,6 +26,7 @@ public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterf
         this.backend = backend;
     }
 
+    //very similar logic throughout these three methods
     @Override
     public List<Long> getUserThreadIDs(Long userID) {
         try {
@@ -42,9 +43,8 @@ public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterf
             throw new RuntimeException("Failed to fetch thread IDs", e);
         }
     }
-
     @Override
-    public List<Thread> getThreads() {
+    public List<Thread> getThreads(List<Long> threadIDs) {
         try {
             JSONObject response = backend.getThreads();
             JSONArray threadsArray = response.getJSONArray("threads");
@@ -53,14 +53,43 @@ public class ThreadDataAccessObject implements SendMessageThreadDataAccessInterf
             for (int i = 0; i < threadsArray.length(); i++) {
                 JSONObject threadJson = threadsArray.getJSONObject(i);
                 Long threadID = threadJson.getLong("id");
-                String name = threadJson.getString("name");
 
-                Thread thread = new Thread(threadID, name);
-                threads.add(thread);
+                if (threadIDs.contains(threadID)) {
+                    String name = threadJson.getString("name");
+                    Thread thread = new Thread(threadID, name);
+                    threads.add(thread);
+                }
             }
             return threads;
         } catch (Exception e) {
             throw new RuntimeException("Failed to fetch threads", e);
+        }
+    }
+
+    @Override
+    public List<Thread> getThreadsByUsername(String username) {
+        try {
+            JSONObject response = backend.getThreads();
+            JSONArray threadsArray = response.getJSONArray("threads");
+
+            List<Thread> userThreads = new ArrayList<>();
+
+            for (int i = 0; i < threadsArray.length(); i++) {
+                JSONObject threadJson = threadsArray.getJSONObject(i);
+                JSONArray usernamesArray = threadJson.getJSONArray("usernames");
+
+                if (usernamesArray.toList().contains(username)) {
+                    Long threadID = threadJson.getLong("id");
+                    String name = threadJson.getString("name");
+
+                    Thread thread = new Thread(threadID, name);
+                    userThreads.add(thread);
+                }
+            }
+
+            return userThreads;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to fetch threads for username: " + username, e);
         }
     }
 
