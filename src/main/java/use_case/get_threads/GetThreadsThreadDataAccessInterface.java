@@ -15,5 +15,8 @@ public interface GetThreadsThreadDataAccessInterface {
      * Fetch all threads for the current user.
      * @return List of threads.
      */
-    List<Thread> getThreads();
+    List<Thread> getThreads(List<Long> threadIDs);
+
+    List<Thread> getThreadsByUsername(String username);
+
 }
