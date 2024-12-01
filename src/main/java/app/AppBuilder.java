@@ -28,9 +28,7 @@ import interface_adapter.threads.ThreadsViewModel;
 import use_case.add_thread.AddThreadInputBoundary;
 import use_case.add_thread.AddThreadInteractor;
 import use_case.add_thread.AddThreadOutputBoundary;
-import use_case.get_threads.GetThreadsInputBoundary;
-import use_case.get_threads.GetThreadsOutputBoundary;
-import use_case.get_threads.GetThreadsUseCaseInteractor;
+import use_case.get_threads.*;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
@@ -155,7 +153,8 @@ public class AppBuilder
         final SendMessageOutputBoundary sendMessageOutputBoundary = new SendMessagePresenter(viewManagerModel,
                 chatViewModel, threadsViewModel);
         final SendMessageInputBoundary sendMessageInteractor =
-                new SendMessageInteractor(messageDataAccessObject, messageFactory, sendMessageOutputBoundary);
+                new SendMessageInteractor(messageDataAccessObject,
+                        messageFactory, sendMessageOutputBoundary);
 
         final SendMessageController controller = new SendMessageController(sendMessageInteractor);
         chatView.setSendMessageController(controller);
@@ -200,9 +199,10 @@ public class AppBuilder
         final GetThreadsOutputBoundary getThreadsOutputBoundary = new GetThreadsPresenter(viewManagerModel,
                 chatViewModel, threadsViewModel);
 
-        final GetThreadsInputBoundary getThreadsInteractor =
-                new GetThreadsUseCaseInteractor(userDataAccessObject,
-                        threadDataAccessObject, getThreadsOutputBoundary);
+        final GetThreadsInputBoundary getThreadsInteractor = new GetThreadsUseCaseInteractor(
+                threadDataAccessObject,
+                getThreadsOutputBoundary
+        );
 
         final GetThreadsController getThreadsController = new GetThreadsController(getThreadsInteractor);
         threadsView.setGetThreadsController(getThreadsController);
