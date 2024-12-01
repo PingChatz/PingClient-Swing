@@ -1,23 +1,16 @@
 package use_case.get_threads;
+import java.util.List;
+import entity.Thread;
 
-public class GetThreadsOutputData
-{
-    private Long threads;
-    private boolean useCaseFailed;
+public class GetThreadsOutputData {
+    private List<Thread> threads;
 
-    public GetThreadsOutputData(Long threads, boolean useCaseFailed)
-    {
+    public GetThreadsOutputData(List<Thread> threads) {
         this.threads = threads;
-        this.useCaseFailed = useCaseFailed;
     }
 
-    public Long getThreadIDs()
-    {
+    public List<Thread> getThreads() {
         return threads;
     }
 
-    public boolean isUseCaseFailed()
-    {
-        return useCaseFailed;
-    }
 }

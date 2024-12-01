@@ -12,13 +12,13 @@ public class MessageDisplayPanel extends JPanel
 {
     private final JPanel boxPanel = new JPanel();
 
-    public MessageDisplayPanel(List<LabelLabelPanel> messagePanels)
+    public MessageDisplayPanel(List<LabelLabelLabelPanel> messagePanels)
     {
         // Set the layout of boxPanel
         boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
 
         // Add each message panel to the box panel
-        for (LabelLabelPanel messagePanel : messagePanels)
+        for (LabelLabelLabelPanel messagePanel : messagePanels)
         {
             boxPanel.add(messagePanel);
         }
@@ -42,10 +42,10 @@ public class MessageDisplayPanel extends JPanel
      * Updates the MessageDisplayPanel with a new list of message panels.
      * @param updatedMessagePanels the updated list of message panels.
      */
-    public void updateMessagePanels(List<LabelLabelPanel> updatedMessagePanels)
+    public void updateMessagePanels(List<LabelLabelLabelPanel> updatedMessagePanels)
     {
         boxPanel.removeAll();
-        for (LabelLabelPanel messagePanel : updatedMessagePanels)
+        for (LabelLabelLabelPanel messagePanel : updatedMessagePanels)
         {
             boxPanel.add(messagePanel);
         }

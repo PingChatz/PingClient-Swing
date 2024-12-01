@@ -15,6 +15,8 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.add_thread.AddThreadController;
 import interface_adapter.add_thread.AddThreadPresenter;
 import interface_adapter.add_thread.AddThreadViewModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
@@ -31,6 +33,9 @@ import use_case.add_thread.AddThreadOutputBoundary;
 import use_case.get_threads.GetThreadsInputBoundary;
 import use_case.get_threads.GetThreadsOutputBoundary;
 import use_case.get_threads.GetThreadsUseCaseInteractor;
+import use_case.login.LoginInputBoundary;
+import use_case.login.LoginInteractor;
+import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
@@ -154,7 +159,7 @@ public class AppBuilder
         final SendMessageOutputBoundary sendMessageOutputBoundary = new SendMessagePresenter(viewManagerModel,
                 chatViewModel, threadsViewModel);
         final SendMessageInputBoundary sendMessageInteractor =
-                new SendMessageInteractor(userDataAccessObject, messageDataAccessObject,
+                new SendMessageInteractor(messageDataAccessObject,
                         messageFactory, sendMessageOutputBoundary);
 
         final SendMessageController controller = new SendMessageController(sendMessageInteractor);
@@ -169,6 +174,12 @@ public class AppBuilder
      */
     public AppBuilder addLoginUseCase()
     {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, viewManagerModel,
+                signupViewModel, threadsViewModel, chatViewModel, addThreadViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        loginView.setLoginController(loginController);
         return this;
     }
 
@@ -200,9 +211,10 @@ public class AppBuilder
         final GetThreadsOutputBoundary getThreadsOutputBoundary = new GetThreadsPresenter(viewManagerModel,
                 chatViewModel, threadsViewModel, addThreadViewModel);
 
-        final GetThreadsInputBoundary getThreadsInteractor =
-                new GetThreadsUseCaseInteractor(userDataAccessObject,
-                        messageDataAccessObject, threadDataAccessObject, getThreadsOutputBoundary);
+        final GetThreadsInputBoundary getThreadsInteractor = new GetThreadsUseCaseInteractor(
+                threadDataAccessObject,
+                getThreadsOutputBoundary
+        );
 
         final GetThreadsController getThreadsController = new GetThreadsController(getThreadsInteractor);
         threadsView.setGetThreadsController(getThreadsController);
@@ -219,7 +231,7 @@ public class AppBuilder
         final AddThreadOutputBoundary addThreadOutputBoundary = new AddThreadPresenter(viewManagerModel,
                 addThreadViewModel, threadsViewModel);
         final AddThreadInputBoundary addThreadInteractor =
-                new AddThreadInteractor(userDataAccessObject, threadDataAccessObject, addThreadOutputBoundary,
+                new AddThreadInteractor(threadDataAccessObject, addThreadOutputBoundary,
                         threadFactory);
 
         final AddThreadController controller = new AddThreadController(addThreadInteractor);

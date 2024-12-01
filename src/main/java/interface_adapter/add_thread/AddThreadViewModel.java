@@ -14,6 +14,8 @@ public class AddThreadViewModel extends ViewModel<AddThreadState>
     public static final String TO_THREADS_BUTTON_LABEL = "Back to all threads";
     public static final String ADD_THREAD_BUTTON_LABEL = "Create thread";
 
+    public static final int BORDER_DIMENSIONS = 40;
+
     public AddThreadViewModel()
     {
         super("add thread");
