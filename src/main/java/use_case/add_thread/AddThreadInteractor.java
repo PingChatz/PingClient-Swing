@@ -28,14 +28,12 @@ public class AddThreadInteractor implements AddThreadInputBoundary
         if (addThreadInputData.getThreadName().isEmpty())
         {
             addThreadPresenter.prepareFailView("Thread name field is empty.");
-        }
-        else if (addThreadInputData.getThreadName().length() > Thread.THREAD_NAME_MAX_LENGTH)
+        } else if (addThreadInputData.getThreadName().length() > Thread.THREAD_NAME_MAX_LENGTH)
         {
             addThreadPresenter.prepareFailView(
                     "Thread name is too long. Must be under "
                             + Thread.THREAD_NAME_MAX_LENGTH + " characters.");
-        }
-        else if (addThreadInputData.getThreadName().length() < Thread.THREAD_NAME_MIN_LENGTH)
+        } else if (addThreadInputData.getThreadName().length() < Thread.THREAD_NAME_MIN_LENGTH)
         {
             addThreadPresenter.prepareFailView(
                     "Thread name is too short. Must be at least "
@@ -48,13 +46,11 @@ public class AddThreadInteractor implements AddThreadInputBoundary
         else if (addThreadInputData.getUsernameList().isEmpty())
         {
             addThreadPresenter.prepareFailView("List of Users is Empty");
-        }
-        else if (!userListIsWellFormatted(addThreadInputData.getUsernameList()))
+        } else if (!userListIsWellFormatted(addThreadInputData.getUsernameList()))
         {
             addThreadPresenter.prepareFailView("List of users is poorly formatted. \n "
                     + "(should be separated by commas and contain no spaces)");
-        }
-        else
+        } else
         {
             // complete the username list with the current user's username.
             String userList = createFormattedUserList(addThreadInputData.getUsernameList());
@@ -73,8 +69,7 @@ public class AddThreadInteractor implements AddThreadInputBoundary
                         threadToPresent.getThreadID());
                 addThreadPresenter.prepareSuccessView(outputData,
                         "New thread '" + threadToPresent.getName() + "' has been successfully created.");
-            }
-            catch (Exception exception)
+            } catch (Exception exception)
             {
                 addThreadPresenter.prepareFailView("Server Error");
             }
@@ -83,6 +78,7 @@ public class AddThreadInteractor implements AddThreadInputBoundary
 
     /**
      * Returns true if the given string is well-formatted, according to the regex.
+     *
      * @param string string to check
      * @return true if usernameList is well-formatted, false otherwise
      */
@@ -98,6 +94,7 @@ public class AddThreadInteractor implements AddThreadInputBoundary
 
     /**
      * Returns the full list of users in the thread, as a comma-separated String.
+     *
      * @param userList the list of users from the input data
      * @return a concatenation of the two that follows the regex
      */

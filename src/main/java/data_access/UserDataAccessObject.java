@@ -96,14 +96,14 @@ public class UserDataAccessObject implements
     }
 
     @Override
-    public Long getCurrentUserID()
+    public void setCurrentUsername(String username)
     {
-        return 0L;
     }
 
     @Override
-    public void setCurrentUsername(String username)
+    public Long getCurrentUserID()
     {
+        return 0L;
     }
 
     @Override

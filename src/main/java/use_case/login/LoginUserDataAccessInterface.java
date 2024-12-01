@@ -7,7 +7,8 @@ import org.json.JSONObject;
  * DAO for the Login Use Case.
  */
 // TODO: overwrite with our code
-public interface LoginUserDataAccessInterface {
+public interface LoginUserDataAccessInterface
+{
 
     /**
      * Checks if the given username exists.
@@ -19,6 +20,7 @@ public interface LoginUserDataAccessInterface {
 
     /**
      * Checks if the given user exists.
+     *
      * @param username the email of the user to look for
      * @param password the password of the user to look for
      * @return JSONObject containing the authentication token, username, and any messages or errors.

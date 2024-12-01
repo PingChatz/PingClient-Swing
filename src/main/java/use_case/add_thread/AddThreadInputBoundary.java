@@ -8,6 +8,7 @@ public interface AddThreadInputBoundary
 
     /**
      * Executes the add thread use case.
+     *
      * @param addThreadInputData the input data
      */
     void execute(AddThreadInputData addThreadInputData);

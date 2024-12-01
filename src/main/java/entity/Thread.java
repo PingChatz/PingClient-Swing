@@ -12,9 +12,9 @@ public class Thread
     public static final int THREAD_NAME_MIN_LENGTH = 3;
 
     private final Long threadID;
-    private String name;
     private final List<String> usernameList;
     private final List<Message> messageList;
+    private String name;
 
     // Constructor for the creation of a new Thread with no messages.
     public Thread(String name, List<String> usernameList)
@@ -35,7 +35,8 @@ public class Thread
     }
 
     // New Constructor for threads fetched from the backend.
-    public Thread(Long threadID, String name) {
+    public Thread(Long threadID, String name)
+    {
         this.threadID = threadID;
         this.name = name;
         this.usernameList = new ArrayList<>(); // Empty username list by default

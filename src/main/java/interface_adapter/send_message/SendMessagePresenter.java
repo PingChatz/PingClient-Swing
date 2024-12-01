@@ -17,8 +17,8 @@ public final class SendMessagePresenter implements SendMessageOutputBoundary
 
     // == CONSTRUCTOR ==
     public SendMessagePresenter(ViewManagerModel viewManagerModel,
-                                 ChatViewModel chatViewModel,
-                                 ThreadsViewModel threadsViewModel)
+                                ChatViewModel chatViewModel,
+                                ThreadsViewModel threadsViewModel)
     {
         this.chatViewModel = chatViewModel;
         this.threadsViewModel = threadsViewModel;

@@ -8,6 +8,7 @@ public interface AddThreadUserDataAccessInterface
 {
     /**
      * Returns the current user's username.
+     *
      * @return the current user's username
      */
     String getCurrentUsername();

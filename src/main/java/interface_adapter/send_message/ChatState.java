@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Represents the current state of the Chat View Model.
  * PRECONDITION: all sub-arrays of allMessages are of length 3, the first String being the sender's username,
- *               the second being the message content and the third being the timestamp.
+ * the second being the message content and the third being the timestamp.
  */
 public class ChatState
 {
@@ -91,9 +91,10 @@ public class ChatState
 
     /**
      * Adds a message to allMessages.
-     * @param username the sender of the message (always the current user)
+     *
+     * @param username       the sender of the message (always the current user)
      * @param messageContent the message content
-     * @param timestamp the timestamp of the message
+     * @param timestamp      the timestamp of the message
      */
     public void addMessage(String username, String messageContent, String timestamp)
     {

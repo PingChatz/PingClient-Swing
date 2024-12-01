@@ -1,9 +1,8 @@
 package view.custom_panels;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-
-import javax.swing.*;
 
 /**
  * A scrollable panel displaying a list of LabelLabelPanels.
@@ -40,6 +39,7 @@ public class MessageDisplayPanel extends JPanel
 
     /**
      * Updates the MessageDisplayPanel with a new list of message panels.
+     *
      * @param updatedMessagePanels the updated list of message panels.
      */
     public void updateMessagePanels(List<LabelLabelLabelPanel> updatedMessagePanels)

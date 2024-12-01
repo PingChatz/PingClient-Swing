@@ -8,12 +8,14 @@ public interface SendMessageUserDataAccessInterface
 {
     /**
      * Returns the username of the current user of the application.
+     *
      * @return the username of the current user
      */
     String getCurrentUsername();
 
     /**
      * Returns the userID of the current user of the application.
+     *
      * @return the userID of the current user
      */
     Long getCurrentUserID();

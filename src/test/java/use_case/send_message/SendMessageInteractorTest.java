@@ -1,12 +1,11 @@
 package use_case.send_message;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import entity.Message;
+import entity.MessageFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import entity.Message;
-import entity.MessageFactory;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Class for testing the Send Message Interactor.

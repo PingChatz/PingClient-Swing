@@ -10,6 +10,7 @@ public interface AddThreadThreadDataAccessInterface
 {
     /**
      * Saves and the new thread to the server and returns a fully constructed one.
+     *
      * @param thread the thread to save
      * @return a representation of the newly created thread as it exists in the server
      */

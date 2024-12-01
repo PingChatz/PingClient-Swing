@@ -10,11 +10,9 @@ import java.net.URL;
 
 public class AbstractAPICall
 {
+    private final String serverURL;
     // parameters for api calls
     private String accessToken;
-
-
-    private final String serverURL;
 
 
     public AbstractAPICall()
@@ -25,6 +23,7 @@ public class AbstractAPICall
 
     /**
      * Method to send api calls to the server
+     *
      * @param endpoint
      * @param method
      * @param body

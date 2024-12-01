@@ -46,6 +46,7 @@ public class ThreadsState
 
     /**
      * Returns an array of thread names from threadHash.
+     *
      * @return an array of thread names
      */
     public final String[] getThreadNamesList()
@@ -55,7 +56,8 @@ public class ThreadsState
 
     /**
      * Add a thread to the list of threads in this View State.
-     * @param threadId the ID of the added thread
+     *
+     * @param threadId   the ID of the added thread
      * @param threadName the name of the added thread
      */
     public final void addThread(Long threadId, String threadName)
@@ -66,7 +68,8 @@ public class ThreadsState
     /**
      * Clears all thread data.
      */
-    public final void clearThreadData() {
+    public final void clearThreadData()
+    {
         this.threadHash.clear();
     }
 }

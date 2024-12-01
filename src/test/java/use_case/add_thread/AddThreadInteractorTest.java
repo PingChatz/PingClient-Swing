@@ -1,16 +1,15 @@
 package use_case.add_thread;
 
-import static org.junit.jupiter.api.Assertions.*;
+import entity.Message;
+import entity.Thread;
+import entity.ThreadFactory;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import entity.Message;
-import entity.Thread;
-import entity.ThreadFactory;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Class for testing the Add Thread Interactor.

@@ -1,12 +1,8 @@
 package view.custom_panels;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 /**
  * This creates a component JPanel which is a list of all the threads and their buttons.
@@ -40,6 +36,7 @@ public class ThreadsPane extends JScrollPane
 
     /**
      * Updates the thread pane with abn updated list of thread names.
+     *
      * @param updatedThreadNames the updated list of thread names
      */
     public void updateThreadPanel(String[] updatedThreadNames)

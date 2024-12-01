@@ -1,12 +1,12 @@
 package data_access;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import org.json.JSONObject;
 
 /**
  * Abstract class containing the logic to make API calls.
@@ -26,9 +26,10 @@ public abstract class AbstractAPICall
 
     /**
      * Logic to send a request to the server.
+     *
      * @param endpoint [description here]
-     * @param method [description here]
-     * @param body [description here]
+     * @param method   [description here]
+     * @param body     [description here]
      * @return [description here]
      * @throws Exception if the API call goes wrong
      */

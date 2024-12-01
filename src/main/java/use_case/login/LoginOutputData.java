@@ -22,6 +22,10 @@ public class LoginOutputData
     {
         return username;
     }
-    public final String getMessage(){ return message;}
+
+    public final String getMessage()
+    {
+        return message;
+    }
 
 }
