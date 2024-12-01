@@ -1,5 +1,7 @@
 package use_case.send_message;
 
+import java.io.IOException;
+
 import entity.Message;
 import entity.MessageFactory;
 
@@ -30,7 +32,8 @@ public class SendMessageInteractor implements SendMessageInputBoundary
         if (sendMessageInputData.getContent().isEmpty())
         {
             sendMessagePresenter.prepareFailView("Message field is empty.");
-        } else if (sendMessageInputData.getContent().length() >= Message.MESSAGE_MAX_LENGTH)
+        }
+        else if (sendMessageInputData.getContent().length() >= Message.MESSAGE_MAX_LENGTH)
         {
             sendMessagePresenter.prepareFailView(
                     "Message is too long. Must be under " + Message.MESSAGE_MAX_LENGTH + " characters.");
@@ -56,9 +59,15 @@ public class SendMessageInteractor implements SendMessageInputBoundary
                                 messageToPresent.getTimestamp(), false);
 
                 sendMessagePresenter.prepareSuccessView(sendMessageOutputData);
-            } catch (Exception exception)
+            }
+            catch (IOException exception)
             {
-                sendMessagePresenter.prepareFailView("Server Error");
+                sendMessagePresenter.prepareFailView(exception.getMessage());
+            }
+            catch (Exception exception)
+            {
+                sendMessagePresenter.prepareFailView(
+                        "An unexpected error occurred: " + exception.getMessage());
             }
         }
     }

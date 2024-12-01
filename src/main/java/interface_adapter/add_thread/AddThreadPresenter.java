@@ -1,7 +1,6 @@
 package interface_adapter.add_thread;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.threads.ThreadsState;
 import interface_adapter.threads.ThreadsViewModel;
 import use_case.add_thread.AddThreadOutputBoundary;
 import use_case.add_thread.AddThreadOutputData;
@@ -56,9 +55,6 @@ public class AddThreadPresenter implements AddThreadOutputBoundary
     @Override
     public void switchToThreadsView()
     {
-        //modify the threads
-        ThreadsState threadState = threadsViewModel.getState();
-
         viewManagerModel.setState(threadsViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

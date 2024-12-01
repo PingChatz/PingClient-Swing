@@ -1,11 +1,14 @@
 package use_case.send_message;
 
-import entity.Message;
-import entity.MessageFactory;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.IOException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import entity.Message;
+import entity.MessageFactory;
 
 /**
  * Class for testing the Send Message Interactor.
@@ -74,10 +77,10 @@ class SendMessageInteractorTest
     }
 
     @Test
-    void testExecuteServerError()
+    void testExecuteServerServerError()
     {
         // Create mock DAO for this specific test
-        SendMessageMessageDataAccessInterface mockServer = new InMemoryMessageDataAccessWithError();
+        SendMessageMessageDataAccessInterface mockServer = new InMemoryMessageDataAccessWithServerError();
 
         // Create mock presenter for this specific test
         SendMessageOutputBoundary sendMessagePresenter = new SendMessageOutputBoundary()
@@ -91,7 +94,43 @@ class SendMessageInteractorTest
             @Override
             public void prepareFailView(String errorMessage)
             {
-                assertEquals("Server Error", errorMessage);
+                assertEquals("An unexpected error occurred: Server Error", errorMessage);
+            }
+
+            @Override
+            public void switchToThreadsView()
+            {
+                fail("Switch is unexpected here.");
+            }
+        };
+
+        // Create interactor for this specific test
+        SendMessageInputBoundary interactor =
+                new SendMessageInteractor(mockServer, messageFactory, sendMessagePresenter);
+
+        // Assert
+        interactor.execute(validInputData);
+    }
+
+    @Test
+    void testExecuteServerClientError()
+    {
+        // Create mock DAO for this specific test
+        SendMessageMessageDataAccessInterface mockServer = new InMemoryMessageDataAccessWithClientError();
+
+        // Create mock presenter for this specific test
+        SendMessageOutputBoundary sendMessagePresenter = new SendMessageOutputBoundary()
+        {
+            @Override
+            public void prepareSuccessView(SendMessageOutputData outputData)
+            {
+                fail("Success is unexpected here.");
+            }
+
+            @Override
+            public void prepareFailView(String errorMessage)
+            {
+                assertEquals("Some of your inputs are invalid.", errorMessage);
             }
 
             @Override
@@ -233,14 +272,26 @@ class SendMessageInteractorTest
     }
 
     /**
+     * Mock class, mimics a functional server that is given invalid inputs.
+     */
+    private static final class InMemoryMessageDataAccessWithClientError implements SendMessageMessageDataAccessInterface
+    {
+        @Override
+        public Message save(Message message, Long threadID) throws IOException
+        {
+            throw new IOException("Some of your inputs are invalid.");
+        }
+    }
+
+    /**
      * Mock class, mimics a dysfunctional server.
      */
-    private static final class InMemoryMessageDataAccessWithError implements SendMessageMessageDataAccessInterface
+    private static final class InMemoryMessageDataAccessWithServerError implements SendMessageMessageDataAccessInterface
     {
         @Override
         public Message save(Message message, Long threadID)
         {
-            throw new RuntimeException();
+            throw new RuntimeException("Server Error");
         }
     }
 }
