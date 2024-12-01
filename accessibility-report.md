@@ -13,7 +13,7 @@
 
 ### Equitable Use
 
-* implemented provisions for privacy and data security _(explain RESTApi and how the user's passwords are hashed)_
+* We have implemented provisions for privacy and data security by using a RESTful API in our program. User passwords are hashed before being stored in our server, providing an additional layer of protection for the user's sensitive information(explain RESTApi and how the user's passwords are hashed)_
 * Our design is very similar to many familiar messaging applications, giving it a feeling of familiarity _(give an example of this)_
 * _ideally one more thing here_
 
