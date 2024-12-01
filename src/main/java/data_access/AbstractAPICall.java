@@ -13,7 +13,7 @@ import org.json.JSONObject;
  */
 public abstract class AbstractAPICall
 {
-    private String accessToken;
+    private String accessToken = null;
     private String serverURL = "http://pingserver-env.eba-u7hgzajj.ca-central-1.elasticbeanstalk.com/";
 
     public AbstractAPICall(String serverURL)
