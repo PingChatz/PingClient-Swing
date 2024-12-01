@@ -3,22 +3,21 @@ package use_case.login;
 /**
  * The Input Data for the Login Use Case.
  */
-// TODO: overwrite with our code
 public final class LoginInputData
 {
 
-    private final String username;
+    private final String usernameOrEmail;
     private final String password;
 
-    public LoginInputData(String username, String password)
+    public LoginInputData(String usernameOrEmail, String password)
     {
-        this.username = username;
+        this.usernameOrEmail = usernameOrEmail;
         this.password = password;
     }
 
-    public String getUsername()
+    public String getUsernameOrEmail()
     {
-        return username;
+        return usernameOrEmail;
     }
 
     public String getPassword()

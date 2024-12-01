@@ -8,11 +8,13 @@ public class LoginOutputData
 {
 
     private final String username;
+    private final String message;
     private final boolean useCaseFailed;
 
-    public LoginOutputData(String username, boolean useCaseFailed)
+    public LoginOutputData(String username, String message, boolean useCaseFailed)
     {
         this.username = username;
+        this.message = message;
         this.useCaseFailed = useCaseFailed;
     }
 
@@ -20,5 +22,6 @@ public class LoginOutputData
     {
         return username;
     }
+    public final String getMessage(){ return message;}
 
 }

@@ -5,13 +5,13 @@ package interface_adapter.login;
  */
 public final class LoginState
 {
-    private String username = "";
+    private String usernameOrEmail = "";
     private String loginError;
     private String password = "";
 
-    public String getUsername()
+    public String getUsernameOrEmail()
     {
-        return username;
+        return usernameOrEmail;
     }
 
     public String getLoginError()
@@ -24,15 +24,9 @@ public final class LoginState
         return password;
     }
 
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
+    public void setUsernameOrEmail(String usernameOrEmail) {this.usernameOrEmail =usernameOrEmail;}
 
-    public void setLoginError(String usernameError)
-    {
-        this.loginError = usernameError;
-    }
+    public void setLoginError(String usernameError) {this.loginError = usernameError;}
 
     public void setPassword(String password)
     {

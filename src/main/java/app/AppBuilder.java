@@ -12,9 +12,8 @@ import entity.MessageFactory;
 import entity.ThreadFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.add_thread.AddThreadController;
-import interface_adapter.add_thread.AddThreadPresenter;
-import interface_adapter.add_thread.AddThreadViewModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
@@ -25,12 +24,9 @@ import interface_adapter.signup.SignupViewModel;
 import interface_adapter.threads.GetThreadsController;
 import interface_adapter.threads.GetThreadsPresenter;
 import interface_adapter.threads.ThreadsViewModel;
-import use_case.add_thread.AddThreadInputBoundary;
-import use_case.add_thread.AddThreadInteractor;
-import use_case.add_thread.AddThreadOutputBoundary;
-import use_case.get_threads.GetThreadsInputBoundary;
-import use_case.get_threads.GetThreadsOutputBoundary;
-import use_case.get_threads.GetThreadsUseCaseInteractor;
+import use_case.login.LoginInputBoundary;
+import use_case.login.LoginInteractor;
+import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
@@ -57,8 +53,7 @@ public class AppBuilder
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // Create the Backend instance
-    private final PingBackend pingBackend = new PingBackend(
-            "http://pingserver-env.eba-u7hgzajj.ca-central-1.elasticbeanstalk.com/");
+    PingBackend pingBackend = new PingBackend("http://pingserver-env.eba-u7hgzajj.ca-central-1.elasticbeanstalk.com/"); // ToDo: Change it to server url
     private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject(pingBackend);
     private final ThreadDataAccessObject threadDataAccessObject = new ThreadDataAccessObject(pingBackend);
     private final MessageDataAccessObject messageDataAccessObject = new MessageDataAccessObject(pingBackend);
@@ -169,6 +164,12 @@ public class AppBuilder
      */
     public AppBuilder addLoginUseCase()
     {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, viewManagerModel,
+                signupViewModel,threadsViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        loginView.setLoginController(loginController);
         return this;
     }
 
