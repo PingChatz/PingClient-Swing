@@ -2,11 +2,11 @@ package use_case.add_thread;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import entity.Message;
 import entity.Thread;
@@ -62,8 +62,9 @@ class AddThreadInteractorTest
             @Override
             public void prepareSuccessView(AddThreadOutputData outputData, String successMessage)
             {
-                // TODO: assert the correct successes here
-                fail("Success is unexpected here");
+                assertEquals("Valid Thread", outputData.getThreadName());
+                assertEquals(3456L, outputData.getThreadID());
+                assertEquals("New thread 'Valid Thread' has been successfully created.", successMessage);
             }
 
             @Override
