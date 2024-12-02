@@ -3,7 +3,6 @@ package data_access;
 import entity.User;
 import org.json.JSONException;
 import org.json.JSONObject;
-import use_case.add_thread.AddThreadUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
@@ -16,8 +15,7 @@ import java.io.IOException;
 public class UserDataAccessObject implements
         SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
-        LogoutUserDataAccessInterface,
-        AddThreadUserDataAccessInterface
+        LogoutUserDataAccessInterface
 {
     private final PingBackend backend;
 
