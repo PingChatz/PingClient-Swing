@@ -72,4 +72,10 @@ public class ThreadsState
     {
         this.threadHash.clear();
     }
+
+    public final void resetThreadData()
+    {
+        this.threadHash.clear();
+        this.currentUsername = "";
+    }
 }
