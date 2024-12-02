@@ -97,10 +97,6 @@ public class AddThreadInteractor implements AddThreadInputBoundary
      */
     private boolean userListIsWellFormatted(String string)
     {
-        if (string == null || string.isEmpty())
-        {
-            return false;
-        }
         String regex = "^ *[a-zA-Z0-9]+( *, *[a-zA-Z0-9]+)* *$";
         return string.matches(regex);
     }

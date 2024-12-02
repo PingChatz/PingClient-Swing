@@ -6,6 +6,7 @@ import entity.ThreadFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ class AddThreadInteractorTest
     private AddThreadInputData invalidInputDataNameTooShort;
     private AddThreadInputData invalidInputDataEmptyUsers;
     private AddThreadInputData invalidInputDataPoorlyFormattedUsers;
+    private AddThreadInputData invalidInputDataNullUserList;
 
     @BeforeEach
     void setUp()
@@ -47,6 +49,7 @@ class AddThreadInteractorTest
                 "Valid Thread", "", "TestJoe");
         invalidInputDataPoorlyFormattedUsers = new AddThreadInputData(
                 "Valid Thread", "user1,,user2", "TestJoe");
+        invalidInputDataNullUserList = new AddThreadInputData("InvalidThread",null, "Ben");
     }
 
     @Test
@@ -336,6 +339,50 @@ class AddThreadInteractorTest
 
     }
 
+    @Test
+    void testGetCurrentUsername()
+    {
+       String currentUsername = validInputData.getCurrentUsername();
+       assertEquals("TestJoe", currentUsername);
+    }
+
+    @Test
+    void testInteractorCatches()
+    {
+        // create mock DAO for this specific test
+        AddThreadThreadDataAccessInterface mockServer = new InMemoryThreadDataAccessWithIllegalError();
+
+        // create mock presenter for this specific test
+        AddThreadOutputBoundary addThreadPresenter = new AddThreadOutputBoundary()
+        {
+            @Override
+            public void prepareSuccessView(AddThreadOutputData outputData, String successMessage)
+            {
+                fail("Success is unexpected here");
+            }
+
+            @Override
+            public void prepareFailView(String errorMessage)
+            {
+                assertEquals("Access Error", errorMessage);
+            }
+
+            @Override
+            public void switchToThreadsView()
+            {
+                fail("Switch is unexpected here");
+            }
+        };
+
+        // create mock interactor for this specific test
+        AddThreadInputBoundary interactor = new AddThreadInteractor(mockServer, addThreadPresenter, threadFactory);
+
+        // Assert
+        interactor.execute(validInputData);
+    }
+
+
+
     // == MOCK DAOs FOR TESTING ==
 
     /**
@@ -364,6 +411,14 @@ class AddThreadInteractorTest
         {
             // TODO: based on what the server ends up outputting as an error, change this
             throw new RuntimeException("Server Error");
+        }
+    }
+    private static final class InMemoryThreadDataAccessWithIllegalError implements AddThreadThreadDataAccessInterface
+    {
+        @Override
+        public Thread save(Thread thread) throws IllegalAccessException {
+            // TODO: based on what the server ends up outputting as an error, change this
+            throw new IllegalAccessException("Access Error");
         }
     }
 }
