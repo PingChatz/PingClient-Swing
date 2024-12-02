@@ -38,10 +38,6 @@ public class UserDataAccessObject implements
         try
         {
             JSONObject response = backend.login(email, password);
-            if (response != null && response.has("authToken"))
-            {
-                backend.setAccessToken(response.optString("authToken"));
-            }
             return response;
         } catch (Exception e)
         {

@@ -50,8 +50,16 @@ public class PingBackend extends AbstractAPICall
             // Call API
             String response = sendRequest("api/v1/auth/login", "POST", body);
 
+            // Parse the response as a JSON object
+            JSONObject responseJSON = new JSONObject(response);
+
+            if (responseJSON.has("authToken"))
+            {
+                this.setAccessToken(responseJSON.optString("authToken"));
+            }
+
             // Return results as a JSON
-            return new JSONObject(response);
+            return responseJSON;
         } catch (Exception e)
         {
             System.out.println("Login failed: " + e.getMessage());
