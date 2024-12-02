@@ -29,6 +29,9 @@ public class LoginController
         loginUseCaseInteractor.execute(loginInputData);
     }
 
+    /**
+     * This switches the view to the signup view if the user logs out.
+     */
     public void switchToSignUpView()
     {
         this.loginUseCaseInteractor.switchToSignUpView();
