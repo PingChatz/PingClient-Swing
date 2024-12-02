@@ -159,17 +159,13 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
     public void propertyChange(PropertyChangeEvent evt)
     {
         String propertyName = evt.getPropertyName();
-        if ("full_message_update".equals(propertyName))
-        {
-            messageDisplay.updateMessagePanels(getMessagePanels());
-        }
-        if ("message_update".equals(propertyName))
+        if ("full_message_update".equals(propertyName) || "message_update".equals(propertyName))
         {
             final ChatState state = (ChatState) evt.getNewValue();
             messageInputField.setText(state.getMessageInput());
             messageDisplay.updateMessagePanels(getMessagePanels());
-        }
-        else
+            // No need to call scrollToBottom() here since it's handled in MessageDisplayPanel
+        } else
         {
             // Handle other property changes
             final ChatState state = (ChatState) evt.getNewValue();
@@ -213,5 +209,7 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         }
         return result;
     }
+
+
 
 }
