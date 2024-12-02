@@ -1,16 +1,16 @@
 package use_case.add_thread;
 
-import entity.Message;
-import entity.Thread;
-import entity.ThreadFactory;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import entity.Message;
+import entity.Thread;
+import entity.ThreadFactory;
 
 /**
  * Class for testing the Add Thread Interactor.
@@ -25,7 +25,6 @@ class AddThreadInteractorTest
     private AddThreadInputData invalidInputDataNameTooShort;
     private AddThreadInputData invalidInputDataEmptyUsers;
     private AddThreadInputData invalidInputDataPoorlyFormattedUsers;
-    private AddThreadInputData invalidInputDataNullUserList;
 
     @BeforeEach
     void setUp()
@@ -49,7 +48,6 @@ class AddThreadInteractorTest
                 "Valid Thread", "", "TestJoe");
         invalidInputDataPoorlyFormattedUsers = new AddThreadInputData(
                 "Valid Thread", "user1,,user2", "TestJoe");
-        invalidInputDataNullUserList = new AddThreadInputData("InvalidThread",null, "Ben");
     }
 
     @Test
@@ -285,7 +283,7 @@ class AddThreadInteractorTest
             @Override
             public void prepareFailView(String errorMessage)
             {
-                assertEquals("Server Error", errorMessage);
+                assertEquals("An unexpected error occurred: Server Error", errorMessage);
             }
 
             @Override
@@ -409,15 +407,18 @@ class AddThreadInteractorTest
         @Override
         public Thread save(Thread thread)
         {
-            // TODO: based on what the server ends up outputting as an error, change this
             throw new RuntimeException("Server Error");
         }
     }
+
+    /**
+     * Mock class, mocks the behaviour of a functional server given invalid inputs.
+     */
     private static final class InMemoryThreadDataAccessWithIllegalError implements AddThreadThreadDataAccessInterface
     {
         @Override
-        public Thread save(Thread thread) throws IllegalAccessException {
-            // TODO: based on what the server ends up outputting as an error, change this
+        public Thread save(Thread thread) throws IllegalAccessException
+        {
             throw new IllegalAccessException("Access Error");
         }
     }
