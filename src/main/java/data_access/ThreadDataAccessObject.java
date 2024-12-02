@@ -27,58 +27,6 @@ public class ThreadDataAccessObject implements AddThreadThreadDataAccessInterfac
         this.backend = backend;
     }
 
-    // very similar logic throughout these three methods
-    @Override
-    public List<Long> getUserThreadIDs(Long userID)
-    {
-        try
-        {
-            JSONObject response = backend.getThreads();
-            JSONArray threadsArray = response.getJSONArray("threads");
-
-            List<Long> threadIDs = new ArrayList<>();
-            for (int i = 0; i < threadsArray.length(); i++)
-            {
-                JSONObject threadJson = threadsArray.getJSONObject(i);
-                threadIDs.add(threadJson.getLong("id"));
-            }
-            return threadIDs;
-        }
-        catch (Exception exception)
-        {
-            throw new RuntimeException("Failed to fetch thread IDs", exception);
-        }
-    }
-
-    @Override
-    public List<Thread> getThreads(List<Long> threadIDs)
-    {
-        try
-        {
-            JSONObject response = backend.getThreads();
-            JSONArray threadsArray = response.getJSONArray("threads");
-
-            List<Thread> threads = new ArrayList<>();
-            for (int i = 0; i < threadsArray.length(); i++)
-            {
-                JSONObject threadJson = threadsArray.getJSONObject(i);
-                Long threadID = threadJson.getLong("threadId");
-
-                if (threadIDs.contains(threadID))
-                {
-                    String name = threadJson.getString("threadName");
-                    Thread thread = new Thread(threadID, name);
-                    threads.add(thread);
-                }
-            }
-            return threads;
-        }
-        catch (Exception exception)
-        {
-            throw new RuntimeException("Failed to fetch threads", exception);
-        }
-    }
-
     @Override
     public List<Thread> getThreadsByUsername(String username)
     {
