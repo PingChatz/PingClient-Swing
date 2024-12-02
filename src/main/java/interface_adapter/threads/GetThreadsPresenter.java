@@ -26,7 +26,6 @@ public class GetThreadsPresenter implements GetThreadsOutputBoundary
         this.addThreadViewModel = addThreadViewModel;
     }
 
-    @Override
     public void prepareSuccessView(GetThreadsOutputData outputData)
     {
         ThreadsState threadsState = threadsViewModel.getState();
@@ -39,8 +38,9 @@ public class GetThreadsPresenter implements GetThreadsOutputBoundary
         }
 
         threadsState.setThreadHash(threadMap);
-        threadsViewModel.firePropertyChanged("threads-updated");
+        threadsViewModel.firePropertyChanged("update-thread-list");
     }
+
 
     @Override
     public void prepareFailView(String errorMessage)

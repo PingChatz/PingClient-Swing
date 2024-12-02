@@ -138,6 +138,7 @@ public class PingBackend extends AbstractAPICall
     {
         // Call API
         String response = sendRequest("api/v1/threads", GET, null);
+        System.out.println(response);
         // Return results as a JSON
         return new JSONObject(response);
     }

@@ -49,7 +49,6 @@ public class ThreadDataAccessObject implements AddThreadThreadDataAccessInterfac
         }
     }
 
-    @Override
     public List<Thread> getThreads(List<Long> threadIDs)
     {
         try
@@ -61,11 +60,11 @@ public class ThreadDataAccessObject implements AddThreadThreadDataAccessInterfac
             for (int i = 0; i < threadsArray.length(); i++)
             {
                 JSONObject threadJson = threadsArray.getJSONObject(i);
-                Long threadID = threadJson.getLong("id");
+                Long threadID = threadJson.getLong("threadId");
 
                 if (threadIDs.contains(threadID))
                 {
-                    String name = threadJson.getString("name");
+                    String name = threadJson.getString("threadName");
                     Thread thread = new Thread(threadID, name);
                     threads.add(thread);
                 }
@@ -77,7 +76,6 @@ public class ThreadDataAccessObject implements AddThreadThreadDataAccessInterfac
         }
     }
 
-    @Override
     public List<Thread> getThreadsByUsername(String username)
     {
         try
@@ -90,12 +88,12 @@ public class ThreadDataAccessObject implements AddThreadThreadDataAccessInterfac
             for (int i = 0; i < threadsArray.length(); i++)
             {
                 JSONObject threadJson = threadsArray.getJSONObject(i);
-                JSONArray usernamesArray = threadJson.getJSONArray("usernames");
+                JSONArray participantsArray = threadJson.getJSONArray("participants");
 
-                if (usernamesArray.toList().contains(username))
+                if (participantsArray.toList().contains(username))
                 {
-                    Long threadID = threadJson.getLong("id");
-                    String name = threadJson.getString("name");
+                    Long threadID = threadJson.getLong("threadId");
+                    String name = threadJson.getString("threadName");
 
                     Thread thread = new Thread(threadID, name);
                     userThreads.add(thread);
@@ -103,12 +101,12 @@ public class ThreadDataAccessObject implements AddThreadThreadDataAccessInterfac
             }
 
             return userThreads;
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             throw new RuntimeException("Failed to fetch threads for username: " + username, e);
         }
     }
+
 
     @Override
     public Thread save(Thread thread) throws Exception
