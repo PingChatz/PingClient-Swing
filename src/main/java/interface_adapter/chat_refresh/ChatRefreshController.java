@@ -17,4 +17,4 @@ public class ChatRefreshController
         ChatRefreshInputData inputData = new ChatRefreshInputData(threadID);
         chatRefreshInteractor.execute(inputData);
     }
-}/**/
+}

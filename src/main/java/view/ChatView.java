@@ -158,25 +158,20 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
     @Override
     public void propertyChange(PropertyChangeEvent evt)
     {
-        if ("full_message_update".equals(evt.getPropertyName()))
+        String propertyName = evt.getPropertyName();
+        if ("full_message_update".equals(propertyName))
         {
             messageDisplay.updateMessagePanels(getMessagePanels());
-        }
-        // Listens for errors
-        final ChatState state = (ChatState) evt.getNewValue();
-        if (state.getSendMessageError() != null)
+        } else
         {
-            JOptionPane.showMessageDialog(this, state.getSendMessageError());
-        }
-
-        // Update text field when state changes
-        messageInputField.setText(state.getMessageInput());
-
-        // Update entire UI
-        if (evt.getPropertyName().equals("full_message_update"))
-        {
+            // Handle other property changes
+            final ChatState state = (ChatState) evt.getNewValue();
+            if (state.getSendMessageError() != null)
+            {
+                JOptionPane.showMessageDialog(this, state.getSendMessageError());
+            }
+            // Update text field when state changes
             messageInputField.setText(state.getMessageInput());
-            messageDisplay.updateMessagePanels(getMessagePanels());
         }
     }
 

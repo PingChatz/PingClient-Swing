@@ -17,7 +17,8 @@ import java.util.List;
 /**
  * The DAO for message data.
  */
-public class MessageDataAccessObject implements SendMessageMessageDataAccessInterface,
+public class MessageDataAccessObject implements
+        SendMessageMessageDataAccessInterface,
         ChatRefreshThreadDataAccessInterface
 {
     private final PingBackend backend;
@@ -79,16 +80,9 @@ public class MessageDataAccessObject implements SendMessageMessageDataAccessInte
 
     private static String formatTimestamp(String isoTimestamp)
     {
-        // Define the Toronto timezone
         ZoneId torontoTimeZone = ZoneId.of("America/Toronto");
-
-        // Parse the ISO timestamp
         Instant instant = Instant.parse(isoTimestamp);
-
-        // Convert to Toronto time
         ZonedDateTime torontoTime = instant.atZone(torontoTimeZone);
-
-        // Format the timestamp to the desired format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd | h:mm a");
         return torontoTime.format(formatter);
     }

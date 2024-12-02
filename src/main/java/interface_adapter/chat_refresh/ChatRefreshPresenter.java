@@ -19,12 +19,16 @@ public class ChatRefreshPresenter implements ChatRefreshOutputBoundary
     {
         ChatState chatState = chatViewModel.getState();
         chatState.setAllMessages(outputData.getMessages());
+        chatViewModel.setState(chatState);
         chatViewModel.firePropertyChanged("full_message_update");
     }
 
     @Override
     public void prepareFailView(String errorMessage)
     {
-        // Handle failure (e.g., show an error message)
+        ChatState chatState = chatViewModel.getState();
+        chatState.setSendMessageError(errorMessage);
+        chatViewModel.setState(chatState);
+        chatViewModel.firePropertyChanged();
     }
 }

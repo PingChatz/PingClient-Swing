@@ -3,6 +3,7 @@ package interface_adapter.threads;
 import entity.Thread;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.add_thread.AddThreadViewModel;
+import interface_adapter.chat_refresh.ChatRefreshController;
 import interface_adapter.send_message.ChatState;
 import interface_adapter.send_message.ChatViewModel;
 import use_case.get_threads.GetThreadsOutputBoundary;
@@ -13,17 +14,24 @@ import java.util.Map;
 
 public class GetThreadsPresenter implements GetThreadsOutputBoundary
 {
-    private ViewManagerModel viewManagerModel;
-    private ChatViewModel chatViewModel;
-    private ThreadsViewModel threadsViewModel;
-    private AddThreadViewModel addThreadViewModel;
+    private final ViewManagerModel viewManagerModel;
+    private final ChatViewModel chatViewModel;
+    private final ThreadsViewModel threadsViewModel;
+    private final AddThreadViewModel addThreadViewModel;
+    private final ChatRefreshController chatRefreshController;
 
-    public GetThreadsPresenter(ViewManagerModel viewManagerModel, ChatViewModel chatViewModel, ThreadsViewModel threadsViewModel, AddThreadViewModel addThreadViewModel)
+    public GetThreadsPresenter(
+            ViewManagerModel viewManagerModel,
+            ChatViewModel chatViewModel,
+            ThreadsViewModel threadsViewModel,
+            AddThreadViewModel addThreadViewModel,
+            ChatRefreshController chatRefreshController)
     {
         this.viewManagerModel = viewManagerModel;
         this.chatViewModel = chatViewModel;
         this.threadsViewModel = threadsViewModel;
         this.addThreadViewModel = addThreadViewModel;
+        this.chatRefreshController = chatRefreshController;
     }
 
     public void prepareSuccessView(GetThreadsOutputData outputData)
@@ -53,23 +61,19 @@ public class GetThreadsPresenter implements GetThreadsOutputBoundary
     @Override
     public void switchToChatView(Long threadID)
     {
-
-        // 5. get the chatState out of the appropriate view model
+        // Update chat view model state
         ChatState chatState = chatViewModel.getState();
-        ThreadsState threadsState = threadsViewModel.getState();
-        // set the current threadname and threadid to current thread
         chatState.setCurrentThreadID(threadID);
-        chatState.setCurrentThreadName(threadsState.getThreadHash().get(threadID));
-        // 7. set the state in the chatViewModel to the updated state
+        chatState.setCurrentThreadName(threadsViewModel.getState().getThreadHash().get(threadID));
+        chatState.setCurrentUsername(threadsViewModel.getState().getCurrentUsername());
         chatViewModel.setState(chatState);
-        // 8. firePropertyChanged so that the View that is listening is updated.
-        chatViewModel.firePropertyChanged();
 
-        // This code tells the View Manager to switch to the chatView.
+        // Switch to the chat view
         viewManagerModel.setState(chatViewModel.getViewName());
-
-        System.out.println(viewManagerModel.getState());
         viewManagerModel.firePropertyChanged();
+
+        // Automatically refresh chat messages
+        chatRefreshController.execute(threadID);
     }
 
     @Override

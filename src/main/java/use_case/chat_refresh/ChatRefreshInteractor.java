@@ -7,7 +7,6 @@ import java.util.List;
 
 public class ChatRefreshInteractor implements ChatRefreshInputBoundary
 {
-
     private final ChatRefreshThreadDataAccessInterface threadDataAccessObject;
     private final ChatRefreshOutputBoundary chatRefreshPresenter;
 
@@ -24,7 +23,8 @@ public class ChatRefreshInteractor implements ChatRefreshInputBoundary
     {
         try
         {
-            List<Message> messageList = threadDataAccessObject.getMessages(inputData.getThreadID());
+            Long threadID = inputData.getThreadID();
+            List<Message> messageList = threadDataAccessObject.getMessages(threadID);
 
             List<String[]> messages = new ArrayList<>();
             for (Message message : messageList)
