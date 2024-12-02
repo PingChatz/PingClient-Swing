@@ -1,20 +1,20 @@
 package interface_adapter.chat_refresh;
 
 import use_case.chat_refresh.ChatRefreshInputBoundary;
+import use_case.chat_refresh.ChatRefreshInputData;
 
 public class ChatRefreshController
 {
-    private final ChatRefreshInputBoundary chatRefreshUseCaseInteractor;
+    private final ChatRefreshInputBoundary chatRefreshInteractor;
 
-    public ChatRefreshController(ChatRefreshInputBoundary chatRefreshUseCaseInteractor1)
+    public ChatRefreshController(ChatRefreshInputBoundary chatRefreshInteractor)
     {
-        this.chatRefreshUseCaseInteractor = chatRefreshUseCaseInteractor1;
-
+        this.chatRefreshInteractor = chatRefreshInteractor;
     }
 
-    // exectutes the interactor
-    public void execute()
+    public void execute(Long threadID)
     {
-        chatRefreshUseCaseInteractor.execute();
+        ChatRefreshInputData inputData = new ChatRefreshInputData(threadID);
+        chatRefreshInteractor.execute(inputData);
     }
 }

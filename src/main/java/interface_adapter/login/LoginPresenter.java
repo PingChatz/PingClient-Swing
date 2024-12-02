@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.add_thread.AddThreadViewModel;
 import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.threads.GetThreadsController;
 import interface_adapter.threads.ThreadsViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
@@ -19,9 +20,16 @@ public class LoginPresenter implements LoginOutputBoundary
     private final ThreadsViewModel threadsViewModel;
     private final ChatViewModel chatViewModel;
     private final AddThreadViewModel addThreadViewModel;
+    private final GetThreadsController getThreadsController;
 
-    public LoginPresenter(LoginViewModel loginViewModel, ViewManagerModel viewManagerModel, SignupViewModel signupViewModel,
-                          ThreadsViewModel threadsViewModel, ChatViewModel chatViewModel, AddThreadViewModel addThreadViewModel)
+    public LoginPresenter(
+            LoginViewModel loginViewModel,
+            ViewManagerModel viewManagerModel,
+            SignupViewModel signupViewModel,
+            ThreadsViewModel threadsViewModel,
+            ChatViewModel chatViewModel,
+            AddThreadViewModel addThreadViewModel,
+            GetThreadsController getThreadsController)
     {
         this.loginViewModel = loginViewModel;
         this.viewManagerModel = viewManagerModel;
@@ -29,7 +37,9 @@ public class LoginPresenter implements LoginOutputBoundary
         this.threadsViewModel = threadsViewModel;
         this.chatViewModel = chatViewModel;
         this.addThreadViewModel = addThreadViewModel;
+        this.getThreadsController = getThreadsController; // Initialize the controller
     }
+
 
     @Override
     public void prepareSuccessView(LoginOutputData outputData)
@@ -51,9 +61,12 @@ public class LoginPresenter implements LoginOutputBoundary
         addThreadViewModel.getState().setCurrentUsername(outputData.getUsername());
         addThreadViewModel.firePropertyChanged();
 
-        //Switch to the ThreadsView
+        // Switch to the ThreadsView
         viewManagerModel.setState(threadsViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
+
+        // Automatically refresh threads
+        getThreadsController.execute(outputData.getUsername());
     }
 
     @Override

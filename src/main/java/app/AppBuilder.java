@@ -11,6 +11,8 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.add_thread.AddThreadController;
 import interface_adapter.add_thread.AddThreadPresenter;
 import interface_adapter.add_thread.AddThreadViewModel;
+import interface_adapter.chat_refresh.ChatRefreshController;
+import interface_adapter.chat_refresh.ChatRefreshPresenter;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -28,6 +30,9 @@ import interface_adapter.threads.ThreadsViewModel;
 import use_case.add_thread.AddThreadInputBoundary;
 import use_case.add_thread.AddThreadInteractor;
 import use_case.add_thread.AddThreadOutputBoundary;
+import use_case.chat_refresh.ChatRefreshInputBoundary;
+import use_case.chat_refresh.ChatRefreshInteractor;
+import use_case.chat_refresh.ChatRefreshOutputBoundary;
 import use_case.get_threads.GetThreadsInputBoundary;
 import use_case.get_threads.GetThreadsOutputBoundary;
 import use_case.get_threads.GetThreadsUseCaseInteractor;
@@ -50,7 +55,7 @@ import java.awt.*;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
- * our CA architecture; piece by piece.
+ * our Clean Architecture; piece by piece.
  * <p/>
  * This is done by adding each View and then adding related Use Cases.
  */
@@ -81,6 +86,10 @@ public class AppBuilder
     private ChatView chatView;
     private ThreadsView threadsView;
     private AddThreadView addThreadView;
+
+    // Declare controllers as instance variables
+    private ChatRefreshController chatRefreshController;
+    private GetThreadsController getThreadsController;
 
     public AppBuilder()
     {
@@ -130,7 +139,7 @@ public class AppBuilder
 
     /**
      * Adds the ChatView to the application.
-     * This Chat View will be empty ATM, and will be updated depending on which Thread was opened.
+     * This Chat View will be empty at the moment and will be updated depending on which Thread is opened.
      *
      * @return this builder
      */
@@ -164,53 +173,53 @@ public class AppBuilder
      */
     public AppBuilder addSendMessageUseCase()
     {
-        final SendMessageOutputBoundary sendMessageOutputBoundary = new SendMessagePresenter(viewManagerModel,
-                chatViewModel, threadsViewModel);
-        final SendMessageInputBoundary sendMessageInteractor =
-                new SendMessageInteractor(messageDataAccessObject,
-                        messageFactory, sendMessageOutputBoundary);
+        final SendMessageOutputBoundary sendMessageOutputBoundary = new SendMessagePresenter(
+                viewManagerModel, chatViewModel, threadsViewModel);
+        final SendMessageInputBoundary sendMessageInteractor = new SendMessageInteractor(
+                messageDataAccessObject, messageFactory, sendMessageOutputBoundary);
 
         final SendMessageController controller = new SendMessageController(sendMessageInteractor);
         chatView.setSendMessageController(controller);
         return this;
     }
 
+    /**
+     * Adds the Signup Use Case to the application.
+     *
+     * @return this builder
+     */
     public AppBuilder addSignupUseCase()
     {
         final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(
-                viewManagerModel,
-                signupViewModel,
-                loginViewModel
-        );
+                viewManagerModel, signupViewModel, loginViewModel);
 
         final SignupInputBoundary signupInteractor = new SignupInteractor(
-                userDataAccessObject,
-                signupOutputBoundary,
-                userFactory
-        );
+                userDataAccessObject, signupOutputBoundary, userFactory);
 
         final SignupController signupController = new SignupController(signupInteractor);
         signupView.setSignupController(signupController);
         return this;
     }
 
-
     /**
      * Adds the Login Use Case to the application.
+     * Note: Ensure that getThreadsController is initialized before this method is called.
      *
      * @return this builder
      */
     public AppBuilder addLoginUseCase()
     {
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, viewManagerModel,
-                signupViewModel, threadsViewModel, chatViewModel, addThreadViewModel);
-        final LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccessObject, loginOutputBoundary);
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(
+                loginViewModel, viewManagerModel, signupViewModel, threadsViewModel,
+                chatViewModel, addThreadViewModel, getThreadsController); // Pass getThreadsController here
+
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
 
         final LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
         return this;
     }
-
 
     /**
      * Adds the Logout Use Case to the application.
@@ -219,11 +228,11 @@ public class AppBuilder
      */
     public AppBuilder addLogoutUseCase()
     {
-        final LogoutOutputBoundary logoutOutputBoundary = new LogoutPresenter(viewManagerModel,
-                loginViewModel, threadsViewModel, chatViewModel);
+        final LogoutOutputBoundary logoutOutputBoundary = new LogoutPresenter(
+                viewManagerModel, loginViewModel, threadsViewModel, chatViewModel);
 
-        final LogoutInputBoundary logoutInteractor =
-                new LogoutInteractor(userDataAccessObject, logoutOutputBoundary);
+        final LogoutInputBoundary logoutInteractor = new LogoutInteractor(
+                userDataAccessObject, logoutOutputBoundary);
 
         final LogoutController logoutController = new LogoutController(logoutInteractor);
         threadsView.setLogoutController(logoutController);
@@ -231,21 +240,21 @@ public class AppBuilder
     }
 
     /**
-     * Adds the get threads Use Case to the application.
+     * Adds the Get Threads Use Case to the application.
+     * Note: Ensure that chatRefreshController is initialized before this method is called.
      *
      * @return this builder
      */
     public AppBuilder addGetThreadsUseCase()
     {
-        final GetThreadsOutputBoundary getThreadsOutputBoundary = new GetThreadsPresenter(viewManagerModel,
-                chatViewModel, threadsViewModel, addThreadViewModel);
+        final GetThreadsOutputBoundary getThreadsOutputBoundary = new GetThreadsPresenter(
+                viewManagerModel, chatViewModel, threadsViewModel, addThreadViewModel,
+                chatRefreshController); // Pass chatRefreshController here
 
         final GetThreadsInputBoundary getThreadsInteractor = new GetThreadsUseCaseInteractor(
-                threadDataAccessObject,
-                getThreadsOutputBoundary
-        );
+                threadDataAccessObject, getThreadsOutputBoundary);
 
-        final GetThreadsController getThreadsController = new GetThreadsController(getThreadsInteractor);
+        this.getThreadsController = new GetThreadsController(getThreadsInteractor);
         threadsView.setGetThreadsController(getThreadsController);
 
         return this;
@@ -258,18 +267,32 @@ public class AppBuilder
      */
     public AppBuilder addAddThreadUseCase()
     {
-        final AddThreadOutputBoundary addThreadOutputBoundary = new AddThreadPresenter(viewManagerModel,
-                addThreadViewModel, threadsViewModel);
-        final AddThreadInputBoundary addThreadInteractor =
-                new AddThreadInteractor(threadDataAccessObject, addThreadOutputBoundary,
-                        threadFactory);
+        final AddThreadOutputBoundary addThreadOutputBoundary = new AddThreadPresenter(
+                viewManagerModel, addThreadViewModel, threadsViewModel);
+
+        final AddThreadInputBoundary addThreadInteractor = new AddThreadInteractor(
+                threadDataAccessObject, addThreadOutputBoundary, threadFactory);
 
         final AddThreadController controller = new AddThreadController(addThreadInteractor);
         addThreadView.setAddThreadController(controller);
         return this;
     }
 
-    // TODO: add the rest of the builder use cases here.
+    /**
+     * Adds the Chat Refresh Use Case to the application.
+     *
+     * @return this builder
+     */
+    public AppBuilder addChatRefreshUseCase()
+    {
+        final ChatRefreshOutputBoundary chatRefreshPresenter = new ChatRefreshPresenter(chatViewModel);
+        final ChatRefreshInputBoundary chatRefreshInteractor = new ChatRefreshInteractor(
+                messageDataAccessObject, chatRefreshPresenter);
+
+        this.chatRefreshController = new ChatRefreshController(chatRefreshInteractor);
+        chatView.setChatRefreshController(chatRefreshController);
+        return this;
+    }
 
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
@@ -278,7 +301,20 @@ public class AppBuilder
      */
     public JFrame build()
     {
-        // TODO: This will have to change as well depending on what we want to open first
+        // Build order matters to ensure controllers are initialized before use
+        this.addLoginView()
+                .addSignupView()
+                .addThreadsView()
+                .addChatView()
+                .addAddThreadsView()
+                .addChatRefreshUseCase()  // Initialize chatRefreshController
+                .addGetThreadsUseCase()   // Initialize getThreadsController after chatRefreshController
+                .addSendMessageUseCase()
+                .addSignupUseCase()
+                .addLoginUseCase()        // Now that getThreadsController is initialized
+                .addLogoutUseCase()
+                .addAddThreadUseCase();
+
         final JFrame application = new JFrame("Ping Chat");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -291,7 +327,7 @@ public class AppBuilder
         // Add the card panel to the JFrame
         application.add(cardPanel);
 
-        // Set the initial view to the LoginView
+        // Set the initial view to the SignupView
         viewManagerModel.setState(signupView.getViewName());
         viewManagerModel.firePropertyChanged();
 

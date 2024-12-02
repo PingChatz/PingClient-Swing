@@ -27,6 +27,7 @@ public class Main
                 .addLoginUseCase()
                 .addLogoutUseCase()
                 .addAddThreadUseCase()
+                .addChatRefreshUseCase()
                 .build();
 
         application.pack();

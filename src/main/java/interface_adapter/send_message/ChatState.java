@@ -57,14 +57,14 @@ public class ChatState
         this.currentThreadID = currentThreadID;
     }
 
-    public final List<String[]> getAllMessages()
+    public void setAllMessages(List<String[]> allMessages)
     {
-        return allMessages;
+        this.allMessages = allMessages;
     }
 
-    public final void setAllMessages(List<String[]> updatedAllMessages)
+    public List<String[]> getAllMessages()
     {
-        this.allMessages = updatedAllMessages;
+        return allMessages;
     }
 
     public final String getCurrentUsername()
