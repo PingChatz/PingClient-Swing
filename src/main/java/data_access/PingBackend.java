@@ -123,6 +123,7 @@ public class PingBackend extends AbstractAPICall
     {
         // Call API
         String response = sendRequest("api/v1/messages/" + threadId, GET, null);
+        System.out.println(response);
         // Return results as a JSON
         return new JSONObject(response);
     }
@@ -133,7 +134,6 @@ public class PingBackend extends AbstractAPICall
      * @return a json object with...
      * @throws Exception if the API call goes wrong
      */
-    // TODO: figure out what this method returns
     public JSONObject getThreads() throws Exception
     {
         // Call API

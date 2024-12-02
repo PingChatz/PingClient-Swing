@@ -6,5 +6,6 @@ public interface ChatRefreshOutputBoundary
      * Prepares the success view for the Login Use Case.
      * output data
      */
-    void prepareSuccessView();
+    void prepareSuccessView(ChatRefreshOutputData outputData);
+    void prepareFailView(String errorMessage);
 }

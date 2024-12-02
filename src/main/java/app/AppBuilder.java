@@ -11,6 +11,8 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.add_thread.AddThreadController;
 import interface_adapter.add_thread.AddThreadPresenter;
 import interface_adapter.add_thread.AddThreadViewModel;
+import interface_adapter.chat_refresh.ChatRefreshController;
+import interface_adapter.chat_refresh.ChatRefreshPresenter;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -28,6 +30,9 @@ import interface_adapter.threads.ThreadsViewModel;
 import use_case.add_thread.AddThreadInputBoundary;
 import use_case.add_thread.AddThreadInteractor;
 import use_case.add_thread.AddThreadOutputBoundary;
+import use_case.chat_refresh.ChatRefreshInputBoundary;
+import use_case.chat_refresh.ChatRefreshInteractor;
+import use_case.chat_refresh.ChatRefreshOutputBoundary;
 import use_case.get_threads.GetThreadsInputBoundary;
 import use_case.get_threads.GetThreadsOutputBoundary;
 import use_case.get_threads.GetThreadsUseCaseInteractor;
@@ -268,6 +273,17 @@ public class AppBuilder
         addThreadView.setAddThreadController(controller);
         return this;
     }
+
+    public AppBuilder addChatRefreshUseCase()
+    {
+        ChatRefreshOutputBoundary chatRefreshPresenter = new ChatRefreshPresenter(chatViewModel);
+        ChatRefreshInputBoundary chatRefreshInteractor = new ChatRefreshInteractor(
+                messageDataAccessObject, chatRefreshPresenter);
+        ChatRefreshController chatRefreshController = new ChatRefreshController(chatRefreshInteractor);
+        chatView.setChatRefreshController(chatRefreshController);
+        return this;
+    }
+
 
     // TODO: add the rest of the builder use cases here.
 

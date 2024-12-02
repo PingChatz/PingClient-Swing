@@ -5,5 +5,5 @@ public interface ChatRefreshInputBoundary
     /**
      * Exectutes the ChatRefresh Usecase
      */
-    void execute();
+    void execute(ChatRefreshInputData inputData);
 }

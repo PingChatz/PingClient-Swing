@@ -12,12 +12,10 @@ public class ChatRefreshOutputData
     public ChatRefreshOutputData(List<String[]> messages)
     {
         this.messages = messages;
-
     }
 
-    public final List<String[]> getMessages()
+    public List<String[]> getMessages()
     {
         return messages;
     }
-
 }

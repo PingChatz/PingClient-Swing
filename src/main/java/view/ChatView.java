@@ -1,11 +1,12 @@
 package view;
 
+import interface_adapter.chat_refresh.ChatRefreshController;
 import interface_adapter.send_message.ChatState;
 import interface_adapter.send_message.ChatViewModel;
 import interface_adapter.send_message.SendMessageController;
 import view.custom_panels.ButtonLabelButtonButtonPanel;
-import view.custom_panels.MessagePanel;
 import view.custom_panels.MessageDisplayPanel;
+import view.custom_panels.MessagePanel;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -33,8 +34,8 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
     private final JButton send;
     private final JButton refresh;
 
+    private ChatRefreshController chatRefreshController;
     private SendMessageController sendMessageController;
-    // TODO: add the ChatRefreshController here.
 
     // == CONSTRUCTOR ==
     public ChatView(ChatViewModel chatViewModel)
@@ -86,15 +87,15 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         );
 
         // Add Action Listener for the refresh button
-        refresh.addActionListener(
-                new ActionListener()
-                {
-                    public void actionPerformed(ActionEvent evt)
-                    {
-                        // TODO: button for the refresh use case.
-                    }
-                }
-        );
+        // Set up the refresh button
+        refresh.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                ChatState currentState = chatViewModel.getState();
+                chatRefreshController.execute(currentState.getCurrentThreadID());
+            }
+        });
 
         // Add listener for the text entry (actual code in helper methods below)
         addTextEntryListener();
@@ -111,25 +112,9 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                 ChatViewModel.BORDER_DIMENSIONS));
     }
 
-    /**
-     * Returns a list of all the messages currently in this thread (as per the ChatState).
-     *
-     * @return a list of message panels
-     */
-    private List<MessagePanel> getMessagePanels()
+    public void setChatRefreshController(ChatRefreshController chatRefreshController)
     {
-        final List<MessagePanel> result = new ArrayList<>();
-
-        for (String[] messageTuple : chatViewModel.getState().getAllMessages())
-        {
-            // check if the username matches the current username in the state
-            final boolean coloured = messageTuple[0].equals(chatViewModel.getState().getCurrentUsername());
-
-            final MessagePanel newMessagePanel = new MessagePanel(
-                    messageTuple[0], messageTuple[1], messageTuple[2], coloured);
-            result.add(newMessagePanel);
-        }
-        return result;
+        this.chatRefreshController = chatRefreshController;
     }
 
     /**
@@ -173,6 +158,10 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
     @Override
     public void propertyChange(PropertyChangeEvent evt)
     {
+        if ("full_message_update".equals(evt.getPropertyName()))
+        {
+            messageDisplay.updateMessagePanels(getMessagePanels());
+        }
         // Listens for errors
         final ChatState state = (ChatState) evt.getNewValue();
         if (state.getSendMessageError() != null)
@@ -207,6 +196,17 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         this.sendMessageController = controller;
     }
 
-    // TODO: set ChatRefreshController setter here.
+    public List<MessagePanel> getMessagePanels()
+    {
+        List<MessagePanel> result = new ArrayList<>();
+        for (String[] messageTuple : chatViewModel.getState().getAllMessages())
+        {
+            boolean coloured = messageTuple[0].equals(chatViewModel.getState().getCurrentUsername());
+            MessagePanel newMessagePanel = new MessagePanel(
+                    messageTuple[0], messageTuple[1], messageTuple[2], coloured);
+            result.add(newMessagePanel);
+        }
+        return result;
+    }
 
 }
