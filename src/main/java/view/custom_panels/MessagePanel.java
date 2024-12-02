@@ -1,10 +1,9 @@
 package view.custom_panels;
 
-import java.awt.*;
+import interface_adapter.send_message.ChatViewModel;
 
 import javax.swing.*;
-
-import interface_adapter.send_message.ChatViewModel;
+import java.awt.*;
 
 /**
  * A panel representing a single message in the ChatView.
@@ -12,51 +11,54 @@ import interface_adapter.send_message.ChatViewModel;
 public class MessagePanel extends JPanel
 {
 
-    public MessagePanel(String string1, String string2, String string3, boolean coloured)
+    public MessagePanel(String sender, String content, String timestamp, boolean isSentByUser)
     {
-        // Set panel layout
+        // Set panel layout to BoxLayout for vertical stacking of labels
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        // Create labels and set their font sizes
-        JLabel label1 = new JLabel(string1);
-        label1.setFont(new Font(
+        // Create labels for sender, content, and timestamp
+        JLabel senderLabel = new JLabel(sender);
+        senderLabel.setFont(new Font(
                 ChatViewModel.MESSAGE_FONT.getName(),
                 Font.BOLD,
                 ChatViewModel.FONT_SIZE_MESSAGE_SENDER_USERNAME_LABEL));
 
-        JLabel label2 = new JLabel(string2);
-        label2.setFont(new Font(ChatViewModel.MESSAGE_FONT.getName(),
+        JLabel contentLabel = new JLabel("<html><p style=\"width: 200px;\">" + content + "</p></html>");
+        contentLabel.setFont(new Font(ChatViewModel.MESSAGE_FONT.getName(),
                 ChatViewModel.MESSAGE_FONT.getStyle(),
                 ChatViewModel.FONT_SIZE_MESSAGE_CONTENT_LABEL));
 
-        JLabel label3 = new JLabel(string3);
-        label3.setFont(new Font(ChatViewModel.MESSAGE_FONT.getName(),
+        JLabel timestampLabel = new JLabel(timestamp);
+        timestampLabel.setFont(new Font(ChatViewModel.MESSAGE_FONT.getName(),
                 Font.ITALIC,
                 ChatViewModel.FONT_SIZE_MESSAGE_TIMESTAMP_LABEL));
 
-        // Add labels to the panel
-        this.add(label1);
-        this.add(label2);
-        this.add(label3);
-
-        // Set panel color based on 'coloured' parameter
-        if (coloured)
+        // Align the panel to the right for sent messages, left for received messages
+        if (isSentByUser)
         {
+            this.setAlignmentX(Component.RIGHT_ALIGNMENT);
             this.setBackground(new Color(
                     ChatViewModel.LIGHT_BLUE_RGB[0],
                     ChatViewModel.LIGHT_BLUE_RGB[1],
                     ChatViewModel.LIGHT_BLUE_RGB[2]));
-
-        }
-        else
+        } else
         {
+            this.setAlignmentX(Component.LEFT_ALIGNMENT);
             this.setBackground(new Color(
                     ChatViewModel.LIGHT_GREY_RGB[0],
                     ChatViewModel.LIGHT_GREY_RGB[1],
                     ChatViewModel.LIGHT_GREY_RGB[2]));
         }
 
-        // Set the panel to be opaque to apply the background color
+        // Add padding to the panel for better spacing
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // Add the labels to the panel
+        this.add(senderLabel);
+        this.add(contentLabel);
+        this.add(timestampLabel);
+
+        // Make the panel opaque to apply the background color
         this.setOpaque(true);
     }
 }

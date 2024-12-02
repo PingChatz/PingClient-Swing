@@ -196,9 +196,12 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         List<MessagePanel> result = new ArrayList<>();
         for (String[] messageTuple : chatViewModel.getState().getAllMessages())
         {
-            boolean coloured = messageTuple[0].equals(chatViewModel.getState().getCurrentUsername());
+            // Determine if the message is sent by the current user
+            boolean isSentByUser = messageTuple[0].equals(chatViewModel.getState().getCurrentUsername());
+
+            // Create a new MessagePanel with appropriate alignment
             MessagePanel newMessagePanel = new MessagePanel(
-                    messageTuple[0], messageTuple[1], messageTuple[2], coloured);
+                    messageTuple[0], messageTuple[1], messageTuple[2], isSentByUser);
             result.add(newMessagePanel);
         }
         return result;

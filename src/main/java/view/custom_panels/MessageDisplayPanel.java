@@ -1,7 +1,5 @@
 package view.custom_panels;
 
-import interface_adapter.send_message.ChatViewModel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -15,14 +13,18 @@ public class MessageDisplayPanel extends JPanel
 
     public MessageDisplayPanel(List<MessagePanel> messagePanels)
     {
-        // Set the layout of boxPanel
+        // Set the layout of boxPanel to BoxLayout for vertical stacking
         boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
 
         // Add each message panel to the box panel
         for (MessagePanel messagePanel : messagePanels)
         {
-            boxPanel.add(messagePanel);
-            boxPanel.add(Box.createVerticalStrut(ChatViewModel.MESSAGE_SPACING));
+            JPanel wrapperPanel = new JPanel(new FlowLayout(
+                    messagePanel.getAlignmentX() == Component.RIGHT_ALIGNMENT ? FlowLayout.RIGHT : FlowLayout.LEFT));
+            wrapperPanel.add(messagePanel);
+            wrapperPanel.setOpaque(false); // Transparent background
+            boxPanel.add(wrapperPanel);
+            boxPanel.add(Box.createVerticalStrut(10)); // Spacing between messages
         }
 
         // Create a JScrollPane to make the box panel scrollable
@@ -50,7 +52,12 @@ public class MessageDisplayPanel extends JPanel
         boxPanel.removeAll();
         for (MessagePanel messagePanel : updatedMessagePanels)
         {
-            boxPanel.add(messagePanel);
+            JPanel wrapperPanel = new JPanel(new FlowLayout(
+                    messagePanel.getAlignmentX() == Component.RIGHT_ALIGNMENT ? FlowLayout.RIGHT : FlowLayout.LEFT));
+            wrapperPanel.add(messagePanel);
+            wrapperPanel.setOpaque(false);
+            boxPanel.add(wrapperPanel);
+            boxPanel.add(Box.createVerticalStrut(10));
         }
         boxPanel.revalidate();
         boxPanel.repaint();
