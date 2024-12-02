@@ -1,18 +1,19 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.*;
+import java.awt.*;
+
 import interface_adapter.logout.LogoutController;
 import interface_adapter.threads.GetThreadsController;
 import interface_adapter.threads.ThreadsState;
 import interface_adapter.threads.ThreadsViewModel;
 import view.custom_panels.ButtonLabelPanel;
 import view.custom_panels.ThreadsPane;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 /**
  * The view for when the user is logged in and sees all of their message threads.
