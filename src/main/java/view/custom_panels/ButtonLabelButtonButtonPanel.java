@@ -1,6 +1,8 @@
 package view.custom_panels;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * A panel containing a button, then a text field, then 2 more buttons, in that order.

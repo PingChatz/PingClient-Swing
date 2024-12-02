@@ -1,11 +1,5 @@
 package data_access;
 
-import entity.Message;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import use_case.chat_refresh.ChatRefreshThreadDataAccessInterface;
-import use_case.send_message.SendMessageMessageDataAccessInterface;
-
 import java.io.IOException;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -13,6 +7,13 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import entity.Message;
+import use_case.chat_refresh.ChatRefreshThreadDataAccessInterface;
+import use_case.send_message.SendMessageMessageDataAccessInterface;
 
 /**
  * The DAO for message data.
@@ -46,7 +47,6 @@ public class MessageDataAccessObject implements
         }
         return messages;
     }
-
 
     @Override
     public Message save(Message message, Long threadID) throws Exception

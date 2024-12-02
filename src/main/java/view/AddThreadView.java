@@ -1,19 +1,19 @@
 package view;
 
-
-import interface_adapter.add_thread.AddThreadController;
-import interface_adapter.add_thread.AddThreadState;
-import interface_adapter.add_thread.AddThreadViewModel;
-import view.custom_panels.LabelTextPanel;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import interface_adapter.add_thread.AddThreadController;
+import interface_adapter.add_thread.AddThreadState;
+import interface_adapter.add_thread.AddThreadViewModel;
+import view.custom_panels.LabelTextPanel;
 
 /**
  * The View for the Add Thread Use Case.

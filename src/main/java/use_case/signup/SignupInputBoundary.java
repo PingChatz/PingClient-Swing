@@ -3,7 +3,6 @@ package use_case.signup;
 /**
  * Input Boundary for actions which are related to signing up.
  */
-// TODO: overwrite with our code
 public interface SignupInputBoundary
 {
     /**

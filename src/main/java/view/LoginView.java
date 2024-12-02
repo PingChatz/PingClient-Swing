@@ -1,18 +1,19 @@
 package view;
 
-import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginState;
-import interface_adapter.login.LoginViewModel;
-import view.custom_panels.LabelTextPanel;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewModel;
+import view.custom_panels.LabelTextPanel;
 
 /**
  * The View for when the user is logging into the program.
@@ -59,19 +60,25 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         buttons.add(cancel);
 
         logIn.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(logIn)) {
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent evt)
+                    {
+                        if (evt.getSource().equals(logIn))
+                        {
                             String username = usernameInputField.getText().trim();
                             String password = new String(passwordInputField.getPassword()).trim();
 
-                            if (!username.isEmpty() && !password.isEmpty()) {
+                            if (!username.isEmpty() && !password.isEmpty())
+                            {
                                 final LoginState currentState = loginViewModel.getState();
                                 loginController.execute(
                                         currentState.getUsernameOrEmail(),
                                         currentState.getPassword()
                                 );
-                            } else {
+                            }
+                            else
+                            {
                                 usernameErrorField.setText("Username and password must not be empty");
                             }
                         }

@@ -37,6 +37,13 @@ public class PingBackend extends AbstractAPICall
         return sendRequest("api/v1/auth/register", POST, body);
     }
 
+    /**
+     * Method to log in a user.
+     * @param usernameOrEmail the identifier for the user
+     * @param password the user's password
+     * @return the API authentication of a successfully logged-in user
+     * @throws Exception if api call goes wrong.
+     */
     public JSONObject login(String usernameOrEmail, String password) throws Exception
     {
         try
@@ -45,7 +52,6 @@ public class PingBackend extends AbstractAPICall
             JSONObject body = new JSONObject();
             body.put("usernameOrEmail", usernameOrEmail);
             body.put("password", password);
-
 
             // Call API
             String response = sendRequest("api/v1/auth/login", "POST", body);
@@ -60,10 +66,11 @@ public class PingBackend extends AbstractAPICall
 
             // Return results as a JSON
             return responseJSON;
-        } catch (Exception e)
+        }
+        catch (Exception exception)
         {
-            System.out.println("Login failed: " + e.getMessage());
-            throw e;
+            System.out.println("Login failed: " + exception.getMessage());
+            throw exception;
         }
     }
 
@@ -123,7 +130,6 @@ public class PingBackend extends AbstractAPICall
     {
         // Call API
         String response = sendRequest("api/v1/messages/" + threadId, GET, null);
-        System.out.println(response);
         // Return results as a JSON
         return new JSONObject(response);
     }
@@ -138,21 +144,8 @@ public class PingBackend extends AbstractAPICall
     {
         // Call API
         String response = sendRequest("api/v1/threads", GET, null);
-        System.out.println(response);
         // Return results as a JSON
         return new JSONObject(response);
-    }
-
-    /**
-     * Returns "Hello World".
-     *
-     * @return "Hello World"
-     * @throws Exception if the API call goes wrong
-     */
-    public String helloWorld() throws Exception
-    {
-        // Call API and Return
-        return sendRequest("api/hello", GET, null);
     }
 
     /**

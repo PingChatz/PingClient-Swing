@@ -5,6 +5,9 @@ import interface_adapter.send_message.ChatViewModel;
 import use_case.chat_refresh.ChatRefreshOutputBoundary;
 import use_case.chat_refresh.ChatRefreshOutputData;
 
+/**
+ * Controller for the Chat Refresh Use Case.
+ */
 public class ChatRefreshPresenter implements ChatRefreshOutputBoundary
 {
     private final ChatViewModel chatViewModel;

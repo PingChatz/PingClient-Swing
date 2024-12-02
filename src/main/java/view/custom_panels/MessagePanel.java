@@ -1,9 +1,10 @@
 package view.custom_panels;
 
-import interface_adapter.send_message.ChatViewModel;
+import java.awt.*;
 
 import javax.swing.*;
-import java.awt.*;
+
+import interface_adapter.send_message.ChatViewModel;
 
 /**
  * A panel representing a single message in the ChatView.
@@ -41,7 +42,8 @@ public class MessagePanel extends JPanel
                     ChatViewModel.LIGHT_BLUE_RGB[0],
                     ChatViewModel.LIGHT_BLUE_RGB[1],
                     ChatViewModel.LIGHT_BLUE_RGB[2]));
-        } else
+        }
+        else
         {
             this.setAlignmentX(Component.LEFT_ALIGNMENT);
             this.setBackground(new Color(

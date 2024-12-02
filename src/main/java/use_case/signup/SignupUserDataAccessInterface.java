@@ -5,22 +5,14 @@ import entity.User;
 /**
  * DAO for the Signup Use Case.
  */
-// TODO: overwrite with our code
 public interface SignupUserDataAccessInterface
 {
-
-    /**
-     * Checks if the given username exists.
-     *
-     * @param username the username to look for
-     * @return true if a user with the given username exists; false otherwise
-     */
-    boolean existsByName(String username);
 
     /**
      * Saves the user.
      *
      * @param user the user to save
+     * @throws Exception if the server fails
      */
     void save(User user) throws Exception;
 }

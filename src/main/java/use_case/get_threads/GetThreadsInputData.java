@@ -12,7 +12,7 @@ public class GetThreadsInputData
         this.username = username;
     }
 
-    public String getUsername()
+    public final String getUsername()
     {
         return username;
     }

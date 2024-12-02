@@ -1,8 +1,9 @@
 package view.custom_panels;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+
+import javax.swing.*;
 
 /**
  * A scrollable panel displaying a list of LabelLabelPanels.
@@ -22,9 +23,9 @@ public class MessageDisplayPanel extends JPanel
             JPanel wrapperPanel = new JPanel(new FlowLayout(
                     messagePanel.getAlignmentX() == Component.RIGHT_ALIGNMENT ? FlowLayout.RIGHT : FlowLayout.LEFT));
             wrapperPanel.add(messagePanel);
-            wrapperPanel.setOpaque(false); // Transparent background
+            wrapperPanel.setOpaque(false);
             boxPanel.add(wrapperPanel);
-            boxPanel.add(Box.createVerticalStrut(10)); // Spacing between messages
+            boxPanel.add(Box.createVerticalStrut(5));
         }
 
         // Create a JScrollPane to make the box panel scrollable
@@ -57,7 +58,7 @@ public class MessageDisplayPanel extends JPanel
             wrapperPanel.add(messagePanel);
             wrapperPanel.setOpaque(false);
             boxPanel.add(wrapperPanel);
-            boxPanel.add(Box.createVerticalStrut(10));
+            boxPanel.add(Box.createVerticalStrut(5));
         }
         boxPanel.revalidate();
         boxPanel.repaint();

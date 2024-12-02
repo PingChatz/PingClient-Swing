@@ -1,9 +1,8 @@
 package use_case.get_threads;
 
+import java.util.List;
 
 import entity.Thread;
-
-import java.util.List;
 
 /**
  * The get threads Interactor.
@@ -13,7 +12,6 @@ public class GetThreadsUseCaseInteractor implements GetThreadsInputBoundary
     private final GetThreadsThreadDataAccessInterface threadDataAccess;
     private final GetThreadsOutputBoundary presenter;
 
-    // == CONSTRUCTOR ==
     public GetThreadsUseCaseInteractor(GetThreadsThreadDataAccessInterface threadDataAccess,
                                        GetThreadsOutputBoundary presenter)
     {
@@ -21,9 +19,6 @@ public class GetThreadsUseCaseInteractor implements GetThreadsInputBoundary
         this.presenter = presenter;
     }
 
-    // == USE CASE METHODS ==
-
-    // main use case method
     @Override
     public void execute(GetThreadsInputData inputData)
     {
@@ -38,13 +33,15 @@ public class GetThreadsUseCaseInteractor implements GetThreadsInputBoundary
             if (threads.isEmpty())
             {
                 presenter.prepareFailView("No threads found for user: " + username);
-            } else
+            }
+            else
             {
                 presenter.prepareSuccessView(new GetThreadsOutputData(threads));
             }
-        } catch (Exception e)
+        }
+        catch (Exception exception)
         {
-            presenter.prepareFailView("Error occurred: " + e.getMessage());
+            presenter.prepareFailView("Error occurred: " + exception.getMessage());
         }
     }
 

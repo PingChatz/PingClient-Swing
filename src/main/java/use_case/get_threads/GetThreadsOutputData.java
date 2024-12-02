@@ -1,19 +1,22 @@
 package use_case.get_threads;
 
-import entity.Thread;
-
 import java.util.List;
 
+import entity.Thread;
+
+/**
+ * Output data for get threads use case.
+ */
 public class GetThreadsOutputData
 {
-    private List<Thread> threads;
+    private final List<Thread> threads;
 
     public GetThreadsOutputData(List<Thread> threads)
     {
         this.threads = threads;
     }
 
-    public List<Thread> getThreads()
+    public final List<Thread> getThreads()
     {
         return threads;
     }

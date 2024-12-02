@@ -1,5 +1,8 @@
 package interface_adapter.threads;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import entity.Thread;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.add_thread.AddThreadViewModel;
@@ -9,9 +12,9 @@ import interface_adapter.send_message.ChatViewModel;
 import use_case.get_threads.GetThreadsOutputBoundary;
 import use_case.get_threads.GetThreadsOutputData;
 
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * Presenter for the Get Threads Use Case.
+ */
 public class GetThreadsPresenter implements GetThreadsOutputBoundary
 {
     private final ViewManagerModel viewManagerModel;
@@ -34,6 +37,7 @@ public class GetThreadsPresenter implements GetThreadsOutputBoundary
         this.chatRefreshController = chatRefreshController;
     }
 
+    @Override
     public void prepareSuccessView(GetThreadsOutputData outputData)
     {
         ThreadsState threadsState = threadsViewModel.getState();
@@ -42,13 +46,12 @@ public class GetThreadsPresenter implements GetThreadsOutputBoundary
         // fill the threadMap with thread data
         for (Thread thread : outputData.getThreads())
         {
-            threadMap.put(thread.getThreadID(), thread.getName()); // placeholder for any thread names
+            threadMap.put(thread.getThreadID(), thread.getName());
         }
 
         threadsState.setThreadHash(threadMap);
         threadsViewModel.firePropertyChanged("update-thread-list");
     }
-
 
     @Override
     public void prepareFailView(String errorMessage)

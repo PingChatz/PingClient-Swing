@@ -1,14 +1,15 @@
 package data_access;
 
-import entity.User;
+import java.io.IOException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import entity.User;
 import use_case.add_thread.AddThreadUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
-
-import java.io.IOException;
 
 /**
  * The DAO for user data.
@@ -37,15 +38,16 @@ public class UserDataAccessObject implements
     {
         try
         {
-            JSONObject response = backend.login(email, password);
-            return response;
-        } catch (Exception e)
+            return backend.login(email, password);
+        }
+        catch (Exception exception)
         {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e);
+            System.out.println(exception.getMessage());
+            throw new RuntimeException(exception);
         }
     }
 
+    @Override
     public void save(User user) throws Exception
     {
         try
@@ -59,18 +61,21 @@ public class UserDataAccessObject implements
                 throw new Exception(jsonResponse.getString("message"));
             }
             // If no error, registration was successful
-        } catch (IOException e)
+        }
+        catch (IOException ioException)
         {
             // Handle network errors
             throw new Exception("Network error occurred while registering. Please check your connection.");
-        } catch (JSONException e)
+        }
+        catch (JSONException jsonException)
         {
             // Handle JSON parsing errors
             throw new Exception("Unexpected server response. Please try again later.");
-        } catch (Exception e)
+        }
+        catch (Exception exception)
         {
             // General exception
-            throw new Exception("An error occurred during registration: " + e.getMessage());
+            throw new Exception("An error occurred during registration: " + exception.getMessage());
         }
     }
 

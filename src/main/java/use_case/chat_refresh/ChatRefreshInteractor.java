@@ -1,10 +1,13 @@
 package use_case.chat_refresh;
 
-import entity.Message;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.Message;
+
+/**
+ * Interactor for the Chat Refresh use case.
+ */
 public class ChatRefreshInteractor implements ChatRefreshInputBoundary
 {
     private final ChatRefreshThreadDataAccessInterface threadDataAccessObject;
@@ -32,7 +35,7 @@ public class ChatRefreshInteractor implements ChatRefreshInputBoundary
                 String[] lst = {
                         message.getSenderUsername(),
                         message.getContent(),
-                        message.getTimestamp()
+                        message.getTimestamp(),
                 };
                 messages.add(lst);
             }
@@ -40,9 +43,10 @@ public class ChatRefreshInteractor implements ChatRefreshInputBoundary
             ChatRefreshOutputData outputData = new ChatRefreshOutputData(messages);
             chatRefreshPresenter.prepareSuccessView(outputData);
 
-        } catch (Exception e)
+        }
+        catch (Exception exception)
         {
-            chatRefreshPresenter.prepareFailView("Error: " + e.getMessage());
+            chatRefreshPresenter.prepareFailView("Error: " + exception.getMessage());
         }
     }
 }

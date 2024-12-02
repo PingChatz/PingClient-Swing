@@ -5,7 +5,6 @@ import org.json.JSONObject;
 /**
  * The Login Interactor.
  */
-// TODO: overwrite with our code
 public class LoginInteractor implements LoginInputBoundary
 {
     private final LoginUserDataAccessInterface userDataAccessObject;
@@ -31,19 +30,22 @@ public class LoginInteractor implements LoginInputBoundary
             {
                 String username = response.optString("username");
                 String message = response.optString("message");
-                LoginOutputData loginOutputData = new LoginOutputData(username, message, false);
+                LoginOutputData loginOutputData = new LoginOutputData(username, message);
                 loginPresenter.prepareSuccessView(loginOutputData);
-            } else if (response.has("error"))
+            }
+            else if (response.has("error"))
             {
                 String errorMessage = response.optString("message");
                 loginPresenter.prepareFailView(errorMessage);
             }
-            else{
+            else
+            {
                 loginPresenter.prepareFailView("Login failed");
             }
-        } catch (Exception e)
+        }
+        catch (Exception exception)
         {
-            loginPresenter.prepareFailView("An error occurred during login: " + e.getMessage());
+            loginPresenter.prepareFailView("An error occurred during login: " + exception.getMessage());
         }
     }
 

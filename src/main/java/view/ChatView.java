@@ -1,16 +1,5 @@
 package view;
 
-import interface_adapter.chat_refresh.ChatRefreshController;
-import interface_adapter.send_message.ChatState;
-import interface_adapter.send_message.ChatViewModel;
-import interface_adapter.send_message.SendMessageController;
-import view.custom_panels.ButtonLabelButtonButtonPanel;
-import view.custom_panels.MessageDisplayPanel;
-import view.custom_panels.MessagePanel;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +7,18 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import interface_adapter.chat_refresh.ChatRefreshController;
+import interface_adapter.send_message.ChatState;
+import interface_adapter.send_message.ChatViewModel;
+import interface_adapter.send_message.SendMessageController;
+import view.custom_panels.ButtonLabelButtonButtonPanel;
+import view.custom_panels.MessageDisplayPanel;
+import view.custom_panels.MessagePanel;
 
 /**
  * The View for when the user is connected with a single Thread (i.e: a Chat).
@@ -27,6 +28,7 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
     private final String viewName = "chat";
     private final ChatViewModel chatViewModel;
 
+    private final JLabel title;
     private final MessageDisplayPanel messageDisplay;
 
     private final JButton toThreads;
@@ -44,7 +46,7 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         this.chatViewModel.addPropertyChangeListener(this);
 
         // Initialize the Page Title to be the name of the Thread it represents.
-        final JLabel title = new JLabel(chatViewModel.getState().getCurrentThreadName());
+        title = new JLabel(chatViewModel.getState().getCurrentThreadName());
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Initialize the Message View (the Scrollable JList containing all the message Labels)
@@ -112,7 +114,7 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
                 ChatViewModel.BORDER_DIMENSIONS));
     }
 
-    public void setChatRefreshController(ChatRefreshController chatRefreshController)
+    public final void setChatRefreshController(ChatRefreshController chatRefreshController)
     {
         this.chatRefreshController = chatRefreshController;
     }
@@ -162,7 +164,14 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         if ("full_message_update".equals(propertyName))
         {
             messageDisplay.updateMessagePanels(getMessagePanels());
-        } else
+        }
+        if ("message_update".equals(propertyName))
+        {
+            final ChatState state = (ChatState) evt.getNewValue();
+            messageInputField.setText(state.getMessageInput());
+            messageDisplay.updateMessagePanels(getMessagePanels());
+        }
+        else
         {
             // Handle other property changes
             final ChatState state = (ChatState) evt.getNewValue();
@@ -172,6 +181,7 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
             }
             // Update text field when state changes
             messageInputField.setText(state.getMessageInput());
+            title.setText(state.getCurrentThreadName());
         }
     }
 
@@ -191,6 +201,10 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         this.sendMessageController = controller;
     }
 
+    /**
+     * Return a list of message panels.
+     * @return a list of message panels
+     */
     public List<MessagePanel> getMessagePanels()
     {
         List<MessagePanel> result = new ArrayList<>();

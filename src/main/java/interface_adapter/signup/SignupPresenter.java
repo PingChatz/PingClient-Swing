@@ -9,7 +9,6 @@ import use_case.signup.SignupOutputData;
 /**
  * The Presenter for the Signup Use Case.
  */
-// TODO: overwrite with our code
 public class SignupPresenter implements SignupOutputBoundary
 {
 

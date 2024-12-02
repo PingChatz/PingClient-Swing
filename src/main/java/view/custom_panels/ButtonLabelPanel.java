@@ -1,7 +1,8 @@
 package view.custom_panels;
 
-import javax.swing.*;
 import java.awt.event.ActionListener;
+
+import javax.swing.*;
 
 /**
  * A panel containing a label, then a button.
@@ -9,7 +10,7 @@ import java.awt.event.ActionListener;
 public class ButtonLabelPanel extends JPanel
 {
     private final JButton button = new JButton("view");
-    private JLabel label = new JLabel();
+    private final JLabel label;
 
     public ButtonLabelPanel(JLabel label)
     {

@@ -1,5 +1,9 @@
 package app;
 
+import java.awt.*;
+
+import javax.swing.*;
+
 import data_access.MessageDataAccessObject;
 import data_access.PingBackend;
 import data_access.ThreadDataAccessObject;
@@ -50,9 +54,6 @@ import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
 import view.*;
 
-import javax.swing.*;
-import java.awt.*;
-
 /**
  * The AppBuilder class is responsible for putting together the pieces of
  * our Clean Architecture; piece by piece.
@@ -61,6 +62,8 @@ import java.awt.*;
  */
 public class AppBuilder
 {
+    private static final int FRAME_WIDTH = 500;
+    private static final int FRAME_HEIGHT = 500;
 
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
@@ -71,7 +74,8 @@ public class AppBuilder
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // Create the Backend instance
-    PingBackend pingBackend = new PingBackend("http://pingserver-env.eba-u7hgzajj.ca-central-1.elasticbeanstalk.com/");
+    private final PingBackend pingBackend = new PingBackend(
+            "http://pingserver-env.eba-u7hgzajj.ca-central-1.elasticbeanstalk.com/");
     private final UserDataAccessObject userDataAccessObject = new UserDataAccessObject(pingBackend);
     private final ThreadDataAccessObject threadDataAccessObject = new ThreadDataAccessObject(pingBackend);
     private final MessageDataAccessObject messageDataAccessObject = new MessageDataAccessObject(pingBackend);
@@ -95,8 +99,6 @@ public class AppBuilder
     {
         cardPanel.setLayout(cardLayout);
     }
-
-    // == ADD THE VIEWS ==
 
     /**
      * Adds the Signup View to the application.
@@ -164,8 +166,6 @@ public class AppBuilder
         return this;
     }
 
-    // == ADD THE USE CASES ==
-
     /**
      * Adds the Send Message Use Case to the application.
      *
@@ -211,7 +211,7 @@ public class AppBuilder
     {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(
                 loginViewModel, viewManagerModel, signupViewModel, threadsViewModel,
-                chatViewModel, addThreadViewModel, getThreadsController); // Pass getThreadsController here
+                chatViewModel, addThreadViewModel, getThreadsController);
 
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
@@ -249,7 +249,7 @@ public class AppBuilder
     {
         final GetThreadsOutputBoundary getThreadsOutputBoundary = new GetThreadsPresenter(
                 viewManagerModel, chatViewModel, threadsViewModel, addThreadViewModel,
-                chatRefreshController); // Pass chatRefreshController here
+                chatRefreshController);
 
         final GetThreadsInputBoundary getThreadsInteractor = new GetThreadsUseCaseInteractor(
                 threadDataAccessObject, getThreadsOutputBoundary);
@@ -307,11 +307,11 @@ public class AppBuilder
                 .addThreadsView()
                 .addChatView()
                 .addAddThreadsView()
-                .addChatRefreshUseCase()  // Initialize chatRefreshController
-                .addGetThreadsUseCase()   // Initialize getThreadsController after chatRefreshController
+                .addChatRefreshUseCase()
+                .addGetThreadsUseCase()
                 .addSendMessageUseCase()
                 .addSignupUseCase()
-                .addLoginUseCase()        // Now that getThreadsController is initialized
+                .addLoginUseCase()
                 .addLogoutUseCase()
                 .addAddThreadUseCase();
 
@@ -319,7 +319,7 @@ public class AppBuilder
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // Set the size of the JFrame to 500 by 400 pixels
-        application.setSize(500, 400);
+        application.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 
         // Center the window on the screen
         application.setLocationRelativeTo(null);

@@ -1,12 +1,12 @@
 package view;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
-import java.awt.*;
 
 import interface_adapter.logout.LogoutController;
 import interface_adapter.threads.GetThreadsController;
@@ -46,7 +46,7 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
         // Initialize the three buttons
         refreshButton = new JButton(ThreadsViewModel.REFRESH_LABEL);
         logoutButton = new JButton(ThreadsViewModel.LOGOUT_LABEL);
-        addThreadButton = new JButton(ThreadsViewModel.ADDTHREAD_LABEL);
+        addThreadButton = new JButton(ThreadsViewModel.ADD_THREAD_LABEL);
 
         // Initialise the list of threadNames (will be empty at construction)
         final String[] threadNames = threadsViewModel.getState().getThreadNamesList();
@@ -66,7 +66,8 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
                             {
                                 String username = threadsViewModel.getState().getCurrentUsername();
                                 getThreadsController.execute(username);
-                            } else
+                            }
+                            else
                             {
                                 System.out.println("Error: GetThreadsController is not set.");
                             }

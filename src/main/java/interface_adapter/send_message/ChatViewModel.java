@@ -1,6 +1,6 @@
 package interface_adapter.send_message;
 
-import java.awt.*;
+import java.awt.Font;
 
 import interface_adapter.ViewModel;
 
@@ -20,7 +20,6 @@ public class ChatViewModel extends ViewModel<ChatState>
     public static final int FONT_SIZE_MESSAGE_TIMESTAMP_LABEL = 10;
     public static final int[] LIGHT_BLUE_RGB = {173, 216, 230};
     public static final int[] LIGHT_GREY_RGB = {211, 211, 211};
-    public static final int MESSAGE_SPACING = 5;
 
     public ChatViewModel()
     {

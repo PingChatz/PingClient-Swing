@@ -13,6 +13,7 @@ public interface AddThreadThreadDataAccessInterface
      *
      * @param thread the thread to save
      * @return a representation of the newly created thread as it exists in the server
+     * @throws Exception if the call to the server fails
      */
     Thread save(Thread thread) throws Exception;
 }

@@ -10,7 +10,7 @@ public class ThreadsViewModel extends ViewModel<ThreadsState>
     public static final String TITLE_LABEL = "Messages";
     public static final String REFRESH_LABEL = "Refresh";
     public static final String LOGOUT_LABEL = "Logout";
-    public static final String ADDTHREAD_LABEL = "New Thread";
+    public static final String ADD_THREAD_LABEL = "New Thread";
 
     public static final int TITLE_FONT_SIZE = 24;
 

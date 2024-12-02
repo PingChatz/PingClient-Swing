@@ -10,7 +10,6 @@ import java.beans.PropertyChangeSupport;
  *
  * @param <T> The type of state object contained in the model.
  */
-// TODO: overwrite with our code
 public class ViewModel<T>
 {
 

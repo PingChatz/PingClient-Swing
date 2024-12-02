@@ -14,7 +14,7 @@ public class ChatRefreshOutputData
         this.messages = messages;
     }
 
-    public List<String[]> getMessages()
+    public final List<String[]> getMessages()
     {
         return messages;
     }

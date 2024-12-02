@@ -1,6 +1,6 @@
 package app;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 /**
  * The Main class of our application.
@@ -32,8 +32,5 @@ public class Main
 
         application.pack();
         application.setVisible(true);
-
-        // TODO: helps with debugging, will remove later
-        System.out.println("Application running");
     }
 }

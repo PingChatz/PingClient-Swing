@@ -1,18 +1,18 @@
 package data_access;
 
-import entity.Message;
-import entity.Thread;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import use_case.add_thread.AddThreadThreadDataAccessInterface;
-import use_case.get_threads.GetThreadsThreadDataAccessInterface;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import entity.Message;
+import entity.Thread;
+import use_case.add_thread.AddThreadThreadDataAccessInterface;
+import use_case.get_threads.GetThreadsThreadDataAccessInterface;
 
 /**
  * The DAO for thread data.
@@ -27,55 +27,7 @@ public class ThreadDataAccessObject implements AddThreadThreadDataAccessInterfac
         this.backend = backend;
     }
 
-    // very similar logic throughout these three methods
     @Override
-    public List<Long> getUserThreadIDs(Long userID)
-    {
-        try
-        {
-            JSONObject response = backend.getThreads();
-            JSONArray threadsArray = response.getJSONArray("threads");
-
-            List<Long> threadIDs = new ArrayList<>();
-            for (int i = 0; i < threadsArray.length(); i++)
-            {
-                JSONObject threadJson = threadsArray.getJSONObject(i);
-                threadIDs.add(threadJson.getLong("id"));
-            }
-            return threadIDs;
-        } catch (Exception e)
-        {
-            throw new RuntimeException("Failed to fetch thread IDs", e);
-        }
-    }
-
-    public List<Thread> getThreads(List<Long> threadIDs)
-    {
-        try
-        {
-            JSONObject response = backend.getThreads();
-            JSONArray threadsArray = response.getJSONArray("threads");
-
-            List<Thread> threads = new ArrayList<>();
-            for (int i = 0; i < threadsArray.length(); i++)
-            {
-                JSONObject threadJson = threadsArray.getJSONObject(i);
-                Long threadID = threadJson.getLong("threadId");
-
-                if (threadIDs.contains(threadID))
-                {
-                    String name = threadJson.getString("threadName");
-                    Thread thread = new Thread(threadID, name);
-                    threads.add(thread);
-                }
-            }
-            return threads;
-        } catch (Exception e)
-        {
-            throw new RuntimeException("Failed to fetch threads", e);
-        }
-    }
-
     public List<Thread> getThreadsByUsername(String username)
     {
         try
@@ -101,12 +53,12 @@ public class ThreadDataAccessObject implements AddThreadThreadDataAccessInterfac
             }
 
             return userThreads;
-        } catch (Exception e)
+        }
+        catch (Exception exception)
         {
-            throw new RuntimeException("Failed to fetch threads for username: " + username, e);
+            throw new RuntimeException("Failed to fetch threads for username: " + username, exception);
         }
     }
-
 
     @Override
     public Thread save(Thread thread) throws Exception

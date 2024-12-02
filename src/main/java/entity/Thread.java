@@ -71,11 +71,8 @@ public class Thread
     @Override
     public String toString()
     {
-        return "Thread{" +
-                "threadID=" + threadID +
-                ", name='" + name + '\'' +
-                ", usernameList=" + usernameList +
-                ", messageList=" + messageList +
-                '}';
+        return "Thread{"
+                + "threadID=" + threadID + ", name='" + name + '\'' + ", usernameList=" + usernameList
+                + ", messageList=" + messageList + '}';
     }
 }

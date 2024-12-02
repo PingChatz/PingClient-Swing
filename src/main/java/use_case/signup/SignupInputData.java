@@ -3,7 +3,6 @@ package use_case.signup;
 /**
  * The Input Data for the Signup Use Case.
  */
-// TODO: overwrite with our code
 public class SignupInputData
 {
 

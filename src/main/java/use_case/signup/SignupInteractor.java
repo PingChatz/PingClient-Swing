@@ -21,6 +21,7 @@ public class SignupInteractor implements SignupInputBoundary
         this.userFactory = userFactory;
     }
 
+    @Override
     public void execute(SignupInputData signupInputData)
     {
         String username = signupInputData.getUsername();
@@ -83,13 +84,14 @@ public class SignupInteractor implements SignupInputBoundary
             userDataAccessObject.save(user);
 
             // On success, prepare the success view
-            final SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);
+            final SignupOutputData signupOutputData = new SignupOutputData(user.getUsername());
             userPresenter.prepareSuccessView(signupOutputData);
 
-        } catch (Exception e)
+        }
+        catch (Exception exception)
         {
             // Log the exception (optional)
-            e.printStackTrace();
+            exception.printStackTrace();
 
             // Provide a generic error message to the user
             userPresenter.prepareFailView("An error occurred during sign-up. Please try again later.");
@@ -99,7 +101,7 @@ public class SignupInteractor implements SignupInputBoundary
     // Helper method to validate email format
     private boolean isValidEmail(String email)
     {
-        String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        String emailRegex = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         return email.matches(emailRegex);
     }
 

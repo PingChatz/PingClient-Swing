@@ -15,9 +15,9 @@ public class GetThreadsController
         this.getThreadsUseCaseInteractor = getThreadsUseCaseInteractor;
     }
 
-
     /**
      * Executes the "get threads" Use Case.
+     * @param username the username of the current user of the application
      */
     public void execute(String username)
     {
@@ -35,6 +35,9 @@ public class GetThreadsController
         this.getThreadsUseCaseInteractor.switchToChatView(threadID);
     }
 
+    /**
+     * This switches the current view to the add thread view.
+     */
     public void switchToAddThreadView()
     {
         this.getThreadsUseCaseInteractor.switchToAddThreadView();

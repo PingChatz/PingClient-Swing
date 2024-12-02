@@ -35,7 +35,7 @@ public final class SendMessagePresenter implements SendMessageOutputBoundary
         chatState.setMessageInput("");
         chatState.addMessage(outputData.getSenderUsername(), outputData.getContent(), outputData.getTimestamp());
         chatState.setSendMessageError(null);
-        chatViewModel.firePropertyChanged("full_message_update");
+        chatViewModel.firePropertyChanged("message_update");
     }
 
     @Override

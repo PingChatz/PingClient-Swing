@@ -3,17 +3,13 @@ package interface_adapter.signup;
 /**
  * The state for the Signup View Model.
  */
-// TODO: overwrite with our code
 public final class SignupState
 {
     private String username = "";
     private String usernameError;
     private String email;
-    private String emailError;
     private String password = "";
-    private String passwordError;
     private String repeatPassword = "";
-    private String repeatPasswordError;
 
     public String getUsername()
     {
@@ -45,16 +41,6 @@ public final class SignupState
         this.password = password;
     }
 
-    public String getPasswordError()
-    {
-        return passwordError;
-    }
-
-    public void setPasswordError(String passwordError)
-    {
-        this.passwordError = passwordError;
-    }
-
     public String getRepeatPassword()
     {
         return repeatPassword;
@@ -65,16 +51,6 @@ public final class SignupState
         this.repeatPassword = repeatPassword;
     }
 
-    public String getRepeatPasswordError()
-    {
-        return repeatPasswordError;
-    }
-
-    public void setRepeatPasswordError(String repeatPasswordError)
-    {
-        this.repeatPasswordError = repeatPasswordError;
-    }
-
     public String getEmail()
     {
         return email;
@@ -83,16 +59,6 @@ public final class SignupState
     public void setEmail(String email)
     {
         this.email = email;
-    }
-
-    public String getEmailError()
-    {
-        return emailError;
-    }
-
-    public void setEmailError(String emailError)
-    {
-        this.emailError = emailError;
     }
 
     @Override

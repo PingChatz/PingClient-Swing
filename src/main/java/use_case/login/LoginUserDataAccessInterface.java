@@ -1,12 +1,12 @@
 package use_case.login;
 
-import entity.User;
 import org.json.JSONObject;
+
+import entity.User;
 
 /**
  * DAO for the Login Use Case.
  */
-// TODO: overwrite with our code
 public interface LoginUserDataAccessInterface
 {
 
