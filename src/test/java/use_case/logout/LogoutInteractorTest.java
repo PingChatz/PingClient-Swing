@@ -18,11 +18,12 @@ public class LogoutInteractorTest
         UserFactory userFactory = new UserFactory();
         User user = userFactory.create("benj", "password", "ben@gmail.com");
         User user2 = new User("benj");
-        backend.register(user2.getUsername(), user.getEmail(), user.getPassword());
-        backend.login("ben@gmail.com", "password");
+        System.out.println(user.getUsername() + user.getPassword() + user.getEmail());
+        backend.register(user.getUsername(), user.getEmail(), user.getPassword());
+        backend.login("benj", "password");
         //verify that a token was given to the user initially
         //assertNotEquals(backend.getAccessToken(), null);
-
+        System.out.println(backend.getAccessToken());
         // This creates a successPresenter that tests whether the test case is as we expect.
         LogoutOutputBoundary successPresenter = new LogoutOutputBoundary()
         {

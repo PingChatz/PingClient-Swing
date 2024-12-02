@@ -166,5 +166,9 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
                 });
             }
         }
+        else if (evt.getPropertyName().equals("log-out"))
+        {
+            threadsList.resetPane();
+        }
     }
 }
