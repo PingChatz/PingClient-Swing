@@ -108,10 +108,6 @@ public class ThreadsView extends JPanel implements PropertyChangeListener
                 }
         );
 
-        // TODO: remove this comment, just put it so that people know why I removed the action listener initialization
-        // action listeners for each view button in the threads views are not updated here, since there are none
-        // at initialization.
-
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(ThreadsViewModel.TOP_PANEL_LAYOUT_ROWS,

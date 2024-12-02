@@ -1,9 +1,9 @@
 package use_case.add_thread;
 
+import java.io.IOException;
+
 import entity.Thread;
 import entity.ThreadFactory;
-
-import java.io.IOException;
 
 /**
  * The Add Thread Interactor.

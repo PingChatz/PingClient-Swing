@@ -57,12 +57,12 @@ public class ChatState
         this.currentThreadID = currentThreadID;
     }
 
-    public void setAllMessages(List<String[]> allMessages)
+    public final void setAllMessages(List<String[]> allMessages)
     {
         this.allMessages = allMessages;
     }
 
-    public List<String[]> getAllMessages()
+    public final List<String[]> getAllMessages()
     {
         return allMessages;
     }

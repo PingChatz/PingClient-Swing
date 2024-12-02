@@ -12,12 +12,10 @@ import use_case.send_message.SendMessageOutputData;
  */
 public final class SendMessagePresenter implements SendMessageOutputBoundary
 {
-    // == INSTANCE VARIABLES ==
     private final ChatViewModel chatViewModel;
     private final ThreadsViewModel threadsViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    // == CONSTRUCTOR ==
     public SendMessagePresenter(ViewManagerModel viewManagerModel,
                                 ChatViewModel chatViewModel,
                                 ThreadsViewModel threadsViewModel)
@@ -35,7 +33,7 @@ public final class SendMessagePresenter implements SendMessageOutputBoundary
         chatState.setMessageInput("");
         chatState.addMessage(outputData.getSenderUsername(), outputData.getContent(), outputData.getTimestamp());
         chatState.setSendMessageError(null);
-        chatViewModel.firePropertyChanged("full_message_update");
+        chatViewModel.firePropertyChanged("message_update");
     }
 
     @Override
