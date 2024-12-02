@@ -93,6 +93,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                             loginViewModel.firePropertyChanged();
                             loginController.switchToSignUpView();
                             usernameErrorField.setText("");
+
+                            loginController.switchToHomePageView();
                         }
                     }
                 }

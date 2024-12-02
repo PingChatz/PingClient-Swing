@@ -91,12 +91,22 @@ public class AppBuilder
     private ChatRefreshController chatRefreshController;
     private GetThreadsController getThreadsController;
 
+    private SignupController signupController;
+    private LoginController loginController;
+
     public AppBuilder()
     {
         cardPanel.setLayout(cardLayout);
     }
 
     // == ADD THE VIEWS ==
+
+    public AppBuilder addHomePageView()
+    {
+        HomePageView homePageView = new HomePageView(loginController, signupController);
+        cardPanel.add(homePageView, "HomePage");
+        return this;
+    }
 
     /**
      * Adds the Signup View to the application.
@@ -196,7 +206,7 @@ public class AppBuilder
         final SignupInputBoundary signupInteractor = new SignupInteractor(
                 userDataAccessObject, signupOutputBoundary, userFactory);
 
-        final SignupController signupController = new SignupController(signupInteractor);
+        signupController = new SignupController(signupInteractor);
         signupView.setSignupController(signupController);
         return this;
     }
@@ -216,7 +226,7 @@ public class AppBuilder
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
 
-        final LoginController loginController = new LoginController(loginInteractor);
+        loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
         return this;
     }
@@ -328,7 +338,7 @@ public class AppBuilder
         application.add(cardPanel);
 
         // Set the initial view to the SignupView
-        viewManagerModel.setState(signupView.getViewName());
+        viewManagerModel.setState("HomePage");
         viewManagerModel.firePropertyChanged();
 
         // Make the window visible
