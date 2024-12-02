@@ -162,7 +162,14 @@ public class ChatView extends JPanel implements ActionListener, PropertyChangeLi
         if ("full_message_update".equals(propertyName))
         {
             messageDisplay.updateMessagePanels(getMessagePanels());
-        } else
+        }
+        if ("message_update".equals(propertyName))
+        {
+            final ChatState state = (ChatState) evt.getNewValue();
+            messageInputField.setText(state.getMessageInput());
+            messageDisplay.updateMessagePanels(getMessagePanels());
+        }
+        else
         {
             // Handle other property changes
             final ChatState state = (ChatState) evt.getNewValue();

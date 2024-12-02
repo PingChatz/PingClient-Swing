@@ -8,16 +8,12 @@ import use_case.send_message.SendMessageInputData;
  */
 public class SendMessageController
 {
-    // == INSTANCE VARIABLES ==
     private final SendMessageInputBoundary sendMessageUseCaseInteractor;
 
-    // == CONSTRUCTOR ==
     public SendMessageController(SendMessageInputBoundary userSendMessageUseCaseInteractor)
     {
         this.sendMessageUseCaseInteractor = userSendMessageUseCaseInteractor;
     }
-
-    // == CONTROLLER METHODS ==
 
     /**
      * Executes the "Send Message" Use Case.

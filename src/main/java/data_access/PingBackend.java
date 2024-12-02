@@ -37,6 +37,13 @@ public class PingBackend extends AbstractAPICall
         return sendRequest("api/v1/auth/register", POST, body);
     }
 
+    /**
+     * Method used to log in a user.
+     * @param usernameOrEmail username
+     * @param password password
+     * @return the state of success of the call
+     * @throws Exception if api call goes wrong
+     */
     public JSONObject login(String usernameOrEmail, String password) throws Exception
     {
         try
@@ -45,7 +52,6 @@ public class PingBackend extends AbstractAPICall
             JSONObject body = new JSONObject();
             body.put("usernameOrEmail", usernameOrEmail);
             body.put("password", password);
-
 
             // Call API
             String response = sendRequest("api/v1/auth/login", "POST", body);
@@ -60,10 +66,11 @@ public class PingBackend extends AbstractAPICall
 
             // Return results as a JSON
             return responseJSON;
-        } catch (Exception e)
+        }
+        catch (Exception exception)
         {
-            System.out.println("Login failed: " + e.getMessage());
-            throw e;
+            System.out.println("Login failed: " + exception.getMessage());
+            throw exception;
         }
     }
 
