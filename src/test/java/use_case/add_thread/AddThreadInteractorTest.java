@@ -47,7 +47,8 @@ class AddThreadInteractorTest
         invalidInputDataEmptyUsers = new AddThreadInputData(
                 "Valid Thread", "", "TestJoe");
         invalidInputDataPoorlyFormattedUsers = new AddThreadInputData(
-                "Valid Thread", "user1,,user2", "TestJoe");
+                "Valid Thread", "user1,,user2", "TestJoe"
+        );
     }
 
     @Test
