@@ -21,7 +21,8 @@ public class LogoutPresenter implements LogoutOutputBoundary
     private final ChatViewModel chatViewModel;
 
     public LogoutPresenter(ViewManagerModel viewManagerModel,
-                           LoginViewModel loginViewModel, ThreadsViewModel threadsViewModel, ChatViewModel chatViewModel)
+                           LoginViewModel loginViewModel,
+                           ThreadsViewModel threadsViewModel, ChatViewModel chatViewModel)
     {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;

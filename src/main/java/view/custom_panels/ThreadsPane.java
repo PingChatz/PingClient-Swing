@@ -1,9 +1,14 @@
 package view.custom_panels;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.Box;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  * This creates a component JPanel which is a list of all the threads and their buttons.
@@ -48,27 +53,6 @@ public class ThreadsPane extends JScrollPane
      *
      * @param updatedThreadNames the updated list of thread names
      */
-//
-    //public void updateThreadPanel(String[] updatedThreadNames)
-//    {
-//        JPanel listPanel = (JPanel) this.getViewport().getView();
-//
-//        // Clear the existing panels
-//        listPanel.removeAll();
-//        buttonLabels.clear();
-//
-//        for (String threadName : updatedThreadNames)
-//        {
-//            ButtonLabelPanel newPanel = new ButtonLabelPanel(new JLabel(threadName));
-//            buttonLabels.add(newPanel);
-//            listPanel.add(newPanel);
-//        }
-//
-//        // Revalidate and repaint to refresh the UI
-//        listPanel.add(Box.createVerticalGlue());
-//        listPanel.revalidate();
-//        listPanel.repaint();
-//    }
     public void updateThreadPanel(String[] updatedThreadNames)
     {
         JPanel listPanel = (JPanel) this.getViewport().getView();
@@ -96,6 +80,10 @@ public class ThreadsPane extends JScrollPane
         listPanel.revalidate();
         listPanel.repaint();
     }
+
+    /**
+     * This method clears the entire threads pane of its data.
+     */
     public void resetPane()
     {
         JPanel listPanel = (JPanel) this.getViewport().getView();
