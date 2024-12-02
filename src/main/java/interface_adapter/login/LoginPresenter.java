@@ -37,14 +37,14 @@ public class LoginPresenter implements LoginOutputBoundary
         this.threadsViewModel = threadsViewModel;
         this.chatViewModel = chatViewModel;
         this.addThreadViewModel = addThreadViewModel;
-        this.getThreadsController = getThreadsController; // Initialize the controller
+        // Initialize the controller
+        this.getThreadsController = getThreadsController;
     }
-
 
     @Override
     public void prepareSuccessView(LoginOutputData outputData)
     {
-        //Update the LoginViewModel State
+        // Update the LoginViewModel State
         LoginState loginState = loginViewModel.getState();
         loginState.setUsernameOrEmail(outputData.getUsername());
         loginState.setLoginError("");
