@@ -62,7 +62,7 @@ class GetThreadsInteractorTest {
 
             @Override
             public void prepareFailView(String errorMessage) {
-                assertEquals("Server Error", errorMessage);
+                assertEquals("Error occurred: Server Error", errorMessage);
             }
 
             @Override
