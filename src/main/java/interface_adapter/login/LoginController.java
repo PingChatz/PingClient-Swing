@@ -29,8 +29,8 @@ public class LoginController
         loginUseCaseInteractor.execute(loginInputData);
     }
 
-    /**
-     * Executes the "switch to SignUpView" Use Case.
+    /*
+     * This switches the view to the signup view if the user logs out.
      */
     public void switchToSignUpView()
     {

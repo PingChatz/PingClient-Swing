@@ -1,9 +1,15 @@
 package view.custom_panels;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 /**
  * A panel containing a label and a button, styled and aligned properly.
@@ -24,24 +30,24 @@ public class ButtonLabelPanel extends JPanel
         // Configure label constraints
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.weightx = 1.0; // Take up remaining horizontal space
+        gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(label, gbc);
 
         // Configure button constraints
         gbc.gridx = 1;
-        gbc.weightx = 0.0; // Do not take extra space
+        gbc.weightx = 0.0;
         gbc.anchor = GridBagConstraints.EAST;
         gbc.fill = GridBagConstraints.NONE;
         this.add(button, gbc);
 
         // Define margins and padding
         int panelTopMargin = 5;
-        int panelLeftRightMargin = 10; // Left and right margins
+        int panelLeftRightMargin = 10;
         int panelBottomMargin = 5;
 
-        int padding = 10; // Adjust padding to make the box taller and content padded
+        int padding = 10;
 
         // Create the borders
         Border margins = BorderFactory.createEmptyBorder(
@@ -55,7 +61,7 @@ public class ButtonLabelPanel extends JPanel
         this.setBorder(BorderFactory.createCompoundBorder(margins, lineWithPadding));
 
         // Add left margin to the label (adjustable)
-        int labelLeftMargin = 5; // Adjust this value as needed
+        int labelLeftMargin = 5;
         label.setBorder(BorderFactory.createEmptyBorder(0, labelLeftMargin, 0, 0));
     }
 
