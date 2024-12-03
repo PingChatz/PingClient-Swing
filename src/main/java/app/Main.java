@@ -28,6 +28,8 @@ public class Main
                 .addLogoutUseCase()
                 .addAddThreadUseCase()
                 .addChatRefreshUseCase()
+                .addHomePageView() // add this last so the
+                // controllers have been initalzied
                 .build();
 
         application.pack();

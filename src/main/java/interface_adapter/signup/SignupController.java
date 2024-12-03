@@ -9,7 +9,6 @@ import use_case.signup.SignupInputData;
 // TODO: overwrite with our code
 public class SignupController
 {
-
     private final SignupInputBoundary userSignupUseCaseInteractor;
 
     public SignupController(SignupInputBoundary userSignupUseCaseInteractor)
@@ -44,5 +43,13 @@ public class SignupController
     public void switchToLoginView()
     {
         userSignupUseCaseInteractor.switchToLoginView();
+    }
+
+    /**
+     * Executes the "switch to Home Page View" Use Case.
+     */
+    public void switchToHomePageView()
+    {
+        userSignupUseCaseInteractor.switchToHomePageView();
     }
 }

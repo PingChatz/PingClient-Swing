@@ -29,8 +29,19 @@ public class LoginController
         loginUseCaseInteractor.execute(loginInputData);
     }
 
+    /**
+     * Executes the "switch to SignUpView" Use Case.
+     */
     public void switchToSignUpView()
     {
         this.loginUseCaseInteractor.switchToSignUpView();
+    }
+
+    /**
+     * Executes the "switch to Home Page View" Use Case.
+     */
+    public void switchToHomePageView()
+    {
+        this.loginUseCaseInteractor.switchToHomePageView();
     }
 }
