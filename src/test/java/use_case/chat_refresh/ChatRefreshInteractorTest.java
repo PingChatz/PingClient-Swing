@@ -1,8 +1,11 @@
 package use_case.chat_refresh;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import java.util.*;
+
 import entity.Message;
 import use_case.chat_refresh.*;
 
@@ -10,8 +13,7 @@ public class ChatRefreshInteractorTest
 {
 
     @Test
-    public void testExecuteSuccess()
-    {
+    public void testExecuteSuccess() {
         // Arrange
         Long threadID = 1L;
         ChatRefreshInputData inputData = new ChatRefreshInputData(threadID);
