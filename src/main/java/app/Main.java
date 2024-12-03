@@ -29,7 +29,7 @@ public class Main
                 .addAddThreadUseCase()
                 .addChatRefreshUseCase()
                 .addHomePageView() // add this last so the
-                // controllers have been initalzied
+                // controllers have been initialized
                 .build();
 
         application.pack();
