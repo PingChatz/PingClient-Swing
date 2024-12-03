@@ -3,27 +3,40 @@ package entity;
 /**
  * The representation of a message in our program.
  */
-public abstract class Message {
+public class Message
+{
+    public static final int MESSAGE_MAX_LENGTH = 280;
 
-    Long threadID;
-    Long senderID;
-    Object content;
+    private final String senderUsername;
+    private final String content;
+    private final String timestamp;
 
-    public Message(Object content, Thread thread, User sender) {
+    public Message(String content, String senderUsername)
+    {
         this.content = content;
-        this.threadID = thread.getThreadID();
-        this.senderID = sender.getUserID();
+        this.senderUsername = senderUsername;
+        this.timestamp = null;
     }
 
-    public Long getSenderID() {
-        return senderID;
+    public Message(String content, String senderUsername, String timestamp)
+    {
+        this.content = content;
+        this.senderUsername = senderUsername;
+        this.timestamp = timestamp;
     }
 
-    public Long getThreadID() {
-        return threadID;
-    }
-
-    public Object getContent() {
+    public final String getContent()
+    {
         return content;
+    }
+
+    public final String getSenderUsername()
+    {
+        return senderUsername;
+    }
+
+    public final String getTimestamp()
+    {
+        return timestamp;
     }
 }

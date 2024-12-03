@@ -6,23 +6,42 @@ import use_case.login.LoginInputData;
 /**
  * The controller for the Login Use Case.
  */
-public class LoginController {
+public class LoginController
+{
 
     private final LoginInputBoundary loginUseCaseInteractor;
 
-    public LoginController(LoginInputBoundary loginUseCaseInteractor) {
+    public LoginController(LoginInputBoundary loginUseCaseInteractor)
+    {
         this.loginUseCaseInteractor = loginUseCaseInteractor;
     }
 
     /**
      * Executes the Login Use Case.
-     * @param username the username of the user logging in
-     * @param password the password of the user logging in
+     *
+     * @param usernameOrEmail the username or email of the user logging in
+     * @param password        the password of the user logging in
      */
-    public void execute(String username, String password) {
-        final LoginInputData loginInputData = new LoginInputData(
-                username, password);
+    public void execute(String usernameOrEmail, String password)
+    {
+        final LoginInputData loginInputData = new LoginInputData(usernameOrEmail, password);
 
         loginUseCaseInteractor.execute(loginInputData);
+    }
+
+    /**
+     * Executes the "switch to SignUpView" Use Case.
+     */
+    public void switchToSignUpView()
+    {
+        this.loginUseCaseInteractor.switchToSignUpView();
+    }
+
+    /**
+     * Executes the "switch to Home Page View" Use Case.
+     */
+    public void switchToHomePageView()
+    {
+        this.loginUseCaseInteractor.switchToHomePageView();
     }
 }

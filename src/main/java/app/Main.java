@@ -1,27 +1,41 @@
 package app;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 /**
  * The Main class of our application.
  */
-public class Main {
+public class Main
+{
     /**
      * Builds and runs the CA architecture of the application.
+     *
      * @param args unused arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         final AppBuilder appBuilder = new AppBuilder();
-        // TODO: add the Logout Use Case to the app using the appBuilder
         final JFrame application = appBuilder
-                                            .addLoginView()
-                                            .addSignupView()
-                                            .addLoggedInView()
-                                            .addSignupUseCase()
-                                            .addLoginUseCase()
-                                            .build();
+                .addLoginView()
+                .addSignupView()
+                .addThreadsView()
+                .addChatView()
+                .addAddThreadsView()
+                .addSendMessageUseCase()
+                .addGetThreadsUseCase()
+                .addSignupUseCase()
+                .addLoginUseCase()
+                .addLogoutUseCase()
+                .addAddThreadUseCase()
+                .addChatRefreshUseCase()
+                .addHomePageView() // add this last so the
+                // controllers have been initalzied
+                .build();
 
         application.pack();
         application.setVisible(true);
+
+        // TODO: helps with debugging, will remove later
+        System.out.println("Application running");
     }
 }

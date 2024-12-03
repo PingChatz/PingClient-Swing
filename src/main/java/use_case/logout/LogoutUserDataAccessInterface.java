@@ -3,18 +3,11 @@ package use_case.logout;
 /**
  * DAO for the Logout Use Case.
  */
-// TODO: overwrite with our code
-public interface LogoutUserDataAccessInterface {
+public interface LogoutUserDataAccessInterface
+{
 
     /**
-     * Returns the username of the curren user of the application.
-     * @return the username of the current user
+     * Logs the user out of the program (deletes their token).
      */
-    String getCurrentUsername();
-
-    /**
-     * Sets the username indicating who is the current user of the application.
-     * @param username the new current username
-     */
-    void setCurrentUsername(String username);
+    void logout();
 }

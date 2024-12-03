@@ -11,7 +11,8 @@ import java.beans.PropertyChangeSupport;
  * @param <T> The type of state object contained in the model.
  */
 // TODO: overwrite with our code
-public class ViewModel<T> {
+public class ViewModel<T>
+{
 
     private final String viewName;
 
@@ -19,26 +20,31 @@ public class ViewModel<T> {
 
     private T state;
 
-    public ViewModel(String viewName) {
+    public ViewModel(String viewName)
+    {
         this.viewName = viewName;
     }
 
-    public String getViewName() {
+    public final String getViewName()
+    {
         return this.viewName;
     }
 
-    public T getState() {
+    public final T getState()
+    {
         return this.state;
     }
 
-    public void setState(T state) {
+    public final void setState(T state)
+    {
         this.state = state;
     }
 
     /**
      * Fires a property changed event for the state of this ViewModel.
      */
-    public void firePropertyChanged() {
+    public void firePropertyChanged()
+    {
         this.support.firePropertyChange("state", null, this.state);
     }
 
@@ -49,17 +55,21 @@ public class ViewModel<T> {
      * <p/>
      * For example, the LoggedInView listens for two kinds of property changes;
      * it can use the property name to distinguish which property has changed.
+     *
      * @param propertyName the label for the property that was changed
      */
-    public void firePropertyChanged(String propertyName) {
+    public void firePropertyChanged(String propertyName)
+    {
         this.support.firePropertyChange(propertyName, null, this.state);
     }
 
     /**
      * Adds a PropertyChangeListener to this ViewModel.
+     *
      * @param listener The PropertyChangeListener to be added
      */
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
+    public void addPropertyChangeListener(PropertyChangeListener listener)
+    {
         this.support.addPropertyChangeListener(listener);
     }
 }

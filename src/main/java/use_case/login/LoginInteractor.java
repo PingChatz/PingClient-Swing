@@ -1,41 +1,61 @@
 package use_case.login;
 
-import entity.User;
+import org.json.JSONObject;
 
 /**
  * The Login Interactor.
  */
 // TODO: overwrite with our code
-public class LoginInteractor implements LoginInputBoundary {
+public class LoginInteractor implements LoginInputBoundary
+{
     private final LoginUserDataAccessInterface userDataAccessObject;
     private final LoginOutputBoundary loginPresenter;
 
     public LoginInteractor(LoginUserDataAccessInterface userDataAccessInterface,
-                           LoginOutputBoundary loginOutputBoundary) {
+                           LoginOutputBoundary loginOutputBoundary)
+    {
         this.userDataAccessObject = userDataAccessInterface;
         this.loginPresenter = loginOutputBoundary;
     }
 
     @Override
-    public void execute(LoginInputData loginInputData) {
-        final String username = loginInputData.getUsername();
+    public void execute(LoginInputData loginInputData)
+    {
+        final String usernameOrEmail = loginInputData.getUsernameOrEmail();
         final String password = loginInputData.getPassword();
-        if (!userDataAccessObject.existsByName(username)) {
-            loginPresenter.prepareFailView(username + ": Account does not exist.");
-        }
-        else {
-            final String pwd = userDataAccessObject.get(username).getPasswordHash();
-            if (!password.equals(pwd)) {
-                loginPresenter.prepareFailView("Incorrect password for \"" + username + "\".");
-            }
-            else {
 
-                final User user = userDataAccessObject.get(loginInputData.getUsername());
-
-                userDataAccessObject.setCurrentUsername(user.getUsername());
-                final LoginOutputData loginOutputData = new LoginOutputData(user.getUsername(), false);
+        try
+        {
+            JSONObject response = userDataAccessObject.validateCredentials(usernameOrEmail, password);
+            if (response.has("authToken"))
+            {
+                String username = response.optString("username");
+                String message = response.optString("message");
+                LoginOutputData loginOutputData = new LoginOutputData(username, message, false);
                 loginPresenter.prepareSuccessView(loginOutputData);
+            } else if (response.has("error"))
+            {
+                String errorMessage = response.optString("message");
+                loginPresenter.prepareFailView(errorMessage);
             }
+            else{
+                loginPresenter.prepareFailView("Login failed");
+            }
+        } catch (Exception e)
+        {
+            loginPresenter.prepareFailView("An error occurred during login: " + e.getMessage());
         }
+    }
+
+    @Override
+    public void switchToSignUpView()
+    {
+        loginPresenter.switchToSignUpView();
+    }
+
+    @Override
+    public void switchToHomePageView()
+    {
+        loginPresenter.switchToHomePageView();
     }
 }

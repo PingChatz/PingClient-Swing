@@ -3,12 +3,23 @@ package use_case.login;
 /**
  * Input Boundary for actions which are related to logging in.
  */
-// TODO: overwrite with our code
-public interface LoginInputBoundary {
+public interface LoginInputBoundary
+{
 
     /**
      * Executes the login use case.
+     *
      * @param loginInputData the input data
      */
     void execute(LoginInputData loginInputData);
+
+    /**
+     * Executes the switch to sign up view use case.
+     */
+    void switchToSignUpView();
+
+    /**
+     * Executes the switch to home page view use case.
+     */
+    void switchToHomePageView();
 }

@@ -3,34 +3,38 @@ package entity;
 /**
  * The representation of a user in our program.
  */
-public class User {
-
-    private final Long userID = null;
+public class User
+{
     private final String username;
-    private final String passwordHash = null;
     private final String email;
-    // TODO: when below TODOs have been solved, remove 'null'
+    private final String password;
 
-    public User(String username, String password, String email) {
-        // TODO: generate a unique userID and a userAddress
-        // TODO: hash <password> and save it locally in the "passwordHash" instance variable
+    public User(String username, String password, String email)
+    {
         this.username = username;
         this.email = email;
+        this.password = password;
     }
 
-    public String getEmail() {
+    public User(String username)
+    {
+        this.username = username;
+        this.email = null;
+        this.password = null;
+    }
+
+    public final String getEmail()
+    {
         return this.email;
     }
 
-    public String getUsername() {
+    public final String getUsername()
+    {
         return this.username;
     }
 
-    public Long getUserID() {
-        return this.userID;
-    }
-
-    public String getPasswordHash() {
-        return this.passwordHash;
+    public final String getPassword()
+    {
+        return password;
     }
 }
