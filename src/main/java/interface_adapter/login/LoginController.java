@@ -29,11 +29,19 @@ public class LoginController
         loginUseCaseInteractor.execute(loginInputData);
     }
 
-    /**
+    /*
      * This switches the view to the signup view if the user logs out.
      */
     public void switchToSignUpView()
     {
         this.loginUseCaseInteractor.switchToSignUpView();
+    }
+
+    /**
+     * Executes the "switch to Home Page View" Use Case.
+     */
+    public void switchToHomePageView()
+    {
+        this.loginUseCaseInteractor.switchToHomePageView();
     }
 }
