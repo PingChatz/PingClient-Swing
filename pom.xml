@@ -3,18 +3,32 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- Project Coordinates -->
     <groupId>edu.csc207</groupId>
     <artifactId>homework-5</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <!-- Define project properties -->
+    <!-- Project Properties -->
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <!-- Dependencies -->
+    <!-- Dependency Management -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Ensure consistent Guava version across all plugins -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>31.1-jre</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Project Dependencies -->
     <dependencies>
         <!-- JSON library -->
         <dependency>
@@ -53,29 +67,44 @@
             <version>31.1-jre</version>
         </dependency>
 
-         <dependency>
-             <groupId>com.puppycrawl.tools</groupId>
-             <artifactId>checkstyle</artifactId>
-             <version>9.3</version>
-             <exclusions>
-                 <exclusion>
-                     <groupId>com.google.collections</groupId>
-                     <artifactId>google-collections</artifactId>
-                 </exclusion>
-             </exclusions>
-         </dependency>
+        <!-- Checkstyle for code style checking -->
+        <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>9.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.collections</groupId>
+                    <artifactId>google-collections</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
-    <!-- Build and Plugins Configuration -->
+    <!-- Build Configuration -->
     <build>
         <plugins>
+            <!-- Maven Jar Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.yourpackage.MainClass</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
             <!-- Checkstyle Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.3.0</version>
                 <dependencies>
-                    <!-- Explicitly include Guava and exclude google-collections -->
+                    <!-- Explicitly include Checkstyle and exclude google-collections -->
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
@@ -105,16 +134,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <!-- Plugin Management -->
-    <dependencyManagement>
-        <dependencies>
-            <!-- Ensure consistent Guava version across all plugins -->
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>31.1-jre</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>

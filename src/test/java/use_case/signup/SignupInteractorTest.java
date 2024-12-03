@@ -145,6 +145,11 @@ class SignupInteractorTest
         boolean switchToLoginCalled = false;
 
         @Override
+        public void switchToHomePageView() {
+            // Empty implementation for testing purposes
+        }
+
+        @Override
         public void prepareSuccessView(SignupOutputData outputData) {
             this.successData = outputData;
         }
