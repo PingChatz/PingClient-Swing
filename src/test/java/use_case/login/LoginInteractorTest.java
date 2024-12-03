@@ -180,5 +180,10 @@ class LoginInteractorTest {
         public void switchToSignUpView() {
             this.switchToSignUpCalled = true;
         }
+
+        @Override
+        public void switchToHomePageView() {
+            // Not needed for testing
+        }
     }
 }

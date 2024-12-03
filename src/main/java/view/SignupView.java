@@ -82,7 +82,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         );
 
         toLogin.addActionListener(
-                new ActionListener()
+                       new ActionListener()
                 {
                     public void actionPerformed(ActionEvent evt)
                     {
@@ -91,7 +91,32 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        cancel.addActionListener(this);
+        cancel.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent evt)
+                    {
+                        if (evt.getSource().equals(cancel))
+                        {
+                            final SignupState currentState = signupViewModel.getState();
+                            currentState.setUsername("");
+                            currentState.setEmail("");
+                            currentState.setPassword("");
+                            currentState.setRepeatPassword("");
+                            signupViewModel.setState(currentState);
+                            signupViewModel.firePropertyChanged();
+
+                            // Clear all input fields
+                            usernameInputField.setText("");
+                            emailInputField.setText("");
+                            passwordInputField.setText("");
+                            repeatPasswordInputField.setText("");
+
+                            signupController.switchToHomePageView();
+                        }
+                    }
+                }
+        );
 
         // Add listeners for the text entries
         addUsernameListener();
