@@ -13,7 +13,7 @@ import interface_adapter.send_message.ChatViewModel;
 public class MessageDisplayPanel extends JPanel
 {
     private final JPanel boxPanel = new JPanel();
-
+    private JScrollPane scrollPane; // Keep a reference to the scroll pane
     public MessageDisplayPanel(List<MessagePanel> messagePanels)
     {
         // Set the layout of boxPanel to BoxLayout for vertical stacking
@@ -31,7 +31,7 @@ public class MessageDisplayPanel extends JPanel
         }
 
         // Create a JScrollPane to make the box panel scrollable
-        JScrollPane scrollPane = new JScrollPane(boxPanel);
+        scrollPane = new JScrollPane(boxPanel); // Store the scroll pane in an instance variable
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -43,6 +43,25 @@ public class MessageDisplayPanel extends JPanel
         // Set the layout of the main panel to BorderLayout and add the bordered panel
         this.setLayout(new BorderLayout());
         this.add(borderedPanel, BorderLayout.CENTER);
+        // Scroll to bottom after initialization
+        scrollToBottom();
+    }
+    // Add a method to access the scroll pane
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    // Add a method to scroll to the bottom
+    private void scrollToBottom()
+    {
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMaximum());
+            }
+        });
     }
 
     /**
@@ -64,5 +83,8 @@ public class MessageDisplayPanel extends JPanel
         }
         boxPanel.revalidate();
         boxPanel.repaint();
+
+
+        scrollToBottom();
     }
 }
