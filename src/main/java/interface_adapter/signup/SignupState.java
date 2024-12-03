@@ -3,8 +3,7 @@ package interface_adapter.signup;
 /**
  * The state for the Signup View Model.
  */
-// TODO: overwrite with our code
-public final class SignupState
+public class SignupState
 {
     private String username = "";
     private String usernameError;
@@ -13,26 +12,68 @@ public final class SignupState
     private String password = "";
     private String passwordError;
     private String repeatPassword = "";
+
+
+    public String getRepeatPasswordError() {
+        return repeatPasswordError;
+    }
+    public String getEmailError() {
+        return emailError;
+    }
+
+    public void setEmailError(String emailError) {
+        this.emailError = emailError;
+    }
+    public void setRepeatPasswordError(String repeatPasswordError) {
+        this.repeatPasswordError = repeatPasswordError;
+    }
+
     private String repeatPasswordError;
 
-    public String getUsername()
+    // Add this field
+    private String generalError;
+
+    // Add these methods
+    public String getGeneralError()
     {
+        return generalError;
+    }
+
+    public void setGeneralError(String generalError) {
+        this.generalError = generalError;
+    }
+
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username)
-    {
+    public void setUsername(String username) {
         this.username = username;
     }
-
     public String getUsernameError()
     {
         return usernameError;
     }
 
-    public void setUsernameError(String usernameError)
-    {
+    public void setUsernameError(String usernameError) {
         this.usernameError = usernameError;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPasswordError() {
+        return passwordError;
+    }
+
+    public void setPasswordError(String passwordError) {
+        this.passwordError = passwordError;
     }
 
     public String getPassword()
@@ -45,54 +86,13 @@ public final class SignupState
         this.password = password;
     }
 
-    public String getPasswordError()
-    {
-        return passwordError;
-    }
-
-    public void setPasswordError(String passwordError)
-    {
-        this.passwordError = passwordError;
-    }
-
-    public String getRepeatPassword()
-    {
+    public String getRepeatPassword() {
         return repeatPassword;
     }
 
     public void setRepeatPassword(String repeatPassword)
     {
         this.repeatPassword = repeatPassword;
-    }
-
-    public String getRepeatPasswordError()
-    {
-        return repeatPasswordError;
-    }
-
-    public void setRepeatPasswordError(String repeatPasswordError)
-    {
-        this.repeatPasswordError = repeatPasswordError;
-    }
-
-    public String getEmail()
-    {
-        return email;
-    }
-
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
-
-    public String getEmailError()
-    {
-        return emailError;
-    }
-
-    public void setEmailError(String emailError)
-    {
-        this.emailError = emailError;
     }
 
     @Override

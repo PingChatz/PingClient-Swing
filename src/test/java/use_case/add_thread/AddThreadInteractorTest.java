@@ -297,9 +297,10 @@ class AddThreadInteractorTest
         // create mock interactor for this specific test
         AddThreadInputBoundary interactor = new AddThreadInteractor(mockServer, addThreadPresenter, threadFactory);
 
-        // Assert
+        // Execute the interactor with valid input data
         interactor.execute(validInputData);
     }
+
 
     @Test
     void testSwitchToThreadsView()

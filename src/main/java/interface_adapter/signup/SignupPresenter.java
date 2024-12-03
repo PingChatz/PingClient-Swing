@@ -9,7 +9,6 @@ import use_case.signup.SignupOutputData;
 /**
  * The Presenter for the Signup Use Case.
  */
-// TODO: overwrite with our code
 public class SignupPresenter implements SignupOutputBoundary
 {
 
@@ -19,16 +18,14 @@ public class SignupPresenter implements SignupOutputBoundary
 
     public SignupPresenter(ViewManagerModel viewManagerModel,
                            SignupViewModel signupViewModel,
-                           LoginViewModel loginViewModel)
-    {
+                           LoginViewModel loginViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.signupViewModel = signupViewModel;
         this.loginViewModel = loginViewModel;
     }
 
     @Override
-    public void prepareSuccessView(SignupOutputData response)
-    {
+    public void prepareSuccessView(SignupOutputData response) {
         // On success, switch to the login view.
         final LoginState loginState = loginViewModel.getState();
         loginState.setUsernameOrEmail(response.getUsername());
@@ -40,17 +37,16 @@ public class SignupPresenter implements SignupOutputBoundary
     }
 
     @Override
-    public void prepareFailView(String error)
-    {
+    public void prepareFailView(String error) {
         System.out.println(error);
         final SignupState signupState = signupViewModel.getState();
-        signupState.setUsernameError(error);
+        // Modify this line
+        signupState.setGeneralError(error);
         signupViewModel.firePropertyChanged();
     }
 
     @Override
-    public void switchToLoginView()
-    {
+    public void switchToLoginView() {
         viewManagerModel.setState(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
