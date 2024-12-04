@@ -91,6 +91,16 @@ class LoginInteractorTest {
         assertTrue(stubLoginPresenter.switchToSignUpCalled);
     }
 
+    @Test
+    void testSwitchToHomePageView() {
+        // Call the method to switch to the homepage view
+        interactor.switchToHomePageView();
+
+        // Assert that the stub presenter recorded the call
+        assertTrue(stubLoginPresenter.switchToHomePageCalled, "Expected to switch to the homepage view");
+    }
+
+
     // In-Memory Database Implementation
     static class InMemoryUserDataAccess implements LoginUserDataAccessInterface {
         private final Map<String, User> database = new HashMap<>();
@@ -162,6 +172,7 @@ class LoginInteractorTest {
 
     // Stub Presenter Implementation
     static class StubLoginPresenter implements LoginOutputBoundary {
+        public boolean switchToHomePageCalled;
         LoginOutputData successData = null;
         String errorMessage = null;
         boolean switchToSignUpCalled = false;
@@ -183,7 +194,7 @@ class LoginInteractorTest {
 
         @Override
         public void switchToHomePageView() {
-            // Not needed for testing
+            this.switchToHomePageCalled = true;
         }
     }
 }
